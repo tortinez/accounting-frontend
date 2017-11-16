@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" ng-app="AccountingFEapp">
+  <head>
+    <meta charset="utf-8">
+    <title>MCIA accounting System</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="style/app.css" />
+    <link rel="stylesheet" href="style/app.animations.css" />
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="app/app.module.js"></script>
+    <script src="app/app.config.js"></script>
+    <script src="style/app.animations.js"></script>
+    <script src="common/common.module.js"></script>
+    <script src="common/invoice/invoice.module.js"></script>
+    <script src="common/invoice/invoice.service.js"></script>
+    <script src="app/invoice-table/invoice-table.module.js"></script>
+    <script src="app/invoice-table/invoice-table.component.js"></script>
+  </head>
+  <body>
+
+    <div class="view-container">
+      <div ng-view class="view-frame"></div>
+    </div>
+
+  </body>
+</html>

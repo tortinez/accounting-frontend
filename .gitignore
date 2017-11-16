@@ -1,0 +1,6 @@
+# -- Dependencies ---------------------------------
+*/bower_components/*
+node_modules/*
+
+# -- Logs & other stuff ---------------------------
+*-lock.json

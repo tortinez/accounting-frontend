@@ -8,11 +8,11 @@ h1 {
 }
 
 /* View: Phone list */
-.phones {
+.invoices {
   list-style: none;
 }
 
-.phones li {
+.invoices li {
   clear: both;
   height: 115px;
   padding-top: 15px;

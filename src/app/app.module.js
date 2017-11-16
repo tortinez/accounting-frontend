@@ -1,10 +1,9 @@
 'use strict';
 
-// Define the `phonecatApp` module
-angular.module('phonecatApp', [
+// Define the 'AccountingFEapp' module
+angular.module('AccountingFEapp', [
   'ngAnimate',
   'ngRoute',
-  'core',
-  'phoneDetail',
-  'phoneList'
+  'common',
+  'invoiceTable'
 ]);
