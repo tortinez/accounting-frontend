@@ -5,7 +5,7 @@
   "description": "Front End accounting tracker",
   "repository": {
     "type": "git",
-    "url": "https"
+    "url": "https://tortinez@bitbucket.org/tortinez/accountingfrontend.git"
   },
   "license": "MIT",
   "author": "Victor Martinez",
