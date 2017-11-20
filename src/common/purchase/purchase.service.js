@@ -1,8 +1,8 @@
 'use strict';
 
 angular.
-  module('common.invoice').
-  factory('Invoice', ['$resource',
+  module('common.purchase').
+  factory('Purchase', ['$resource',
     function($resource) {
       return $resource('http://localhost:1337/localhost:8080/api/purchase/:Id', {}, {
         

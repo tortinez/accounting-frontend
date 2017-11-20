@@ -20,8 +20,8 @@
     <div class="col-md-10">
       <!--Body content-->
 
-      <ul class="invoices">
-        <li ng-repeat="invoice in $ctrl.invoices | filter:$ctrl.query | orderBy:$ctrl.orderProp"
+      <ul class="purchases">
+        <li ng-repeat="purchases in $ctrl.purchases | filter:$ctrl.query | orderBy:$ctrl.orderProp"
         class="invoice-table">
           <p>{{invoice.item}}</p>
           <p>{{invoice.amount}}</p>

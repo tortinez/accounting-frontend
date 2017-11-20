@@ -2,7 +2,7 @@
 
 angular.
   module('AccountingFEapp').
-  animation('.invoice', function phoneAnimationFactory() {
+  animation('.purchase', function phoneAnimationFactory() {
     return {
       addClass: animateIn,
       removeClass: animateOut

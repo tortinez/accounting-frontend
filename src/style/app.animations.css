@@ -1,14 +1,14 @@
-/* Animate `ngRepeat` in `invoiceTable` component */
-.invoice-table-item.ng-enter,
-.invoice-table-item.ng-leave,
-.invoice-table-item.ng-move {
+/* Animate `ngRepeat` in `purchaseTable` component */
+.purchase-table-item.ng-enter,
+.purchase-table-item.ng-leave,
+.purchase-table-item.ng-move {
   overflow: hidden;
   transition: 0.5s linear all;
 }
 
-.invoice-table-item.ng-enter,
-.invoice-table-item.ng-leave.ng-leave-active,
-.invoice-table-item.ng-move {
+.purchase-table-item.ng-enter,
+.purchase-table-item.ng-leave.ng-leave-active,
+.purchase-table-item.ng-move {
   height: 0;
   margin-bottom: 0;
   opacity: 0;
@@ -16,9 +16,9 @@
   padding-top: 0;
 }
 
-.invoice-table-item.ng-enter.ng-enter-active,
-.invoice-table-item.ng-leave,
-.invoice-table-item.ng-move.ng-move-active {
+.purchase-table-item.ng-enter.ng-enter-active,
+.purchase-table-item.ng-leave,
+.purchase-table-item.ng-move.ng-move-active {
   height: 120px;
   margin-bottom: 20px;
   opacity: 1;

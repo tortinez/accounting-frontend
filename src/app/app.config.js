@@ -7,9 +7,9 @@ angular.
       $locationProvider.hashPrefix('!');
 
       $routeProvider.
-        when('/invoices', {
-          template: '<invoice-table></invoice-table>'
+        when('/purchases', {
+          template: '<purchase-table></purchase-table>'
         }).
-        otherwise('/invoices');
+        otherwise('/purchases');
     }
   ]);
