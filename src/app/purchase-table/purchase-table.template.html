@@ -1,33 +1,42 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-3">
-      <!--Sidebar content-->
-
-      <p>
-        Search:
-        <input ng-model="$ctrl.query" />
-      </p>
-
-      <p>
-        Sort by:
-        <select ng-model="$ctrl.orderProp">
-          <option value="item">Alphabetical</option>
-          <option value="date">Newest</option>
-        </select>
-      </p>
-
-    </div>
-    <div class="col-md-10">
-      <!--Body content-->
-
-      <ul class="purchases">
-        <li ng-repeat="purchases in $ctrl.purchases | filter:$ctrl.query | orderBy:$ctrl.orderProp"
-        class="invoice-table">
-          <p>{{invoice.item}}</p>
-          <p>{{invoice.amount}}</p>
-        </li>
-      </ul>
-
-    </div>
-  </div>
+<div>
+  <table st-table="displayedPurchases" st-safe-ctrl="$ctrl.purchases" class="table table-striped">
+    <thead>
+      <tr>
+        <th st-sort="id">ID</th>
+        <th st-sort="expenseType">Expense type</th>
+        <th st-sort="supplier.name">Supplier</th>
+        <th st-sort="item">Concept</th>
+        <th st-sort="amount">Cost</th>
+        <th st-sort="chargingProject">Charging Project</th>
+        <th st-sort="requestingProject">Requesting Project</th>
+        <th st-sort="code">Code</th>
+        <th st-sort="comments">Comments</th>
+        <th>Invoice</th>
+        <th st-sort="date">Expense Date</th>
+        <th st-sort="state">State</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="purchase in displayedPurchases">
+        <td>{{purchase.id}}</td>
+        <td>{{purchase.type.name}}</td>
+        <td>{{purchase.supplier.name}}</td>
+        <td>{{purchase.item}}</td>
+        <td>{{purchase.amount | currency}}</td>
+        <td>{{purchase.chargingProject.name}}</td>
+        <td>{{purchase.requestingProject.name}}</td>
+        <td>{{purchase.code}}</td>
+        <td>{{purchase.comments}}</td>
+        <td>{{purchase.invoicePath}}</td>
+        <td>{{purchase.requestDate | date}}</td>
+        <td>{{purchase.state.name}}</td>
+        <td>
+          <button type="button" ng-click="$ctrl.removeItem(purchase)" class="btn btn-sm btn-danger">
+            <i class="glyphicon glyphicon-remove-circle"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

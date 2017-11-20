@@ -8,6 +8,14 @@ h1 {
 }
 
 /* View: Phone list */
+.st-sort-ascent:before {
+  content: '\25B2';
+}
+
+.st-sort-descent:before {
+  content: '\25BC';
+}
+
 .invoices {
   list-style: none;
 }

@@ -5,5 +5,6 @@ angular.module('AccountingFEapp', [
   'ngAnimate',
   'ngRoute',
   'common',
+  'smart-table',
   'purchaseTable'
 ]);

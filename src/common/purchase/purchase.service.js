@@ -4,11 +4,12 @@ angular.
   module('common.purchase').
   factory('Purchase', ['$resource',
     function($resource) {
-      return $resource('http://localhost:1337/localhost:8080/api/purchase/:Id', {}, {
+      return $resource('http://localhost:1337/localhost:8080/api/purchase?size=:s/:Id', {}, {
         
-      query: {
+      findAll: {
           method: 'GET',
-          params: {Id: ''},
+          params: {Id: '',
+                   s: '50'},
           isArray: true,
 
 
@@ -23,11 +24,6 @@ angular.
             return wrappedResult.content;
           },
 
-          // The response ist not a JSON array as expected by $resource but rather a
-          // JSON object that contains the actual result with additional metadata.
-          // It is therefore necessary to extract the payload before it can be
-          // processed by the resource.
-          
           // The array returned by transformResponse is not passed directly to the
           // application logic, $resource only copies its contents. Due to this we
           // cannot directly access the added metadata. But fortunately for us
