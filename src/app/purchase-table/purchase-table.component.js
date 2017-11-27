@@ -9,7 +9,16 @@ angular.
       //get the items of the table and order them
       function PurchaseTableController(Purchase) {
        /*  this.displayedPurchases = Purchase.findAll(); */
-        this.purchases = Purchase.findAll();
+        this.purchases = Purchase.query();
+        
+        this.params = {
+          q: 'amount>200',
+          page: 4,
+          size: 20
+        };
+
+        this.search = Purchase.search(this.params);
+        
 
         Purchase.removeItem = function removeItem(purchase) {
           var index = this.purchases.indexOf(purchase);

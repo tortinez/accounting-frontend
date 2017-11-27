@@ -1,4 +1,7 @@
 <div>
+  <p>
+    Search: <input ng-model="$ctrl.params.text" ng-change="$ctrl.search"></input>
+  </p>
   <table st-table="displayedPurchases" st-safe-src="$ctrl.purchases" st-sticky-header class="table table-striped">
     <thead>
       <tr>

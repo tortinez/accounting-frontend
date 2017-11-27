@@ -4,12 +4,12 @@ angular.
   module('common.purchase').
   factory('Purchase', ['$resource',
     function($resource) {
-      return $resource('http://localhost:1337/localhost:8080/api/purchase?size=:s/:Id', {}, {
-        
-      findAll: {
+      return $resource('http://localhost:1337/localhost:8080/api/purchase/:id', {}, {
+       
+      //set the HTTP methods
+      query: {
           method: 'GET',
-          params: {Id: '',
-                   s: '50'},
+          params: {s: '50'},
           isArray: true,
 
           transformResponse: function (content) {
@@ -22,10 +22,28 @@ angular.
                 response.resource.$metadata = response.content.$metadata;
                 return response.resource;
             }
-          }
+          }          
+        },
+      
+      update: {
+        method: 'PUT',
+      },
 
-          
-        }
+      //set the different functions for the PurchaseTable
+      search: function(params){
+        Console.log('Searching the next query: ${JSON.stringify(query)}');
+        return this.query({
+          q: query.q,
+          page: query.page,
+          size: query.size
+        })
+      }
+
+
+
+
+
+      
       });
     }
   ]);
