@@ -6,10 +6,10 @@ angular.
     function($resource) {
       return $resource('http://localhost:1337/localhost:8080/api/purchase/:id', {}, {
        
-      //set the HTTP methods
+      //set the HTTP methods GET & PUT
       query: {
           method: 'GET',
-          params: {s: '50'},
+          params: {size: '50'},
           isArray: true,
 
           transformResponse: function (content) {
@@ -30,9 +30,14 @@ angular.
       },
 
       //set the different functions for the PurchaseTable
-      search: function(params){
-        Console.log('Searching the next query: ${JSON.stringify(query)}');
-        return this.query({
+      getSearch: function(params){
+        query = params || {}
+        //convert the parameters into a valid query
+        //query.q = "amount>" + params.amountGreat + "amount<" + params.amountLess 
+        //    + "type.name=" + params.type + "supplier.name=" + params.supplier;
+        //query.size = params.size;
+        //query.page = params.page;
+       return this.query({
           q: query.q,
           page: query.page,
           size: query.size

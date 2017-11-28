@@ -8,23 +8,21 @@ angular.
     controller: ['Purchase',
       //get the items of the table and order them
       function PurchaseTableController(Purchase) {
-       /*  this.displayedPurchases = Purchase.findAll(); */
         this.purchases = Purchase.query();
         
-        this.params = {
-          q: 'amount>200',
-          page: 4,
-          size: 20
+        this.query = {
+          q: '',
+          page: 0,
+          size: 50
         };
 
-        this.search = Purchase.search(this.params);
-        
+        this.params = {
+          amount: ''
+        }
 
-        Purchase.removeItem = function removeItem(purchase) {
-          var index = this.purchases.indexOf(purchase);
-          if (index !== -1) {
-            this.purchases.splice(index, 1);
-          }
+        this.search = function() {
+          //this.query.q = "amount>" + this.params.amount;
+          return this.purchases = Purchase.getSearch(this.query);
         }
       }
     ]

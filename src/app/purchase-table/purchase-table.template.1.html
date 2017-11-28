@@ -1,27 +1,27 @@
 <div>
   <p>
-    Search: <input ng-model="$ctrl.params.amount"></input><button type="button" ng-click="$ctrl.search()"></button>
+    Search: <input ng-model="$ctrl.params.text" ng-change="$ctrl.search()"></input>
   </p>
-  <table st-table="$ctrl.purchases" st-sticky-header class="table table-striped">
+  <table st-table="displayedPurchases" st-safe-src="$ctrl.purchases" st-sticky-header class="table table-striped">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Expense type</th>
-        <th>Supplier</th>
-        <th>Concept</th>
-        <th>Cost</th>
-        <th>Charging Project</th>
-        <th>Requesting Project</th>
-        <th>Code</th>
-        <th>Comments</th>
+        <th st-sort="id">ID</th>
+        <th st-sort="expenseType">Expense type</th>
+        <th st-sort="supplier.name">Supplier</th>
+        <th st-sort="item">Concept</th>
+        <th st-sort="amount">Cost</th>
+        <th st-sort="chargingProject">Charging Project</th>
+        <th st-sort="requestingProject">Requesting Project</th>
+        <th st-sort="code">Code</th>
+        <th st-sort="comments">Comments</th>
         <th>Invoice</th>
-        <th>Expense Date</th>
-        <th>State</th>
+        <th st-sort="date">Expense Date</th>
+        <th st-sort="state">State</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="purchase in $ctrl.purchases">
+      <tr ng-repeat="purchase in displayedPurchases">
         <td>{{purchase.id}}</td>
         <td>{{purchase.type.name}}</td>
         <td>{{purchase.supplier.name}}</td>
