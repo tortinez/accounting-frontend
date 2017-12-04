@@ -10,6 +10,9 @@ angular.
         when('/purchases', {
           template: '<purchase-table></purchase-table>'
         }).
+        when('/purchaseform/:id', {
+          template: '<purchase-form></purchase-form>'
+        }).
         otherwise('/purchases');
     }
   ]);

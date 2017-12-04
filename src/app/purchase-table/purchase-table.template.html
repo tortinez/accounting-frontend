@@ -1,8 +1,19 @@
 <div>
-  <p>
-    Search: <input ng-model="$ctrl.params.amount"></input><button type="button" ng-click="$ctrl.search()"></button>
-  </p>
-  <table st-table="$ctrl.purchases" st-sticky-header class="table table-striped">
+    <p>Select the charging Project to show:</p>
+    <select ng-model="$ctrl.params.chProj" ng-change="$ctrl.search()">
+      <option ng-repeat="project in $ctrl.projList" value="{{project.name}}">{{project.name}}</option>
+      <option value="All">All</option>
+    </select></p>
+    <p>Select the requesting Project to show:</p>
+    <select ng-model="$ctrl.params.reqProj" ng-change="$ctrl.search()">
+      <option ng-repeat="project in $ctrl.projList" value="{{project.name}}">{{project.name}}</option>
+      <option value="All">All</option>
+    </select></p>
+    <p>concept search: <input ng-model="$ctrl.params.item" ng-change="$ctrl.search()"></input></p>
+    <p>Amount Min: <input ng-model="$ctrl.params.amountBot"></input> 
+       Amount Max: <input ng-model="$ctrl.params.amountTop"></input>
+       <button ng-click="$ctrl.search()" class="btn btn-sm btn-info">Filtra amount</button></p>
+  <table ng-table="$ctrl.purchases" class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>ID</th>
@@ -16,7 +27,7 @@
         <th>Comments</th>
         <th>Invoice</th>
         <th>Expense Date</th>
-        <th>State</th>
+        <th>Status</th>
         <th></th>
       </tr>
     </thead>
@@ -35,9 +46,8 @@
         <td>{{purchase.requestDate | date}}</td>
         <td>{{purchase.state.name}}</td>
         <td>
-          <button type="button" ng-click="$ctrl.removeItem(purchase)" class="btn btn-sm btn-danger">
-            <i class="glyphicon glyphicon-remove-circle"></i>
-          </button>
+          <button type="button" ng-click="$ctrl.removeItem(purchase)" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove-circle"></i></button>
+          <button type="button" ng-click="$ctrl.editItem(purchase)" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></button>
         </td>
       </tr>
     </tbody>
