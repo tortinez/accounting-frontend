@@ -1,43 +1,23 @@
 'use strict';
 
-// Register the 'purchaseTable' page along with its controller an template
+// Register the 'purchaseForm' page along with its controller an template
 angular.
-  module('purchaseTable').
-  component('purchaseTable', {
-    templateUrl: 'app/purchase-table/purchase-table.template.html',
-    controller: ['Purchase', 'Project', 
+  module('purchaseForm').
+  component('purchaseForm', {
+    templateUrl: 'app/purchase-form/purchase-form.template.html',
+    controller: ['$routeParams', '$location', 'Purchase', 'Project',
       //get the items of the table
-      function PurchaseTableController(Purchase, Project) {
-        this.purchases = Purchase.api.query();
-
-        //init the params variable
-        this.params = {
-          amount: '',
-          amountTop: 10000,
-          amountBot: 0,
-          item:'',
-          chProj:'All',
-          reqProj:'All',
-          status:'All',
-          supplier:'All',
-          type:'All',
-          page: 0,
-          size: 50
-        }
+      function PurchaseTableController($routeParams, $location, Purchase, Project) {
+        this.purchase = Purchase.api.get({ id: $routeParams.id })
 
         //retrieve the list of projects, status, type and supplier
         this.projList = Project.api.query();
-        
+
         ///////////////////////////////////////////////////////////////////////
         //functions_____________________________________________________________
-        this.search = function() { 
-          return this.purchases = Purchase.search(this.params);
-        }
-
-        this.removeItem = function(purchase) {
-          Purchase.remove(purchase).then(
-            Purchase.api.query(), console.log('The item could not be deleted')
-          )
+        this.editPurchase = function () {
+          return Purchase.save(this.purchase).then(
+            $location.path("/purchases"), console.log("The purchase cannot be modified"));
         }
       }
     ]

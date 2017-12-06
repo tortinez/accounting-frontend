@@ -1,4 +1,4 @@
 'use strict';
 
-// Define the 'invoiceTable' module
-angular.module('purchaseTable', ['common.purchase', 'common.project']);
+// Define the 'invoiceForm' module
+angular.module('purchaseForm', ['common.purchase', 'common.project']);

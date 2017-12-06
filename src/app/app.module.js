@@ -6,5 +6,6 @@ angular.module('AccountingFEapp', [
   'ngRoute',
   'common',
   //'smart-table',
-  'purchaseTable'
+  'purchaseTable',
+  'purchaseForm'
 ]);

@@ -45,7 +45,15 @@ angular.
       
       //override save and remove $resource methods
       function save(purchase) {
-        return purchase.id ? this.api.$update().$promise : this.api.save().$promise;
+        //convert binded data to id parameters
+        purchase.requestingEmployeeId = purchase.requestingEmployee.id;
+        purchase.requestingProjectId = purchase.requestingProject.id;
+        purchase.chargingProjectId = purchase.chargingProject.id;
+        purchase.stateId = purchase.state.id;
+        purchase.typeId = purchase.type.id;
+        purchase.supplierId = purchase.supplier.id;
+
+        return purchase.id ? this.api.update(purchase).$promise : this.api.save(purchase).$promise;
       }
 
       function remove(purchase) {

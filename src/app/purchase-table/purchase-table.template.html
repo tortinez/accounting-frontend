@@ -42,12 +42,12 @@
         <td>{{purchase.requestingProject.name}}</td>
         <td>{{purchase.code}}</td>
         <td>{{purchase.comments}}</td>
-        <td>{{purchase.invoicePath}}</td>
+        <td><a href="localhost:1337/localhost:8080/api/purchase/{{purchase.id}}/invoice"><button type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-download"></i></button></a></td>
         <td>{{purchase.requestDate | date}}</td>
         <td>{{purchase.state.name}}</td>
         <td>
           <button type="button" ng-click="$ctrl.removeItem(purchase)" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove-circle"></i></button>
-          <button type="button" ng-click="$ctrl.editItem(purchase)" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></button>
+          <a href="#!/purchaseform/{{purchase.id}}"><button type="button" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></button></a>
         </td>
       </tr>
     </tbody>
