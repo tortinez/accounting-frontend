@@ -35,9 +35,13 @@ angular.
         }
 
         this.removeItem = function(purchase) {
-          Purchase.remove(purchase).then(
-            Purchase.api.query(), console.log('The item could not be deleted')
-          )
+          Purchase.remove(purchase)
+          .then(
+            function(){
+              console.log('Succesfully removed') 
+              purchases = Purchase.api.query()},
+            function(err){console.error('The item could not be deleted:', err.status, err.statusText)},
+          ).then(this.purchases = Purchase.api.query())
         }
       }
     ]

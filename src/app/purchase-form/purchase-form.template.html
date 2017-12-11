@@ -1,5 +1,23 @@
 <div>
     <p>Hello world!</p>
-    Item: <input ng-model="$ctrl.purchase.item"></input></p>
+    <p>Item: <input ng-model="$ctrl.purchase.item"></input></p>
+    
+    <p>Requesting Project: <select ng-model="$ctrl.purchase.requestingProject.id">
+      <option ng-repeat="project in $ctrl.projList" value="{{project.id}}">{{project.name}}</option>
+    </select></p>
+    
+    <p>Charging Project: <select ng-model="$ctrl.purchase.chargingProject.id">
+    <option ng-repeat="project in $ctrl.projList" value="{{project.id}}">{{project.name}}</option>
+    </select></p>
+
+    Date: <input ng-model="$ctrl.purchase.requestDate"></input></p>
+
+    code: <input ng-model="$ctrl.purchase.code"></input></p>
+    comments: <input ng-model="$ctrl.purchase.comments"></input></p>
+    Amount: <input ng-model="$ctrl.purchase.amount"></input></p>
+    state: <input ng-model="$ctrl.purchase.state.id"></input></p>
+    Type: <input ng-model="$ctrl.purchase.type.id"></input></p>
+    Supplier: <input ng-model="$ctrl.purchase.supplier.id"></input></p>
+    RequestingEmployee: <input ng-model="$ctrl.purchase.requestingEmployee.id"></input></p>
     <button type="button" class="btn btn-success" ng-click="$ctrl.editPurchase()">Save</button>
 </div>

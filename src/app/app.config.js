@@ -13,6 +13,9 @@ angular.
         when('/purchaseform/:id', {
           template: '<purchase-form></purchase-form>'
         }).
+        when('/purchaseform', {
+          template: '<purchase-form></purchase-form>'
+        }).
         otherwise('/purchases');
     }
   ]);

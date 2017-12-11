@@ -21,7 +21,7 @@ angular.
             },
             interceptor: {
               response: function (response) {
-                  response.resource.$metadata = response.content.$metadata;
+                  response.resource.$metadata = response.data.$metadata;
                   return response.resource;
               }
             }          
