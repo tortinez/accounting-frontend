@@ -1,52 +1,18 @@
 'use strict';
 
 angular.
-  module('common.purchase').
-  factory('Purchase', ['$resource',
+  module('common.invoice').
+  factory('Invoice', ['$resource',
     function ($resource) {
-      return {
-        //text fields $resource
-        api: $resource('http://localhost:1337/localhost:8080/api/purchase/:id', {id: '@id'}, {
+      return $resource('http://localhost:1337/localhost:8080/api/purchase/:id/invoice', {id: '@id'}, {
           
-          //Modify some HTTP methods
-          query: {
-            method: 'GET',
-            params: {size: '50'}, //set the default page size to 50
-            isArray: true,
-    
-            //the data is populated with metadata, parse it
-            transformResponse: function (content) {
-              var wrappedResult = angular.fromJson(content);
-              wrappedResult.content.$metadata = wrappedResult.metadata;
-              return wrappedResult.content;
-            },
-            interceptor: {
-              response: function (response) {
-                  response.resource.$metadata = response.data.$metadata;
-                  return response.resource;
-              }
-            }          
-          },
-          update: { method: 'PUT'},  
-        }),
-        
-        //invoice files $resource
-        invoice: $resource('http://localhost:1337/localhost:8080/api/purchase/:id/invoice', {id: '@id'}, {
-          
-          //Create upload method
-          upload: {
-            method: 'PUT',
-            transformRequest:  FormDataObject,
-            headers: { 'Content-Type': undefined, enctype: 'multipart/form-data'}
-          },
-        }),
-
-        //other functions to return
-        search: search,
-        save: save,
-        remove: remove
-      };
-
+        //Modify some HTTP methods
+        save: {
+          method: 'POST',
+          transformRequest: FormDataObject,
+          headers: { 'Content-Type': undefined, enctype: 'multipart/form-data'}  },     
+      }),
+      
       //////////////////////////////////////////////////////////////////////
 
       //Functions________________________________________________________________
@@ -87,12 +53,6 @@ angular.
         if (vm.type !== 'All')     q.push('type.name~' + vm.type);
           
         return q
-      }
-      
-      function FormDataObject (data) {
-        var fd = new FormData();
-          fd.append('file', data);
-        return fd;
-      }
+      }       
     }
   ]);

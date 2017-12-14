@@ -8,7 +8,8 @@ angular.
     controller: ['Purchase', 'Project', 
       //get the items of the table
       function PurchaseTableController(Purchase, Project) {
-        this.purchases = Purchase.api.query();
+        var vm = this;
+        vm.purchases = Purchase.api.query();
 
         //init the params variable
         this.params = {
@@ -26,23 +27,28 @@ angular.
         }
 
         //retrieve the list of projects, status, type and supplier
-        this.projList = Project.api.query();
+        vm.projList = Project.api.query();
         
         ///////////////////////////////////////////////////////////////////////
         //functions_____________________________________________________________
-        this.search = function() { 
+        vm.search = function() { 
           return this.purchases = Purchase.search(this.params);
         }
 
-        this.removeItem = function(purchase) {
+        vm.removeItem = function(purchase) {
           Purchase.remove(purchase)
           .then(
             function(){
               console.log('Succesfully removed') 
-              purchases = Purchase.api.query()},
+              vm.purchases = Purchase.api.query()},
             function(err){console.error('The item could not be deleted:', err.status, err.statusText)},
-          ).then(this.purchases = Purchase.api.query())
+          )
         }
+
+        vm.downloadInvoice = function(purchase){
+          return Purchase.invoice.get({id: purchase.id})
+        }
+
       }
     ]
   });

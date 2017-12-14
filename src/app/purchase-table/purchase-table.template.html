@@ -43,7 +43,7 @@
         <td>{{purchase.requestingProject.name}}</td>
         <td>{{purchase.code}}</td>
         <td>{{purchase.comments}}</td>
-        <td><a href="localhost:1337/localhost:8080/api/purchase/{{purchase.id}}/invoice"><button type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-download"></i></button></a></td>
+        <td><button type="button" class="btn btn-sm btn-primary" ng-click="$ctrl.downloadInvoice(purchase)"><i class="glyphicon glyphicon-download"></i></button></a></td>
         <td>{{purchase.requestDate | date}}</td>
         <td>{{purchase.state.name}}</td>
         <td>
