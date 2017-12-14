@@ -46,9 +46,8 @@ angular.
         }
 
         vm.downloadInvoice = function(purchase){
-          return Purchase.invoice.get({id: purchase.id})
+          return window.open(['http://localhost:1337/localhost:8080/api/purchase/' + purchase.id + '/invoice'])
         }
-
       }
     ]
   });
