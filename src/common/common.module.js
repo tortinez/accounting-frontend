@@ -2,4 +2,5 @@
 
 // Define the 'common' module
 angular.module('common', ['common.purchase', 
-                          'common.project']);
+                          'common.project',
+                          'common.auth']);

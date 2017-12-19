@@ -6,7 +6,7 @@ angular.
     function ($resource) {
       return {
         //text fields $resource
-        api: $resource('http://localhost:1337/localhost:8080/api/purchase/:id', {id: '@id'}, {
+        api: $resource('/api/purchase/:id', {id: '@id'}, {
           
           //Modify some HTTP methods
           query: {
@@ -31,7 +31,7 @@ angular.
         }),
         
         //invoice files $resource
-        invoice: $resource('http://localhost:1337/localhost:8080/api/purchase/:id/invoice', {id: '@id'}, {
+        invoice: $resource('/api/purchase/:id/invoice', {id: '@id'}, {
           
           //Create upload method
           upload: {

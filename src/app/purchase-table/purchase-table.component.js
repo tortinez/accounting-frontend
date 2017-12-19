@@ -5,14 +5,14 @@ angular.
   module('purchaseTable').
   component('purchaseTable', {
     templateUrl: 'app/purchase-table/purchase-table.template.html',
-    controller: ['Purchase', 'Project', 
+    controller: ['Purchase', 'Project', 'Auth', '$location',
       //get the items of the table
-      function PurchaseTableController(Purchase, Project) {
+      function PurchaseTableController(Purchase, Project, Auth, $location) {
         var vm = this;
         vm.purchases = Purchase.api.query();
 
         //init the params variable
-        this.params = {
+        vm.params = {
           amount: '',
           amountTop: 10000,
           amountBot: 0,
@@ -25,6 +25,8 @@ angular.
           page: 0,
           size: 50
         }
+
+        vm.credentials={};
 
         //retrieve the list of projects, status, type and supplier
         vm.projList = Project.api.query();
@@ -46,7 +48,11 @@ angular.
         }
 
         vm.downloadInvoice = function(purchase){
-          return window.open(['http://localhost:1337/localhost:8080/api/purchase/' + purchase.id + '/invoice'])
+          return window.open(['/api/purchase/' + purchase.id + '/invoice'])
+        }
+
+        vm.login = function(){
+          return Auth.login(vm.credentials).then($location.path("/purchases"))
         }
       }
     ]
