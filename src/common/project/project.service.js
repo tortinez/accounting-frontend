@@ -5,7 +5,7 @@ angular.
   factory('Project', ['$resource',
     function ($resource) {
       return {
-        api: $resource('http://localhost:1337/localhost:8080/api/project/:id', {id: '@id'}, {
+        api: $resource('/api/project/:id', {id: '@id'}, {
           
           //Modify some HTTP methods
           query: {
