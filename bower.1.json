@@ -12,6 +12,7 @@
 
   "dependencies": {
     "angular": "1.5.x",
+    "angular-material":"latest",
     "angular-animate": "1.5.x",
     "angular-mocks": "1.5.x",
     "angular-resource": "1.5.x",

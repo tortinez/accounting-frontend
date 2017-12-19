@@ -31,18 +31,26 @@ angular.
         return auth(credentials)
             .then(getAuthSuccess)
             .catch(getAuthFailed);
+      }
 
-            function getAuthSuccess(response){
-              vm.authenticated = !!response;
-              console.log('Login success');
-              return vm.authenticated;
-            }
+      //Check if user was already logged in a previous session
+      function isAuthenticated(){
+       return resource.get()
+          .then(getAuthSuccess)
+          .catch(getAuthFailed)
+      }
+      
+      
+      //then & catch
+      function getAuthSuccess(response){
+        vm.authenticated = !!response;
+        console.log('Login success');
+        return vm.authenticated;
+      }
 
-            function getAuthFailed(error) {
-              console.log('Login failed');
-              return false;
-            }
-          
+      function getAuthFailed(error) {
+        console.log('Login failed');
+        return false;
       }
     }
   ]);

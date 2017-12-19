@@ -33,4 +33,14 @@ angular.
         }).
         otherwise('/login');
     }
-  ])
+  ]).run(function() {
+    this.$on("$locationChangeStart", function(event, next, current) {
+      for(var i in $routeProvider)  {
+        if(next.indexOf(i) != -1) {
+          if($routeProvider.access.isFree && !Auth.isAuthenticated) {
+            event.preventDefault();
+          }
+        }
+      }
+    });
+  });
