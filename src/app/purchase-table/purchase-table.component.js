@@ -26,8 +26,6 @@ angular.
           size: 50
         }
 
-        vm.credentials={};
-
         //retrieve the list of projects, status, type and supplier
         vm.projList = Project.api.query();
         
@@ -49,10 +47,6 @@ angular.
 
         vm.downloadInvoice = function(purchase){
           return window.open(['/api/purchase/' + purchase.id + '/invoice'])
-        }
-
-        vm.login = function(){
-          return Auth.login(vm.credentials).then($location.path("/purchases"))
         }
       }
     ]

@@ -16,6 +16,9 @@ angular.
         when('/purchaseform', {
           template: '<purchase-form></purchase-form>'
         }).
-        otherwise('/purchases');
+        when('/login', {
+          template: '<auth-form></auth-form>'
+        }).
+        otherwise('/login');
     }
   ]);

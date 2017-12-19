@@ -1,8 +1,5 @@
 <div>
     <a href="#!/purchaseform"><button type="button" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-plus"></i></button></a>
-    <p><input ng-model="$ctrl.credentials.user" ng-value="user"></input>
-      <input ng-model="$ctrl.credentials.password" ng-value="user"></input></p>
-    <button ng-click="$ctrl.login()">login</button>
     <p>Select the charging Project to show:</p>
     <select ng-model="$ctrl.params.chProj" ng-change="$ctrl.search()">
       <option ng-repeat="project in $ctrl.projList" value="{{project.name}}">{{project.name}}</option>
