@@ -5,7 +5,10 @@ angular.
   factory('Auth', ['$resource',
     function ($resource) {
       var vm = this;
-      vm.authenticated = false;
+      vm.user = {
+            isLogged: false,
+            role: null
+          }
 
       function resource(credentials) {
         return $resource('/api/user/self', {} , {
@@ -21,21 +24,24 @@ angular.
          return resource(credentials).login().$promise
        }
 
-       return{ login: login}
+       return{login: login,
+              isAuthenticated: isAuthenticated,
+              user: vm.user}
     
       //////////////////////////////////////////////////////////////////////
 
       //Functions________________________________________________________________
       //LOGIN FUNCTION
       function login(credentials){
-        return auth(credentials)
+        return resource(credentials).login().$promise
             .then(getAuthSuccess)
             .catch(getAuthFailed);
       }
 
       //Check if user was already logged in a previous session
       function isAuthenticated(){
-       return resource.get()
+      var credentials={}
+       return resource(credentials).get().$promise
           .then(getAuthSuccess)
           .catch(getAuthFailed)
       }
@@ -43,9 +49,9 @@ angular.
       
       //then & catch
       function getAuthSuccess(response){
-        vm.authenticated = !!response;
+        vm.user.isLogged = !!response;
         console.log('Login success');
-        return vm.authenticated;
+        return vm.user.isLogged;
       }
 
       function getAuthFailed(error) {

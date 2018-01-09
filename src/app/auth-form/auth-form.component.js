@@ -16,7 +16,15 @@ angular.
         ///////////////////////////////////////////////////////////////////////
         //functions_____________________________________________________________
         vm.login = function(){
-          return Auth.login(vm.credentials).then($location.path("/purchases"))
+          return Auth.login(vm.credentials)
+            .then(function (status) {
+              if (!status) {
+                //error handling
+              }
+              if (status){
+                $location.path("/purchases")
+              }
+            })
         }
       }
     ]
