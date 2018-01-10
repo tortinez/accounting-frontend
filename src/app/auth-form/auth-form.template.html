@@ -1,5 +1,25 @@
-<div>
-    <p><input ng-model="$ctrl.credentials.user" ng-value="user"></input>
-      <input ng-model="$ctrl.credentials.password" ng-value="user"></input></p>
-    <button ng-click="$ctrl.login()">login</button>
+<div flex layout="row" layout-padding layout-align="center center">
+  <div flex="30">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 class="md-flex">Login</h2>
+      </div>
+    </md-toolbar> 
+
+    <md-content flex layout="row" layout-padding layout-align="center center">
+      <div flex="40">
+        <md-input-container>
+          <label>Username</label>
+          <input ng-model="$ctrl.credentials.user">
+        </md-input-container>
+        <br>
+        <md-input-container>
+          <label>Password</label>
+          <input type="password" ng-model="$ctrl.credentials.password">
+        </md-input-container>
+        <br>
+        <md-button class="md-raised md-primary" ng-click="$ctrl.login()">login</md-button>
+      </div>
+    </md-content>
+  </div>
 </div>

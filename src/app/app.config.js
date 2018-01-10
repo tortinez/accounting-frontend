@@ -2,10 +2,11 @@
 
 angular.
   module('AccountingFEapp').
-  config(['$locationProvider' ,'$routeProvider',
-    function config($locationProvider, $routeProvider) {
+  config(['$locationProvider' ,'$routeProvider', '$mdThemingProvider',
+    function config($locationProvider, $routeProvider, $mdThemingProvider) {
       $locationProvider.hashPrefix('!');
 
+      // App Routing
       $routeProvider.
         when('/login', {
           template: '<auth-form></auth-form>',
@@ -24,6 +25,11 @@ angular.
           secure: true
         }).
         otherwise('/login');
+
+        // App Theming
+        $mdThemingProvider.theme('default')
+          .primaryPalette('indigo')
+          .accentPalette('pink');
     }
   ]).run(['$rootScope', '$location', 'Auth',
           function($rootScope, $location, Auth) {

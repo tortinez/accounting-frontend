@@ -2,8 +2,8 @@
 <html lang="en" ng-app="AccountingFEapp">
   <head>
     <meta charset="utf-8">
-    <title>MCIA accounting System</title>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <title>MCIA Accounting System</title>
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
     <link rel="stylesheet" href="style/app.css" />
     <link rel="stylesheet" href="style/app.animations.css" />
 
@@ -13,7 +13,8 @@
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
-    <!-- <script src="bower_components/angular-material/angular-material.js"></script> -->
+    <script src="/bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
 
     
     <!-- App pages modules and services -->
@@ -38,7 +39,31 @@
     <script src="app/purchase-form/purchase-form.component.js"></script>
   </head>
   <body>
+    <!-- Toolbar -->
+    <md-toolbar layout="row">
+      <div class="md-toolbar-tools" flex layout="row">
+        <!-- Title and logo -->
+        <div><img src="/assets/img/MCIA-logo.png" id="toolbar-logo"/></div>
+        <md-truncate style="position: absolute; left: 90px; right: 170px; top: 15px; bottom: 20px;">Accounting System</md-truncate>
+        <span flex></span>
+        <!-- User info & Logout -->
+        <md-button ng-click="main.handleLogin($event)" ng-hide="main.Auth.authenticated">
+          <div layout="row" layout-margin layout-align="center center">
+            <md-icon md-svg-src="/img/icon/login.svg"></md-icon>
+            <span>Login</span>
+          </div>
+        </md-button>
+        <md-button ng-click="main.handleLogout($event)" ng-show="main.Auth.authenticated">
+          <div layout="row" layout-margin layout-align="center center">
+            <md-icon md-svg-src="/img/icon/logout.svg"></md-icon>
+            <span>Logout</span>
+          </div>
+        </md-button>
+      </div>
+    </md-toolbar>
 
+    
+    <!-- Content Cointainer -->
     <div class="view-container">
       <div ng-view class="view-frame"></div>
     </div>

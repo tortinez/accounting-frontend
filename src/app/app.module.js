@@ -3,7 +3,8 @@
 // Define the 'AccountingFEapp' module
 angular.module('AccountingFEapp', [
   'ngAnimate',
-  //'ngMaterial',
+  // 'ngAria',
+  'ngMaterial',
   'ngRoute',
   'common',
   'purchaseTable',
