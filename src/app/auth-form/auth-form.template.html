@@ -1,25 +1,37 @@
-<div flex layout="row" layout-padding layout-align="center center">
-  <div flex="30">
-    <md-toolbar>
-      <div class="md-toolbar-tools">
-        <h2 class="md-flex">Login</h2>
-      </div>
-    </md-toolbar> 
+  <div layout="row" layout-align="center" layout-fill>
+    <md-card layout="column" flex="30">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+              <h2 class="md-flex">Login</h2>
+            </div>
+        </md-toolbar> 
+        <md-content layout="column" layout-padding layout-align="center center">
+            <form name="authForm">
+              <div flex>
+                <md-input-container>
+                  <label>Username</label>
+                  <input required md-no-asterisk name="user" ng-model="$ctrl.credentials.user">
+                  <div ng-messages="authForm.user.$error">
+                    <div ng-message="required">This field is required.</div>
+                  </div>
+                </md-input-container>
+              </div>
 
-    <md-content flex layout="row" layout-padding layout-align="center center">
-      <div flex="40">
-        <md-input-container>
-          <label>Username</label>
-          <input ng-model="$ctrl.credentials.user">
-        </md-input-container>
-        <br>
-        <md-input-container>
-          <label>Password</label>
-          <input type="password" ng-model="$ctrl.credentials.password">
-        </md-input-container>
-        <br>
-        <md-button class="md-raised md-primary" ng-click="$ctrl.login()">login</md-button>
-      </div>
-    </md-content>
+              <div flex>
+                <md-input-container> 
+                  <label>Password</label>
+                  <input type="password" md-no-asterisk name="password" ng-model="$ctrl.credentials.password">
+                  <div ng-messages="authForm.password.$error">
+                    <div ng-message="required">This field is required.</div>
+                  </div>
+                </md-input-container>
+            </div>
+        
+              <div>
+                <md-button type="submit" class="md-raised md-primary" ng-click="$ctrl.login()">Login</md-button>
+              </div>
+            </form>
+        </md-content>
+    </md-card>
+    
   </div>
-</div>

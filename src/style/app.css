@@ -7,3 +7,37 @@
   background-color: rgb(245, 245, 245);
   overflow-y: scroll;
 }
+
+
+/* Table formatting */
+thead {
+  background: rgba(13, 79, 221, 0.582);
+}
+
+th {
+  border: 1px solid black;
+  text-align: center;
+  font-size: 120%;
+}
+
+.md-thead {
+  text-align: center;
+  font-size: 120%;
+  color: rgb(245, 245, 245);
+}
+
+.table-icon {
+  width: 24px;
+  height: 24px;
+  color: black;
+}
+
+.md-button.md-icon-button {
+  margin: 0 0.6rem;
+  height: 48px;
+  min-width: 0;
+  line-height: 48px;
+  padding-left: 0;
+  padding-right: 0;
+  width: 48px;
+}

@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
     <link rel="stylesheet" href="style/app.css" />
     <link rel="stylesheet" href="style/app.animations.css" />
+    <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.min.css" />
 
     <!-- Angular components -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -13,8 +14,10 @@
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="/bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+
 
     
     <!-- App pages modules and services -->
@@ -64,8 +67,8 @@
 
     
     <!-- Content Cointainer -->
-    <div class="view-container">
-      <div ng-view class="view-frame"></div>
+    <div class="view-container" layout="column" layout-align="center">
+      <div ng-view class="view-frame" layout="column" layout-align="center" layout-fill></div>
     </div>
 
   </body>

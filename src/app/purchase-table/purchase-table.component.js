@@ -48,6 +48,10 @@ angular.
         vm.downloadInvoice = function(purchase){
           return window.open(['/api/purchase/' + purchase.id + '/invoice'])
         }
+
+        vm.availableInvoice = function(purchase){
+          return purchase.invoicePath==null;
+        }
       }
     ]
   });
