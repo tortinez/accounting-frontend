@@ -27,6 +27,7 @@
   width: 48px;
 }
 
+/* Table */
 md-toolbar.md-table-toolbar div.md-toolbar-tools {
   font-size: 30px;
   font-weight: bold;
@@ -47,6 +48,10 @@ tr > th.md-column {
   white-space: normal !important;
   color: unset !important;
   font-size: unset !important;
+}
+
+table.md-table > tbody > tr.md-row:hover {
+  background-color: #eeeeee;
 }
 
 /* badges (from Bootstrap) */

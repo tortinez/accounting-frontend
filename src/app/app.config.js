@@ -27,7 +27,7 @@ angular.
         otherwise('/login');
 
         // App Theming
-        $mdThemingProvider.theme('blue')
+        $mdThemingProvider.theme('dark')
           .primaryPalette('blue')
           .accentPalette('pink');
     }
