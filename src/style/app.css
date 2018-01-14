@@ -46,7 +46,32 @@ tr > th.md-column {
   font-size: unset !important;
 }
 
-
+/* badges (from Bootstrap) */
+.badge {
+  display: inline-block;
+  width: auto;
+  padding: 3px 7px;
+  text-align: center;
+  color: white !important;
+  white-space: nowrap;
+  vertical-align: middle;
+  border-radius: 10px;
+}
+.badge.red {
+  background-color: #F44336;
+}
+.badge.orange {
+  background-color: #FF5722;
+}
+.badge.green {
+  background-color: #4CAF50;
+}
+.badge.blue {
+  background-color: #2196F3;
+}
+.badge.purple {
+  background-color: #673AB7;
+}
 
 /* Pagination toolbar*/
 .table-pagination {

@@ -16,8 +16,8 @@
        <button ng-click="$ctrl.search()" class="btn btn-sm btn-info">Filtra amount</button></p> -->
   
 
-  <!-- Pagination options and table title -->
-  <md-card layout="column" layout-align"center center">
+  <md-card layout="column" flex layout-align"center center">
+     <!-- Pagination options and table title -->
     <md-toolbar class="md-table-toolbar md-default">
       <div class="md-toolbar-tools">Purchases</div>
 
@@ -75,7 +75,7 @@
             <td md-cell>{{purchase.supplier.name}}</td>
             <td md-cell>{{purchase.chargingProject.name}}</td>
             <td md-cell>{{purchase.requestingProject.name}}</td>
-            <td md-cell>{{purchase.state.name}}</td>
+            <td md-cell><span ng-class="{30:'badge red', 31:'badge blue', 32:'badge orange', 33:'badge green', 34:'badge purple'}[purchase.state.id]">{{purchase.state.name}}</span></td>
             <!-- <td md-cell>{{purchase.code}}</td> -->
             <!-- <td md-cell>{{purchase.comments}}</td> -->
             <td md-cell>
