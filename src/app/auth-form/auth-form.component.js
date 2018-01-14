@@ -6,11 +6,10 @@ angular.
   component('authForm', {
     templateUrl: 'app/auth-form/auth-form.template.html',
     controller: ['$routeParams', '$location', 'Auth',
-      function PurchaseFormController($routeParams, $location, Auth) {
+      function AuthFormController($routeParams, $location, Auth) {
         var vm = this;
 
         vm.credentials={}; //variable to store credentials
-        
         
 
         ///////////////////////////////////////////////////////////////////////
@@ -25,7 +24,7 @@ angular.
                 $location.path("/purchases")
               }
             })
-        }
+        };
       }
     ]
   });

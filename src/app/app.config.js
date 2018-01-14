@@ -33,6 +33,7 @@ angular.
     }
   ]).run(['$rootScope', '$location', 'Auth',
           function($rootScope, $location, Auth) {
+
             $rootScope.$on("$routeChangeStart", function(event, next, current) {
               if(next && next.$$route && next.$$route.secure) {
                 if(!Auth.user.isLogged) {
@@ -43,5 +44,15 @@ angular.
                   event.preventDefault();
                 }
               }
+              else if(next && next.$$route && next.$$route.originalPath=="/login") {
+                if(Auth.user.isLogged) {
+                  console.log('User is already Authenticated!')
+                  $rootScope.$evalAsync(function () {
+                    $location.path("/purchases")
+                  });
+                  event.preventDefault();
+                }
+              }
             });
-          }]);
+          }
+    ]);

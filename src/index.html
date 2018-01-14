@@ -25,6 +25,7 @@
     <script src="app/app.config.js"></script>
     <script src="style/app.animations.js"></script>
     <script src="common/common.module.js"></script>
+    <!-- <script src="app/index.component.js"></script> -->
 
     <script src="common/purchase/purchase.module.js"></script>
     <script src="common/purchase/purchase.service.js"></script>
@@ -41,7 +42,7 @@
     <script src="app/purchase-form/purchase-form.module.js"></script>
     <script src="app/purchase-form/purchase-form.component.js"></script>
   </head>
-  <body>
+  <body ng-controller="mainCtrl">
     <!-- Toolbar -->
     <md-toolbar layout="row">
       <div class="md-toolbar-tools" flex layout="row">
@@ -49,13 +50,13 @@
         <div><img src="/assets/img/MCIA-logo.png" id="toolbar-logo"/></div><h2 id="toolbar-title">Accounting System</h2>
         <span flex></span>
         <!-- User info & Logout -->
-        <md-button ng-click="main.handleLogin($event)" ng-hide="main.Auth.authenticated">
+        <md-button ng-click="main.handleLogin($event)" ng-hide="user.isLogged">
           <div layout="row" layout-margin layout-align="center center">
             <md-icon md-svg-src="/img/icon/login.svg"></md-icon>
             <span>Login</span>
           </div>
         </md-button>
-        <md-button ng-click="main.handleLogout($event)" ng-show="main.Auth.authenticated">
+        <md-button ng-click="main.handleLogout($event)" ng-show="user.isLogged">
           <div layout="row" layout-margin layout-align="center center">
             <md-icon md-svg-src="/img/icon/logout.svg"></md-icon>
             <span>Logout</span>

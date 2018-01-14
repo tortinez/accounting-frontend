@@ -10,4 +10,17 @@ angular.module('AccountingFEapp', [
   'purchaseTable',
   'purchaseForm',
   'authForm',
-]);
+]).
+controller('mainCtrl', function($scope, Auth) {
+  console.log('HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+  
+  // execute on init
+  var init = function () {
+    Auth.isAuthenticated().then(function(){
+      $scope.user = Auth.user;
+      console.log($scope.user.isLogged);
+      //if (Auth.user.isLogged) $location.path("/purchases")
+    });
+  };
+  init();
+});

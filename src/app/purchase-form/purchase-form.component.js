@@ -7,7 +7,6 @@ angular.
     templateUrl: 'app/purchase-form/purchase-form.template.html',
     controller: ['$routeParams', '$location', 'Purchase', 'Project',
       function PurchaseFormController($routeParams, $location, Purchase, Project) {
-        var vm = this;
 
         //get data if exist; if not create an empty object
         $routeParams.id ? this.purchase = Purchase.api.get({ id: $routeParams.id }) : 
