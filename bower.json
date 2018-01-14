@@ -18,6 +18,9 @@
     "angular-route": "1.5.x",
     "bootstrap": "3.3.x",
     "jquery": "2.2.x",
-    "angular-material-data-table": "^0.10.10"
+    "angular-material-data-table": "latest"
+  },
+  "resolutions": {
+    "angular": "1.6.8"
   }
 }

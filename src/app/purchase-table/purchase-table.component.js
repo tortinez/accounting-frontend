@@ -26,6 +26,8 @@ angular.
           size: 50
         }
 
+        vm.sizeOpt = [50, 75, 100];
+
         //retrieve the list of projects, status, type and supplier
         vm.projList = Project.api.query();
         
@@ -52,6 +54,17 @@ angular.
         vm.availableInvoice = function(purchase){
           return purchase.invoicePath==null;
         }
+
+        vm.prevPage = function() {
+          vm.params.page = vm.params.page-1;
+          return vm.search();
+        }
+
+        vm.nextPage = function() {
+          vm.params.page = vm.params.page+1;
+          return vm.search();
+        }
+
       }
     ]
   });

@@ -15,48 +15,81 @@
        Amount Max: <input ng-model="$ctrl.params.amountTop"></input>
        <button ng-click="$ctrl.search()" class="btn btn-sm btn-info">Filtra amount</button></p> -->
   
-  <md-table-container flex="95" layout-align="center center" layout-fill md-whiteframe="2">
-    <table md-table ng-table="$ctrl.purchases">
-      <thead md-head>
-        <tr md-row>
-          <th md-column><span class="md-thead">ID</span></th>
-          <th md-column><span class="md-thead">Expense Date</span></th>
-          <th md-column><span class="md-thead">Expense type</span></th>
-          <th md-column><span class="md-thead">Concept</span></th>
-          <th md-column><span class="md-thead">Cost</span></th>
-          <th md-column><span class="md-thead">Supplier</span></th>
-          <th md-column><span class="md-thead">Charging Project</span></th>
-          <th md-column><span class="md-thead">Requesting Project</span></th>
-          <!-- <th md-column><span class="md-thead">Code</span></th> -->
-          <!-- <th md-column><span class="md-thead">Comments</span></th> -->
-          <th md-column><span class="md-thead">Invoice</span></th>
-          <th md-column><span class="md-thead">Status</span></th>
-          <th md-column><span class="md-thead"></span></th>
-        </tr>
-      </thead>
-      <tbody md-body>
-        <tr md-row ng-repeat="purchase in $ctrl.purchases">
-          <td md-cell>{{purchase.id}}</td>
-          <td md-cell>{{purchase.requestDate | date}}</td>
-          <td md-cell>{{purchase.type.name}}</td>
-          <td md-cell>{{purchase.item}}</td>
-          <td md-cell>{{purchase.amount | currency}}</td>
-          <td md-cell>{{purchase.supplier.name}}</td>
-          <td md-cell>{{purchase.chargingProject.name}}</td>
-          <td md-cell>{{purchase.requestingProject.name}}</td>
-          <!-- <td md-cell>{{purchase.code}}</td> -->
-          <!-- <td md-cell>{{purchase.comments}}</td> -->
-          <td md-cell>
-              <md-button class="md-icon-button" ng-click="$ctrl.downloadInvoice(purchase)" ng-disabled="$ctrl.availableInvoice(purchase)" aria-label="downloadInvoice">
-                  <md-icon class="table-icon" md-svg-icon="assets/icons/attach.svg"></md-icon></md-button>
-          </td>
-          <td md-cell>{{purchase.state.name}}</td>
-          <td md-cell>
-            <button type="button" ng-click="$ctrl.removeItem(purchase)" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove-circle"></i></button>
-            <a href="#!/purchaseform/{{purchase.id}}"><md-button class="md-icon-button"><md-icon class="table-icon" md-svg-icon="assets/icons/edit.svg"></md-icon></md-button></a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </md-table-container>
+
+  <!-- Pagination options and table title -->
+  <md-card layout="column" layout-align"center center">
+    <md-toolbar class="md-table-toolbar md-default">
+      <div class="md-toolbar-tools">Purchases</div>
+
+      <div class="table-pagination" md-colors="{background: 'primary-800'}">
+        <div>Page: 
+          <md-select ng-model="$ctrl.params.page" ng-change="$ctrl.search()" aria-label="selPage">
+            <md-option ng-repeat="n in [].constructor($ctrl.purchases.$metadata.totalPages) track by $index" ng-value="{{$index}}">{{$index+1}}</md-option>
+          </md-select> of {{$ctrl.purchases.$metadata.totalPages}}
+        </div>
+        <div>Rows per page:
+          <md-select ng-model="$ctrl.params.size" ng-change="$ctrl.search()" aria-label="selSize">
+              <md-option ng-repeat="size in $ctrl.sizeOpt" ng-value="{{size}}">{{size}}</md-option>
+          </md-select>
+        </div>
+        <div>Viewing {{$ctrl.purchases.$metadata.page*$ctrl.purchases.$metadata.size+1}} - 
+        {{($ctrl.purchases.$metadata.page+1)*$ctrl.purchases.$metadata.size}} of {{$ctrl.purchases.$metadata.totalElements}} purchases
+        </div>
+        <div>
+          <md-button class="md-icon-button" ng-click="$ctrl.prevPage()" ng-disabled="$ctrl.purchases.$metadata.page==0" aria-label="prevPage">
+            <md-icon md-svg-icon="assets/icons/navPrev.svg"></md-icon></md-button>
+          <md-button class="md-icon-button" ng-click="$ctrl.nextPage()" ng-disabled="$ctrl.purchases.$metadata.last" aria-label="nextPage">
+            <md-icon md-svg-icon="assets/icons/navNext.svg"></md-icon></md-button>
+        </div>
+      </div>
+    </md-toolbar>
+
+
+    <!-- Table -->
+    <md-table-container>
+      <table md-table ng-table="$ctrl.purchases" flex layout-fill>
+        <thead md-head md-colors="{background: 'primary'}">
+          <tr md-row>
+            <th md-column class="md-thead">ID</th>
+            <th md-column class="md-thead">Expense Date</th>
+            <th md-column class="md-thead">Expense type</th>
+            <th md-column class="md-thead">Concept</th>
+            <th md-column class="md-thead">Cost</th>
+            <th md-column class="md-thead">Supplier</th>
+            <th md-column class="md-thead">Charging Project</th>
+            <th md-column class="md-thead">Requesting Project</th>
+            <!-- <th md-column class="md-thead">Code</th> -->
+            <!-- <th md-column class="md-thead">Comments</th> -->
+            <th md-column class="md-thead">Status</th>
+            <th md-column class="md-thead">Invoice</th>
+            <th md-column class="md-thead"></th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr md-row ng-repeat="purchase in $ctrl.purchases">
+            <td md-cell>{{purchase.id}}</td>
+            <td md-cell>{{purchase.requestDate | date: "dd/MM/yyyy"}}</td>
+            <td md-cell>{{purchase.type.name}}</td>
+            <td md-cell>{{purchase.item}}</td>
+            <td md-cell>{{purchase.amount | currency : ""}} €</td>
+            <td md-cell>{{purchase.supplier.name}}</td>
+            <td md-cell>{{purchase.chargingProject.name}}</td>
+            <td md-cell>{{purchase.requestingProject.name}}</td>
+            <td md-cell>{{purchase.state.name}}</td>
+            <!-- <td md-cell>{{purchase.code}}</td> -->
+            <!-- <td md-cell>{{purchase.comments}}</td> -->
+            <td md-cell>
+                <md-button class="md-icon-button" ng-click="$ctrl.downloadInvoice(purchase)" ng-disabled="$ctrl.availableInvoice(purchase)" aria-label="downloadInvoice">
+                    <md-icon class="table-icon" md-svg-icon="assets/icons/attach.svg"></md-icon></md-button>
+            </td>
+            <td md-cell>
+              <!-- <button type="button" ng-click="$ctrl.removeItem(purchase)" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove-circle"></i></button> -->
+              <a href="#!/purchaseform/{{purchase.id}}"><md-button class="md-icon-button"><md-icon class="table-icon" md-svg-icon="assets/icons/edit.svg"></md-icon></md-button></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+  </md-card>     
+  
 </div>

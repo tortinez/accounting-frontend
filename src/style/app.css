@@ -8,24 +8,6 @@
   overflow-y: scroll;
 }
 
-
-/* Table formatting */
-thead {
-  background: rgba(13, 79, 221, 0.582);
-}
-
-th {
-  border: 1px solid black;
-  text-align: center;
-  font-size: 120%;
-}
-
-.md-thead {
-  text-align: center;
-  font-size: 120%;
-  color: rgb(245, 245, 245);
-}
-
 .table-icon {
   width: 24px;
   height: 24px;
@@ -33,11 +15,85 @@ th {
 }
 
 .md-button.md-icon-button {
-  margin: 0 0.6rem;
+  margin: 0 0;
   height: 48px;
   min-width: 0;
   line-height: 48px;
   padding-left: 0;
   padding-right: 0;
   width: 48px;
+}
+
+md-toolbar.md-table-toolbar div.md-toolbar-tools {
+  font-size: 30px;
+  font-weight: bold;
+}
+/* this rules modify all the attr. (color, borders, width, text alignment) refering to the columns 2 to n-1*/
+table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2), 
+table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
+  width: fit-content;
+  padding: 0 35px 0 0 !important;
+} 
+table.md-table:not(.md-row-select) td.md-cell, 
+table.md-table:not(.md-row-select) th.md-column {
+  font-size: 14px;
+} 
+/* only heads of to the columns 1 to n*/
+tr > th.md-column {
+  max-width: 70px;
+  white-space: normal !important;
+  color: unset !important;
+  font-size: unset !important;
+}
+
+
+
+/* Pagination toolbar*/
+.table-pagination {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-flex-wrap: wrap-reverse;
+      -ms-flex-wrap: wrap-reverse;
+          flex-wrap: wrap-reverse;
+  box-sizing: border-box;
+  padding: 0 24px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.54);
+  border-top: 1px rgba(0, 0, 0, 0.12) solid;
+}
+div.table-pagination > * {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 56px;
+}
+div.table-pagination div {
+  padding: 15px 15px 30px 30px;
+}
+.table-pagination md-select {
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+      justify-content: flex-end;
+  min-width: 60px;
+}
+.table-pagination md-select .md-select-value {
+  border-bottom: 0 !important;
+}
+.table-pagination md-select .md-select-value span.md-select-icon {
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: left;
+  margin-left: -10px !important;
+  margin-right: -6px !important;
 }
