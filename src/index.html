@@ -42,7 +42,7 @@
     <script src="app/purchase-form/purchase-form.module.js"></script>
     <script src="app/purchase-form/purchase-form.component.js"></script>
   </head>
-  <body ng-controller="mainCtrl">
+  <body ng-controller="mainCtrl" layout="column">
     <!-- Toolbar -->
     <md-toolbar layout="row">
       <div class="md-toolbar-tools" flex layout="row">
@@ -67,8 +67,11 @@
 
     
     <!-- Content Cointainer -->
-    <div class="view-container" layout="column" layout-align="center">
-      <div ng-view class="view-frame" layout="column" layout-align="center" layout-fill></div>
+    <div class="view-container" layout="column" layout-align="center" id="parent">
+        <!-- <div layout="row" layout-align="center center" layout-fill id="child">
+          <md-card layout="column" layout-align="center center" layout-fill>Hello World!</md-card>
+        </div> -->
+      <div ng-view flex layout="column" layout-align="center" id="child"></div>
     </div>
 
   </body>

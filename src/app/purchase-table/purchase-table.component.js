@@ -5,9 +5,9 @@ angular.
   module('purchaseTable').
   component('purchaseTable', {
     templateUrl: 'app/purchase-table/purchase-table.template.html',
-    controller: ['Purchase', 'Project', 'Auth', '$location',
+    controller: ['Purchase', 'Project', 'Auth', '$location', '$mdSidenav',
       //get the items of the table
-      function PurchaseTableController(Purchase, Project, Auth, $location) {
+      function PurchaseTableController(Purchase, Project, Auth, $location, $mdSidenav) {
         var vm = this;
         vm.purchases = Purchase.api.query();
 
@@ -25,6 +25,8 @@ angular.
           page: 0,
           size: 50
         }
+
+        vm.showFilters = false;
 
         vm.sizeOpt = [50, 75, 100];
 
@@ -63,6 +65,17 @@ angular.
         vm.nextPage = function() {
           vm.params.page = vm.params.page+1;
           return vm.search();
+        }
+
+        this.toggleNavBar = buildToggler('left');
+        function buildToggler(componentId) {
+          return function() {
+            $mdSidenav(componentId).toggle();
+          };
+        }
+
+        this.toggleFilters = function() {
+          vm.showFilters = !vm.showFilters;
         }
 
       }

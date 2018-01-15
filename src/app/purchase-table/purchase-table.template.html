@@ -1,4 +1,4 @@
-<div layout="row" layout-align="center" layout-fill>
+<div flex layout="column" layout-align="center center" layout-fill>
     <!-- <a href="#!/purchaseform"><button type="button" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-plus"></i></button></a>
     <p>Select the charging Project to show:</p>
     <select ng-model="$ctrl.params.chProj" ng-change="$ctrl.search()">
@@ -14,12 +14,20 @@
     <p>Amount Min: <input ng-model="$ctrl.params.amountBot"></input> 
        Amount Max: <input ng-model="$ctrl.params.amountTop"></input>
        <button ng-click="$ctrl.search()" class="btn btn-sm btn-info">Filtra amount</button></p> -->
-  
+  <div class="" md-colors="{background: 'Grey-700'}" ng-show="$ctrl.showFilters" id="filters-toolbar">
+    HOLAAAAA
+  </div>
 
   <md-card layout="column" flex layout-align"center center">
      <!-- Pagination options and table title -->
     <md-toolbar class="md-table-toolbar md-default">
-      <div class="md-toolbar-tools">Purchases</div>
+      <div class="md-toolbar-tools">
+        <div>Purchases</div>
+        <span flex></span>
+        <md-button class="md-raised md-primary" ng-click="$ctrl.toggleFilters()">Filter</md-button>
+        <md-button class="md-raised md-primary" ng-click="addPurchase()">Add Purchase</md-button>
+      </div>
+
 
       <div class="table-pagination" md-colors="{background: 'primary-800'}">
         <div>Page: 
@@ -96,11 +104,25 @@
       </table>
     </md-table-container>
   </md-card>
-  
-  <!-- Back to top button -->
-  <button class="md-button md-fab-bottom-right docs-scroll-fab md-button md-ink-ripple scrolling" type="button" ng-transclude="" docs-scroll-class="scrolling" ng-click="scrollTop()" aria-label="Back to top">
-    <md-icon class="ng-scope" md-svg-src="assets/icon/navNext.svg" aria-hidden="true"></md-icon>
-    <div class="md-ripple-container" style=""></div>
-  </button> 
+
+
+  <!-- Sidenav -->
+  <md-sidenav class="md-sidenav-left" md-component-id="left"
+                md-disable-backdrop md-whiteframe="4">
+
+      <md-toolbar class="md-theme-indigo">
+        <h1 class="md-toolbar-tools">Disabled Backdrop</h1>
+      </md-toolbar>
+
+      <md-content layout-margin>
+        <p>
+          This sidenav is not showing any backdrop, where users can click on it, to close the sidenav.
+        </p>
+        <md-button ng-click="toggleLeft()" class="md-accent">
+          Close this Sidenav
+        </md-button>
+      </md-content>
+
+    </md-sidenav>
   
 </div>

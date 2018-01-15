@@ -6,16 +6,25 @@
 #toolbar-title {
   padding: 15px 0 20px 20px;
 }
-#content {
-  background-color: rgb(245, 245, 245);
-  overflow-y: scroll;
-}
 
 .table-icon {
   width: 24px;
   height: 24px;
   color: black;
 }
+
+
+
+#parent {
+  background-color: red;
+}
+#child {
+  background-color: yellow;
+}
+
+
+
+
 
 .md-button.md-icon-button {
   margin: 0 0;
@@ -27,11 +36,17 @@
   width: 48px;
 }
 
+/* Filters bar */
+#filters-toolbar {
+  padding: 300px 0 3000px 300px;
+}
+
 /* Table */
 md-toolbar.md-table-toolbar div.md-toolbar-tools {
   font-size: 30px;
   font-weight: bold;
 }
+
 /* this rules modify all the attr. (color, borders, width, text alignment) refering to the columns 2 to n-1*/
 table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2), 
 table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
