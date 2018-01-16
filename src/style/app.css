@@ -14,18 +14,6 @@
 }
 
 
-
-#parent {
-  background-color: red;
-}
-#child {
-  background-color: yellow;
-}
-
-
-
-
-
 .md-button.md-icon-button {
   margin: 0 0;
   height: 48px;
@@ -37,8 +25,9 @@
 }
 
 /* Filters bar */
-#filters-toolbar {
-  padding: 300px 0 3000px 300px;
+md-content.filters-toolbar {
+  /* padding: 3px 0 30px 30px; */
+  width: 100%;
 }
 
 /* Table */

@@ -58,8 +58,8 @@
         </md-button>
         <md-button ng-click="main.handleLogout($event)" ng-show="user.isLogged">
           <div layout="row" layout-margin layout-align="center center">
-            <md-icon md-svg-src="/img/icon/logout.svg"></md-icon>
-            <span>Logout</span>
+            <span>{{user.name}}</span>
+            <md-icon md-svg-src="/assets/icons/account.svg" style="width: '32px'; height: '32px'"></md-icon>
           </div>
         </md-button>
       </div>
@@ -67,11 +67,11 @@
 
     
     <!-- Content Cointainer -->
-    <div class="view-container" layout="column" layout-align="center" id="parent">
+    <div class="view-container" layout="column" layout-align="center">
         <!-- <div layout="row" layout-align="center center" layout-fill id="child">
           <md-card layout="column" layout-align="center center" layout-fill>Hello World!</md-card>
         </div> -->
-      <div ng-view flex layout="column" layout-align="center" id="child"></div>
+      <div ng-view flex layout="column" layout-align="center"></div>
     </div>
 
   </body>

@@ -77,14 +77,14 @@ angular.
         var q =[];
         var vm = query;
         
-        if (vm.amountTop !== 0)    q.push('amount<' + vm.amountTop);
-        if (vm.amountBot !== 0)    q.push('amount>' + vm.amountBot);
-        if (vm.item !== '')        q.push('item~' + vm.item);
-        if (vm.chProj !== 'All')   q.push('chargingProject.name~' + vm.chProj);
-        if (vm.reqProj !== 'All')  q.push('requestingProject.name~' + vm.reqProj);
-        if (vm.status !== 'All')   q.push('state.name~' + vm.status);
-        if (vm.supplier !== 'All') q.push('supplier.name~' + vm.supplier);
-        if (vm.type !== 'All')     q.push('type.name~' + vm.type);
+        if (vm.amountTop !== 0)   q.push('amount<' + vm.amountTop);
+        if (vm.amountBot !== 0)   q.push('amount>' + vm.amountBot);
+        if (vm.item !== '')       q.push('item~' + vm.item);
+        if (vm.chProj !== null)   q.push('chargingProject.name~' + vm.chProj);
+        if (vm.reqProj !== null)  q.push('requestingProject.name~' + vm.reqProj);
+        if (vm.status !== null)   q.push('state.name~' + vm.status);
+        if (vm.supplier !== null) q.push('supplier.name~' + vm.supplier);
+        if (vm.type !== null)     q.push('type.name~' + vm.type);
           
         return q
       }

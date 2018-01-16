@@ -1,9 +1,10 @@
-/* Animate `ngRepeat` in `purchaseTable` component */
-.purchase-table-item.ng-enter,
-.purchase-table-item.ng-leave,
-.purchase-table-item.ng-move {
-  overflow: hidden;
-  transition: 0.5s linear all;
+/* Animate `the filter bar` in `purchaseTable` component */
+md-content.filters-toolbar {
+  transition: .5s linear all;
+  max-height: 900px;
+}
+md-content.filters-toolbar.ng-hide {
+  max-height: 0;
 }
 
 .purchase-table-item.ng-enter,

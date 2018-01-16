@@ -1,26 +1,104 @@
 <div flex layout="column" layout-align="center center" layout-fill>
-    <!-- <a href="#!/purchaseform"><button type="button" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-plus"></i></button></a>
-    <p>Select the charging Project to show:</p>
-    <select ng-model="$ctrl.params.chProj" ng-change="$ctrl.search()">
-      <option ng-repeat="project in $ctrl.projList" value="{{project.name}}">{{project.name}}</option>
-      <option value="All">All</option>
-    </select></p>
-    <p>Select the requesting Project to show:</p>
-    <select ng-model="$ctrl.params.reqProj" ng-change="$ctrl.search()">
-      <option ng-repeat="project in $ctrl.projList" value="{{project.name}}">{{project.name}}</option>
-      <option value="All">All</option>
-    </select></p>
-    <p>concept search: <input ng-model="$ctrl.params.item" ng-change="$ctrl.search()"></input></p>
-    <p>Amount Min: <input ng-model="$ctrl.params.amountBot"></input> 
-       Amount Max: <input ng-model="$ctrl.params.amountTop"></input>
-       <button ng-click="$ctrl.search()" class="btn btn-sm btn-info">Filtra amount</button></p> -->
-  <div class="" md-colors="{background: 'Grey-700'}" ng-show="$ctrl.showFilters" id="filters-toolbar">
-    HOLAAAAA
-  </div>
+    <!-- <a href="#!/purchaseform"><button type="button" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-plus"></i></button></a> -->
+    
 
+   <!-- Filters Toolbar--> 
+  <md-content class="filters-toolbar" md-theme="dark" ng-hide="$ctrl.hideFilters" layout="row" layout-sm="column" layout-align="space-around center" layout-padding layout-wrap md-whiteframe="5">
+    <div layout="column" flex>
+      <md-input-container>
+        <label>Concept</label>
+        <input ng-model="$ctrl.params.item" ng-change="$ctrl.search()">
+      </md-input-container>
+        
+      <div layout="" layout-align="center center">
+        <md-input-container>
+          <label>Min Amount (€)</label>
+          <input ng-model="$ctrl.params.amountBot" ng-change="$ctrl.search()" type="number" step="10">
+        </md-input-container>
+        <md-input-container>
+            <label>Max Amount (€)</label>
+            <input ng-model="$ctrl.params.amountTop" ng-change="$ctrl.search()" type="number" step="10">
+        </md-input-container>
+      </div>
+    </div>
+      
+    <div layout="column" flex>
+      <md-autocomplete
+          md-no-cache="false"
+          md-selected-item="$ctrl.autocompleteObj.chProj" md-search-text="searchTextChProj" md-selected-item-change="$ctrl.autocompleteItemChange()"
+          md-items="item in $ctrl.autocompleteSearch(searchTextChProj, $ctrl.projList)"
+          md-item-text="item.name" md-min-length="0"
+          md-floating-label="Charging Project" md-clear-button="true">
+        <md-item-template>
+            <span md-highlight-text="searchTextChProj" md-highlight-flags="^i">{{item.name}}</span>
+        </md-item-template>
+      </md-autocomplete>
+
+      <md-autocomplete
+          md-no-cache="false"
+          md-selected-item="$ctrl.autocompleteObj.reqProj" md-search-text="searchTextReqProj" md-selected-item-change="$ctrl.autocompleteItemChange()"
+          md-items="item in $ctrl.autocompleteSearch(searchTextReqProj, $ctrl.projList)"
+          md-item-text="item.name" md-min-length="0"
+          md-floating-label="Requesting Project" md-clear-button="true">
+        <md-item-template>
+          <span md-highlight-text="searchTextReqProj" md-highlight-flags="^i">{{item.name}}</span>
+        </md-item-template>
+      </md-autocomplete>
+    </div>
+
+    <div layout="column" flex>
+      <md-autocomplete
+          md-no-cache="false"
+          md-selected-item="$ctrl.autocompleteObj.type" md-search-text="searchTextType" md-selected-item-change="$ctrl.autocompleteItemChange()"
+          md-items="item in $ctrl.autocompleteSearch(searchTextType, $ctrl.projList)"
+          md-item-text="item.name" md-min-length="0"
+          md-floating-label="Expense Type" md-clear-button="true">
+        <md-item-template>
+          <span md-highlight-text="searchTextType" md-highlight-flags="^i">{{item.name}}</span>
+        </md-item-template>
+      </md-autocomplete>
+
+      <md-autocomplete
+          md-no-cache="false"
+          md-selected-item="$ctrl.autocompleteObj.status" md-search-text="searchTextStatus" md-selected-item-change="$ctrl.autocompleteItemChange()"
+          md-items="item in $ctrl.autocompleteSearch(searchTextStatus, $ctrl.projList)"
+          md-item-text="item.name" md-min-length="0"
+          md-floating-label="Expense Status" md-clear-button="true">
+        <md-item-template>
+            <span md-highlight-text="searchTextStatus" md-highlight-flags="^i">{{item.name}}</span>
+        </md-item-template>
+      </md-autocomplete>
+    </div>
+
+    <div layout="column"flex>
+      <md-autocomplete
+          md-no-cache="false"
+          md-selected-item="$ctrl.autocompleteObj.employee" md-search-text="searchTextEmployee" md-selected-item-change="$ctrl.autocompleteItemChange()"
+          md-items="item in $ctrl.autocompleteSearch(searchTextEmployee, $ctrl.projList)"
+          md-item-text="item.name" md-min-length="0"
+          md-floating-label="Requesting Employee" md-clear-button="true">
+        <md-item-template>
+          <span md-highlight-text="searchTextEmployee" md-highlight-flags="^i">{{item.name}}</span>
+        </md-item-template>
+      </md-autocomplete>
+
+      <md-autocomplete
+          md-no-cache="false"
+          md-selected-item="$ctrl.autocompleteObj.supplier" md-search-text="searchTextSupplier" md-selected-item-change="$ctrl.autocompleteItemChange()"
+          md-items="item in $ctrl.autocompleteSearch(searchTextSupplier, $ctrl.projList)"
+          md-item-text="item.name" md-min-length="0"
+          md-floating-label="Supplier" md-clear-button="true">
+          <md-item-template>
+            <span md-highlight-text="searchTextSupplier" md-highlight-flags="^i">{{item.name}}</span>
+          </md-item-template>
+      </md-autocomplete>
+    </div>
+  </md-content>
+
+  <!-- Actual Page -->
   <md-card layout="column" flex layout-align"center center">
      <!-- Pagination options and table title -->
-    <md-toolbar class="md-table-toolbar md-default">
+    <md-toolbar class="md-table-toolbar" md-colors="{background: 'grey-50'}">
       <div class="md-toolbar-tools">
         <div>Purchases</div>
         <span flex></span>
@@ -29,7 +107,7 @@
       </div>
 
 
-      <div class="table-pagination" md-colors="{background: 'primary-800'}">
+      <div class="table-pagination md-primary" md-colors="{background: 'primary-800'}">
         <div>Page: 
           <md-select ng-model="$ctrl.params.page" ng-change="$ctrl.search()" aria-label="selPage">
             <md-option ng-repeat="n in [].constructor($ctrl.purchases.$metadata.totalPages) track by $index" ng-value="{{$index}}">{{$index+1}}</md-option>

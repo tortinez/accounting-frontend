@@ -27,9 +27,17 @@ angular.
         otherwise('/login');
 
         // App Theming
-        $mdThemingProvider.theme('dark')
-          .primaryPalette('blue')
+        $mdThemingProvider.theme('default')
+          .primaryPalette('blue',{
+            'default':'700'
+          })
           .accentPalette('pink');
+
+          $mdThemingProvider.theme('dark', 'default')
+          .primaryPalette('blue',{
+            'default':'A200'
+          })
+          .dark();
     }
   ]).run(['$rootScope', '$location', 'Auth',
           function($rootScope, $location, Auth) {

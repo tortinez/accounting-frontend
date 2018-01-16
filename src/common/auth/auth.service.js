@@ -51,6 +51,7 @@ angular.
       function getAuthSuccess(response){
         vm.user.isLogged = !!response;
         vm.user.role = response.roles[0];
+        vm.user.name = response.employee.fullname;
         console.log('Login success');
         return vm.user.isLogged;
       }
