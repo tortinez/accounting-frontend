@@ -88,7 +88,7 @@ angular.
         vm.autocompleteItemChange = function() {
           var item = vm.autocompleteObj;
           vm.params.chProj  = item.chProj ? item.chProj.name : null;
-          vm.params.reqProj = item.reqProj ? item.ReqProj.name : null;
+          vm.params.reqProj = item.reqProj ? item.reqProj.name : null;
           vm.params.status   = item.status ? item.status.name : null;
           vm.params.supplier = item.supplier ? item.supplier.name : null;
           vm.params.type     = item.type ? item.type.name : null;;
