@@ -13,11 +13,11 @@
       <div layout="" layout-align="center center">
         <md-input-container>
           <label>Min Amount (€)</label>
-          <input ng-model="$ctrl.params.amountBot" ng-change="$ctrl.search()" type="number" step="10">
+          <input ng-model="$ctrl.params.amountMin" ng-change="$ctrl.search()" type="number" step="10">
         </md-input-container>
         <md-input-container>
             <label>Max Amount (€)</label>
-            <input ng-model="$ctrl.params.amountTop" ng-change="$ctrl.search()" type="number" step="10">
+            <input ng-model="$ctrl.params.amountMax" ng-change="$ctrl.search()" type="number" step="10">
         </md-input-container>
       </div>
     </div>
@@ -92,6 +92,17 @@
             <span md-highlight-text="searchTextSupplier" md-highlight-flags="^i">{{item.name}}</span>
           </md-item-template>
       </md-autocomplete>
+    </div>
+
+    <div layout="column" flex>
+      <md-input-container>
+        <label>Min Date</label>
+        <md-datepicker ng-model="$ctrl.params.dateMin" ng-change="$ctrl.search()" md-min-date="$ctrl.date.min" md-max-date="$ctrl.params.dateMax">
+      </md-input-container>
+      <md-input-container>
+        <label>Max Date</label>
+        <md-datepicker ng-model="$ctrl.params.dateMax" ng-change="$ctrl.search()" md-min-date="$ctrl.params.dateMin" md-max-date="$ctrl.date.max">
+      </md-input-container>
     </div>
   </md-content>
 

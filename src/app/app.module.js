@@ -4,8 +4,9 @@
 angular.module('AccountingFEapp', [
   'ngAnimate',
   'ngMaterial',
-  'md.data.table',
   'ngRoute',
+  'angularMoment',
+  'md.data.table',
   'common',
   'purchaseTable',
   'purchaseForm',

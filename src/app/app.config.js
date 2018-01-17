@@ -2,8 +2,8 @@
 
 angular.
   module('AccountingFEapp').
-  config(['$locationProvider' ,'$routeProvider', '$mdThemingProvider',
-    function config($locationProvider, $routeProvider, $mdThemingProvider) {
+  config(['$locationProvider' ,'$routeProvider', '$mdThemingProvider', '$mdDateLocaleProvider', 'moment',
+    function config($locationProvider, $routeProvider, $mdThemingProvider, $mdDateLocaleProvider, moment) {
       $locationProvider.hashPrefix('!');
 
       // App Routing
@@ -38,6 +38,17 @@ angular.
             'default':'A200'
           })
           .dark();
+
+          // Change date format for datepickers
+          $mdDateLocaleProvider.formatDate = function(date) {
+            return moment(date).format('DD/MM/YYYY');
+          };
+        
+          $mdDateLocaleProvider.parseDate = function(dateString) {
+              var m = moment(dateString, 'DD/MM/YYYY', true);
+              return m.isValid() ? m.toDate() : new Date(NaN);
+          };
+
     }
   ]).run(['$rootScope', '$location', 'Auth',
           function($rootScope, $location, Auth) {

@@ -41,6 +41,12 @@ angular.
           },
         }),
 
+        //Date initialization
+        date : {
+          max: new Date(),
+          min: new Date(1512302317224),
+        },
+
         //other functions to return
         search: search,
         save: save,
@@ -52,7 +58,7 @@ angular.
       //Functions________________________________________________________________
       function search(query){
         //concatenate query
-        var concatQuery = concatenateQuery(query)
+        var concatQuery = concatenateQuery(query, this.date)
         return this.api.query({q: concatQuery, size: query.size, page:query.page});
       }
       
@@ -73,18 +79,21 @@ angular.
         return this.api.remove({id: purchase.id}).$promise;
       }
 
-      function concatenateQuery(query) {
+      function concatenateQuery(query, date) {
         var q =[];
         var vm = query;
         
-        if (vm.amountTop !== 0)   q.push('amount<' + vm.amountTop);
-        if (vm.amountBot !== 0)   q.push('amount>' + vm.amountBot);
+        if (vm.dateMax !== date.max)  q.push('requestDate<' + vm.dateMax.valueOf());
+        if (vm.dateMin !== date.min)  q.push('requestDate>' + vm.dateMin.valueOf());
+        if (vm.amountMax !== 0)   q.push('amount<' + vm.amountMax);
+        if (vm.amountMin !== 1e4) q.push('amount>' + vm.amountMin);
         if (vm.item !== '')       q.push('item~' + vm.item);
         if (vm.chProj !== null)   q.push('chargingProject.name~' + vm.chProj);
         if (vm.reqProj !== null)  q.push('requestingProject.name~' + vm.reqProj);
         if (vm.status !== null)   q.push('state.name~' + vm.status);
         if (vm.supplier !== null) q.push('supplier.name~' + vm.supplier);
         if (vm.type !== null)     q.push('type.name~' + vm.type);
+        if (vm.employee !=null)   q.push('requestingEmployee.fullname~' + vm.employee)
           
         return q
       }

@@ -13,9 +13,10 @@ angular.
 
         //init the filtering and pagination variable
         vm.params = {
-          amount: '',
-          amountTop: 10000,
-          amountBot: 0,
+          amountMax: 10000,
+          amountMin: 0,
+          dateMax: Purchase.date.max,
+          dateMin: Purchase.date.min,
           item:'',
           chProj: null,
           reqProj: null,
@@ -26,6 +27,7 @@ angular.
           size: 50
         }
 
+        vm.date = Purchase.date;
         vm.autocompleteObj = {
           chProj: null,
           reqProj: null,
@@ -98,17 +100,6 @@ angular.
         vm.toggleFilters = function() {
           vm.hideFilters = !vm.hideFilters;
         }
-
-
-        //Related to the sidenav
-        this.toggleNavBar = buildToggler('left');
-        function buildToggler(componentId) {
-          return function() {
-            $mdSidenav(componentId).toggle();
-          };
-        }
-
-
       }
     ]
   });
