@@ -1,0 +1,26 @@
+<md-dialog aria-label="Upload Purchase Invoice">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Invoice Upload</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="assets/icons/close.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <h2>Upload a pdf file for the invoice</h2>
+        <p>
+          <input class="md-primary" accept="application/pdf" type="file" id="file" name="file"></input>
+        </p>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button class="md-raised md-primary" ng-click="uploadFile()">Upload</md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

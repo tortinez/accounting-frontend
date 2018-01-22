@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="style/app.css" />
     <link rel="stylesheet" href="style/app.animations.css" />
     <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.css" />
+    <!-- <link rel="stylesheet" href="bower_components/angular-material-sidemenu/dest/angular-material-sidemenu.css" /> -->
+    <link rel="stylesheet" href="style/accordion.css" />
+
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    
 
     <!-- Angular components -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -19,12 +24,14 @@
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/angular-moment/angular-moment.js"></script>
     <script src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+    <!-- <script src="bower_components/angular-material-sidemenu/dest/angular-material-sidemenu.js"></script> -->
+    <script src="common/accordion/accordion.module.js"></script>
     
     <!-- App pages modules and services -->
     <script src="app/app.module.js"></script>
     <script src="app/app.config.js"></script>
     <script src="style/app.animations.js"></script>
-    <script src="common/common.module.js"></script> 
+    <script src="common/common.module.js"></script>
 
     <script src="common/purchase/purchase.module.js"></script>
     <script src="common/purchase/purchase.service.js"></script>
@@ -63,15 +70,19 @@
         </md-button>
       </div>
     </md-toolbar>
-
     
-    <!-- Content Cointainer -->
-    <div class="view-container" layout="column" layout-align="center">
-        <!-- <div layout="row" layout-align="center center" layout-fill id="child">
-          <md-card layout="column" layout-align="center center" layout-fill>Hello World!</md-card>
-        </div> -->
-      <div ng-view flex layout="column" layout-align="center"></div>
+    <div layout="row">
+      <div id="hoveringToggleLeft" ng-mouseover="toggleNavBar()" ng-show="user.isLogged"></div>
+      <!-- Content Cointainer -->
+      <div class="view-container" flex layout="column" layout-align="center">
+        <div ng-view flex layout="column" layout-align="center"></div>
+      </div>
     </div>
+
+    <!-- Sidenav -->
+    <md-sidenav class="md-sidenav-left" md-theme="dark" md-component-id="left" layout="column" md-whiteframe="4">
+      <ng-include src="'app/sidenav/sidenav.template.html'"></ng-include>
+    </md-sidenav>
 
   </body>
 </html>

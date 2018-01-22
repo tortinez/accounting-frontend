@@ -1,9 +1,10 @@
-<div flex layout="column" layout-align="center center" layout-fill>
+<div flex layout="column" layout-align="center" layout-fill>
     <!-- <a href="#!/purchaseform"><button type="button" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-plus"></i></button></a> -->
     
 
    <!-- Filters Toolbar--> 
-  <md-content class="filters-toolbar" md-theme="dark" ng-hide="$ctrl.hideFilters" layout="row" layout-sm="column" layout-align="space-around center" layout-padding layout-wrap md-whiteframe="5">
+  <md-content class="filters-toolbar" md-theme="dark" ng-hide="$ctrl.hideFilters" layout="row" layout-sm="column" 
+  layout-align="space-around center" layout-padding layout-wrap md-whiteframe="5">
     <div layout="column" flex>
       <md-input-container>
         <label>Concept</label>
@@ -106,7 +107,7 @@
     </div>
   </md-content>
 
-  <!-- Actual Page -->
+  <!-- Actual table -->
   <md-card layout="column" flex layout-align"center center">
      <!-- Pagination options and table title -->
     <md-toolbar class="md-table-toolbar" md-colors="{background: 'grey-50'}">
@@ -114,7 +115,7 @@
         <div>Purchases</div>
         <span flex></span>
         <md-button class="md-raised md-primary" ng-click="$ctrl.toggleFilters()">Filter</md-button>
-        <md-button class="md-raised md-primary" ng-click="addPurchase()">Add Purchase</md-button>
+        <md-button class="md-raised md-primary" ng-href="#!/purchaseform">Add Purchase</md-button>
       </div>
 
 
@@ -184,34 +185,13 @@
             </td>
             <td md-cell>
               <!-- <button type="button" ng-click="$ctrl.removeItem(purchase)" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove-circle"></i></button> -->
-              <a href="#!/purchaseform/{{purchase.id}}"><md-button class="md-icon-button">
+              <md-button class="md-icon-button" ng-click="$ctrl.editItem(purchase)">
                   <md-tooltip md-direction="bottom">Edit Purchase</md-tooltip>
-                  <md-icon class="table-icon" md-svg-icon="assets/icons/edit.svg"></md-icon></md-button></a>
+                  <md-icon class="table-icon" md-svg-icon="assets/icons/edit.svg"></md-icon></md-button>
             </td>
           </tr>
         </tbody>
       </table>
     </md-table-container>
   </md-card>
-
-
-  <!-- Sidenav -->
-  <md-sidenav class="md-sidenav-left" md-component-id="left"
-                md-disable-backdrop md-whiteframe="4">
-
-      <md-toolbar class="md-theme-indigo">
-        <h1 class="md-toolbar-tools">Disabled Backdrop</h1>
-      </md-toolbar>
-
-      <md-content layout-margin>
-        <p>
-          This sidenav is not showing any backdrop, where users can click on it, to close the sidenav.
-        </p>
-        <md-button ng-click="toggleLeft()" class="md-accent">
-          Close this Sidenav
-        </md-button>
-      </md-content>
-
-    </md-sidenav>
-  
 </div>

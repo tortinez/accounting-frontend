@@ -1,0 +1,46 @@
+.accordion {
+  width: 100%;
+}
+
+.container-accordion ul {
+  list-style: none;
+  padding: 0 0 0 0;
+}
+
+.container-accordion ul.slideable li {
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.288);
+
+}
+
+.container-accordion .accordion li .md-button {
+  margin: 0;
+  display: block;
+  padding: 15px 20px;
+  line-height: 25px;
+  width: 100%;
+  border-radius: 0;
+  text-transform: none;
+  text-align: left;
+  font-size: 16px;
+}
+
+.container-accordion .accordion li .md-button md-icon.fl {
+  float: left;
+  padding: 0 20px 0 0;
+}
+
+.container-accordion .accordion li .md-button md-icon.fr {
+  float: right;
+  -webkit-transition: all 0.3s ease;
+  /* Safari */
+  transition: all 0.3s ease;
+}
+
+.container-accordion .accordion li.opened .md-button md-icon.fr {
+  -ms-transform: rotate(-180deg);
+  /* IE 9 */
+  -webkit-transform: rotate(-180deg);
+  /* Chrome, Safari, Opera */
+  transform: rotate(-180deg);
+}

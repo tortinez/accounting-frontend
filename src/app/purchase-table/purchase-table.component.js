@@ -5,9 +5,9 @@ angular.
   module('purchaseTable').
   component('purchaseTable', {
     templateUrl: 'app/purchase-table/purchase-table.template.html',
-    controller: ['Purchase', 'Project', 'Auth', '$location', '$mdSidenav',
+    controller: ['Purchase', 'Project', 'Auth', '$location',
       //get the items of the table
-      function PurchaseTableController(Purchase, Project, Auth, $location, $mdSidenav) {
+      function PurchaseTableController(Purchase, Project, Auth, $location) {
         var vm = this;
         vm.purchases = Purchase.api.query();
 
@@ -49,22 +49,17 @@ angular.
           return this.purchases = Purchase.search(this.params);
         }
 
-        vm.removeItem = function(purchase) {
-          Purchase.remove(purchase)
-          .then(
-            function(){
-              console.log('Succesfully removed') 
-              vm.purchases = Purchase.api.query()},
-            function(err){console.error('The item could not be deleted:', err.status, err.statusText)},
-          )
-        }
-
         vm.downloadInvoice = function(purchase){
           return window.open(['/api/purchase/' + purchase.id + '/invoice'])
         }
 
         vm.availableInvoice = function(purchase){
           return purchase.invoicePath==null;
+        }
+
+        vm.editItem = function(purchase){
+          Purchase.cachePurchase = purchase;
+          return $location.path("/purchaseform/" + purchase.id);
         }
 
         //Related to the pagination bar buttons

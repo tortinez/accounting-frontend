@@ -1,0 +1,55 @@
+<md-content md-scroll-y layout="column" layout-fill>
+
+    <div layout="" layout-align="center">
+        <h1 style="text-align: center">MCIA Accounting System</h1>
+    </div>
+    <div class="container-accordion" flex>
+        <ul class="accordion" layout-fill>
+            <li slide-toggle="#side1">
+                <md-button>
+                    <md-icon class="fl" md-svg-src="{{sidemenuSections[0].icon}}"></md-icon>
+                    <md-icon class="fr" md-svg-src="/assets/icons/downArrow.svg"></md-icon>{{sidemenuSections[0].header}}</md-button>
+                <ul id="side1" class="slideable">
+                    <li ng-repeat="page in sidemenuSections[0].pages">
+                        <md-button ng-href="{{page.linkTo}}">{{page.title}}</md-button>
+                    </li>
+                </ul>
+            </li>
+            <li slide-toggle="#side2">
+                <md-button>
+                    <md-icon class="fl" md-svg-src="{{sidemenuSections[1].icon}}"></md-icon>
+                    <md-icon class="fr" md-svg-src="/assets/icons/downArrow.svg"></md-icon>{{sidemenuSections[1].header}}</md-button>
+                <ul id="side2" class="slideable">
+                    <li ng-repeat="page in sidemenuSections[1].pages">
+                        <md-button ng-href="{{page.linkTo}}">{{page.title}}</md-button>
+                    </li>
+                </ul>
+            </li>
+            <li slide-toggle="#side3">
+                <md-button>
+                    <md-icon class="fl" md-svg-src="{{sidemenuSections[2].icon}}"></md-icon>
+                    <md-icon class="fr" md-svg-src="/assets/icons/downArrow.svg"></md-icon>{{sidemenuSections[2].header}}</md-button>
+                <ul id="side3" class="slideable">
+                    <li ng-repeat="page in sidemenuSections[2].pages">
+                        <md-button ng-href="{{page.linkTo}}">{{page.title}}</md-button>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <md-button ng-href="{{sidemenuSections[3].linkTo}}">
+                    <md-icon class="fl" md-svg-src="{{sidemenuSections[3].icon}}"></md-icon>
+                    <md-icon class="fr" md-svg-src=""></md-icon>{{sidemenuSections[3].header}}</md-button>
+            </li>
+            <li>
+                <md-button ng-href="{{sidemenuSections[4].linkTo}}">
+                    <md-icon class="fl" md-svg-src="{{sidemenuSections[4].icon}}"></md-icon>
+                    <md-icon class="fr" md-svg-src=""></md-icon>{{sidemenuSections[4].header}}</md-button>
+            </li>
+            <li ng-hide="user.role=='USER'">
+                <md-button ng-href="{{sidemenuSections[5].linkTo}}">
+                    <md-icon class="fl" md-svg-src="{{sidemenuSections[5].icon}}"></md-icon>
+                    <md-icon class="fr" md-svg-src=""></md-icon>{{sidemenuSections[5].header}}</md-button>
+            </li>
+        </ul>
+    </div>
+</md-content>

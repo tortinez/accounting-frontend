@@ -13,7 +13,6 @@
   color: black;
 }
 
-
 .md-button.md-icon-button {
   margin: 0 0;
   height: 48px;
@@ -132,4 +131,42 @@ div.table-pagination div {
   text-align: left;
   margin-left: -10px !important;
   margin-right: -6px !important;
+}
+
+
+#hoveringToggleLeft {
+  width: 2%;
+}
+
+/* Forms */
+#purchaseForm > div {
+  max-width: 700px;
+}
+#purchaseForm md-input-container .md-datepicker-input {
+  min-width: 180px;
+}
+md-input-container .hint {
+  /* Position the hint */
+  position: absolute;
+  left: auto;
+  right: 2px;
+  bottom: 2px;
+  /* Copy styles from ng-messages */
+  font-size: 12px;
+  line-height: 14px;
+  /* Set our own color */
+  color: grey; 
+}
+
+#parent1 {
+  background-color: yellow;
+}
+#parent2 {
+  background-color: green;
+}
+#parent3 {
+  background-color: purple;
+}
+#parent4 {
+  background-color: pink;
 }
