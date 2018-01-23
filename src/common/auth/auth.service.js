@@ -50,8 +50,10 @@ angular.
       //then & catch
       function getAuthSuccess(response){
         vm.user.isLogged = !!response;
-        vm.user.role = response.roles[0];
         vm.user.name = response.employee.fullname;
+        if(response.roles.length==1) vm.user.role = "USER";
+        if(response.roles.length==2) vm.user.role = "MANAGER";
+        if(response.roles.length==3) vm.user.role = "ADMIN";
         console.log('Login success');
         return vm.user.isLogged;
       }

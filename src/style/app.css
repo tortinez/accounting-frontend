@@ -158,15 +158,7 @@ md-input-container .hint {
   color: grey; 
 }
 
-#parent1 {
-  background-color: yellow;
-}
-#parent2 {
-  background-color: green;
-}
-#parent3 {
-  background-color: purple;
-}
-#parent4 {
-  background-color: pink;
+/* Login */
+#tryLoginStatus {
+  background-color: rgba(244, 67, 54, 0.767)
 }

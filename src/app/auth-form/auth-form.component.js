@@ -18,7 +18,7 @@ angular.
           return Auth.login(vm.credentials)
             .then(function (status) {
               if (!status) {
-                //error handling
+                vm.LoginStatus='The username or password entered is incorrect';
               }
               if (status){
                 $location.path("/purchases")

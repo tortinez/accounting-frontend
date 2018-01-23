@@ -5,10 +5,10 @@ angular.
   module('purchaseTable').
   component('purchaseTable', {
     templateUrl: 'app/purchase-table/purchase-table.template.html',
-    controller: ['Purchase', 'Project', 'Auth', '$location',
-      //get the items of the table
-      function PurchaseTableController(Purchase, Project, Auth, $location) {
+    controller: ['$location', 'Purchase', 'Project', 'Auth', 'Supplier', 'Employee', 'PurchaseStatus', 'PurchaseType',
+      function PurchaseTableController($location, Purchase, Project, Auth, Supplier, Employee, PurchaseStatus, PurchaseType) {
         var vm = this;
+        //get the items of the table
         vm.purchases = Purchase.api.query();
 
         //init the filtering and pagination variable
@@ -42,6 +42,10 @@ angular.
 
         //retrieve the list of projects, status, type and supplier
         vm.projList = Project.api.query();
+        vm.supplierList = Supplier.api.query();
+        vm.employeeList = Employee.api.query();
+        vm.statusList = PurchaseStatus.api.query();
+        vm.typeList = PurchaseType.api.query();
         
         ///////////////////////////////////////////////////////////////////////
         //functions_____________________________________________________________

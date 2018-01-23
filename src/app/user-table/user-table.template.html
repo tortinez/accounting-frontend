@@ -1,0 +1,34 @@
+<div flex layout="column" layout-align="center center" layout-fill>
+  <!-- Actual table -->
+  <md-card layout="column" flex layout-align"center center">
+     <!-- Pagination options and table title -->
+    <md-toolbar class="md-table-toolbar" md-colors="{background: 'grey-50'}">
+      <div class="md-toolbar-tools">
+        <div>Users</div>
+      </div>
+    </md-toolbar>
+
+
+    <!-- Table -->
+    <md-table-container>
+      <table md-table ng-table="$ctrl.users" flex layout-fill>
+        <thead md-head md-colors="{background: 'primary'}">
+          <tr md-row>
+            <th md-column class="md-thead">ID</th>
+            <th md-column class="md-thead">Username</th>
+            <th md-column class="md-thead">Full name</th>
+            <th md-column class="md-thead">Role</th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr md-row ng-repeat="item in $ctrl.users">
+            <td md-cell>{{item.id}}</td>
+            <td md-cell>{{item.username}}</td>
+            <td md-cell>{{item.employee.fullname}}</td>
+            <td md-cell>{{item.roles[0]}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+  </md-card>
+</div>

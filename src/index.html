@@ -1,88 +1,120 @@
 <!doctype html>
 <html lang="en" ng-app="AccountingFEapp">
-  <head>
-    <meta charset="utf-8">
-    <title>MCIA Accounting System</title>
-    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
-    <link rel="stylesheet" href="style/app.css" />
-    <link rel="stylesheet" href="style/app.animations.css" />
-    <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.css" />
-    <!-- <link rel="stylesheet" href="bower_components/angular-material-sidemenu/dest/angular-material-sidemenu.css" /> -->
-    <link rel="stylesheet" href="style/accordion.css" />
 
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    
+<head>
+  <meta charset="utf-8">
+  <title>MCIA Accounting System</title>
+  <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+  <link rel="stylesheet" href="style/app.css" />
+  <link rel="stylesheet" href="style/app.animations.css" />
+  <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.css" />
+  <link rel="stylesheet" href="style/accordion.css" />
 
-    <!-- Angular components -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-aria/angular-aria.js"></script>
-    <script src="bower_components/angular-material/angular-material.js"></script>
-    <script src="bower_components/moment/moment.js"></script>
-    <script src="bower_components/angular-moment/angular-moment.js"></script>
-    <script src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
-    <!-- <script src="bower_components/angular-material-sidemenu/dest/angular-material-sidemenu.js"></script> -->
-    <script src="common/accordion/accordion.module.js"></script>
-    
-    <!-- App pages modules and services -->
-    <script src="app/app.module.js"></script>
-    <script src="app/app.config.js"></script>
-    <script src="style/app.animations.js"></script>
-    <script src="common/common.module.js"></script>
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <script src="common/purchase/purchase.module.js"></script>
-    <script src="common/purchase/purchase.service.js"></script>
-    <script src="common/project/project.module.js"></script>
-    <script src="common/project/project.service.js"></script>
-    <script src="common/auth/auth.module.js"></script>
-    <script src="common/auth/auth.service.js"></script>
 
-    <!-- Actual pages of the app -->
-    <script src="app/auth-form/auth-form.module.js"></script>
-    <script src="app/auth-form/auth-form.component.js"></script>
-    <script src="app/purchase-table/purchase-table.module.js"></script>
-    <script src="app/purchase-table/purchase-table.component.js"></script>
-    <script src="app/purchase-form/purchase-form.module.js"></script>
-    <script src="app/purchase-form/purchase-form.component.js"></script>
-  </head>
-  <body ng-controller="mainCtrl" layout="column">
-    <!-- Toolbar -->
-    <md-toolbar layout="row">
-      <div class="md-toolbar-tools" flex layout="row">
-        <!-- Title and logo -->
-        <div><img src="/assets/img/MCIA-logo.png" id="toolbar-logo"/></div><h2 id="toolbar-title">Accounting System</h2>
-        <span flex></span>
-        <!-- User info & Logout -->
-        <md-button ng-click="main.handleLogin($event)" ng-hide="user.isLogged">
-          <div layout="row" layout-margin layout-align="center center">
-            <md-icon md-svg-src="/img/icon/login.svg"></md-icon>
-            <span>Login</span>
-          </div>
-        </md-button>
-        <md-button ng-click="main.handleLogout($event)" ng-show="user.isLogged">
-          <div layout="row" layout-margin layout-align="center center">
-            <span>{{user.name}}</span>
-            <md-icon md-svg-src="/assets/icons/account.svg" style="width: '32px'; height: '32px'"></md-icon>
-          </div>
-        </md-button>
+  <!-- Angular components -->
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-aria/angular-aria.js"></script>
+  <script src="bower_components/angular-material/angular-material.js"></script>
+  <script src="bower_components/moment/moment.js"></script>
+  <script src="bower_components/angular-moment/angular-moment.js"></script>
+  <script src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+  <script src="common/accordion/accordion.module.js"></script>
+
+  <!-- App pages modules and services -->
+  <script src="app/app.module.js"></script>
+  <script src="app/app.config.js"></script>
+  <script src="style/app.animations.js"></script>
+  <script src="common/common.module.js"></script>
+
+  <script src="common/purchase/purchase.module.js"></script>
+  <script src="common/purchase/purchase.service.js"></script>
+  <script src="common/purchase-type/purchase-type.module.js"></script>
+  <script src="common/purchase-type/purchase-type.service.js"></script>
+  <script src="common/purchase-status/purchase-status.module.js"></script>
+  <script src="common/purchase-status/purchase-status.service.js"></script>
+  <script src="common/project/project.module.js"></script>
+  <script src="common/project/project.service.js"></script>
+  <script src="common/project-type/project-type.module.js"></script>
+  <script src="common/project-type/project-type.service.js"></script>
+  <script src="common/client/client.module.js"></script>
+  <script src="common/client/client.service.js"></script>
+  <script src="common/client-type/client-type.module.js"></script>
+  <script src="common/client-type/client-type.service.js"></script>
+  <script src="common/supplier/supplier.module.js"></script>
+  <script src="common/supplier/supplier.service.js"></script>
+  <script src="common/employee/employee.module.js"></script>
+  <script src="common/employee/employee.service.js"></script>
+  <script src="common/user/user.module.js"></script>
+  <script src="common/user/user.service.js"></script>
+  <script src="common/auth/auth.module.js"></script>
+  <script src="common/auth/auth.service.js"></script>
+
+  <!-- Actual pages of the app -->
+  <script src="app/auth-form/auth-form.module.js"></script>
+  <script src="app/auth-form/auth-form.component.js"></script>
+  <script src="app/purchase-table/purchase-table.module.js"></script>
+  <script src="app/purchase-table/purchase-table.component.js"></script>
+  <script src="app/purchase-form/purchase-form.module.js"></script>
+  <script src="app/purchase-form/purchase-form.component.js"></script>
+  <script src="app/purchase-status-table/purchase-status-table.module.js"></script>
+  <script src="app/purchase-status-table/purchase-status-table.component.js"></script>
+  <script src="app/purchase-type-table/purchase-type-table.module.js"></script>
+  <script src="app/purchase-type-table/purchase-type-table.component.js"></script>
+  <script src="app/project-table/project-table.module.js"></script>
+  <script src="app/project-table/project-table.component.js"></script>
+  <script src="app/project-type-table/project-type-table.module.js"></script>
+  <script src="app/project-type-table/project-type-table.component.js"></script>
+  <script src="app/client-table/client-table.module.js"></script>
+  <script src="app/client-table/client-table.component.js"></script>
+  <script src="app/client-type-table/client-type-table.module.js"></script>
+  <script src="app/client-type-table/client-type-table.component.js"></script>
+  <script src="app/supplier-table/supplier-table.module.js"></script>
+  <script src="app/supplier-table/supplier-table.component.js"></script>
+  <script src="app/employee-table/employee-table.module.js"></script>
+  <script src="app/employee-table/employee-table.component.js"></script>
+  <script src="app/user-table/user-table.module.js"></script>
+  <script src="app/user-table/user-table.component.js"></script>
+</head>
+
+<body ng-controller="mainCtrl" layout="column">
+  <!-- Toolbar -->
+  <md-toolbar layout="row">
+    <div class="md-toolbar-tools" flex layout="row">
+      <!-- Title and logo -->
+      <div>
+        <img src="/assets/img/MCIA-logo.png" id="toolbar-logo" />
       </div>
-    </md-toolbar>
-    
-    <div layout="row">
-      <div id="hoveringToggleLeft" ng-mouseover="toggleNavBar()" ng-show="user.isLogged"></div>
-      <!-- Content Cointainer -->
-      <div class="view-container" flex layout="column" layout-align="center">
-        <div ng-view flex layout="column" layout-align="center"></div>
-      </div>
+      <h2 id="toolbar-title">Accounting System</h2>
+      <span flex></span>
+      <!-- User info & Logout -->
+      <md-button ng-click="main.handleLogout($event)" ng-show="user.isLogged">
+        <div layout="row" layout-margin layout-align="center center">
+          <span>{{user.name}}  ({{user.role}})</span>
+          <md-icon md-svg-src="/assets/icons/account.svg" style="width: '32px'; height: '32px'"></md-icon>
+        </div>
+      </md-button>
     </div>
+  </md-toolbar>
 
-    <!-- Sidenav -->
-    <md-sidenav class="md-sidenav-left" md-theme="dark" md-component-id="left" layout="column" md-whiteframe="4">
-      <ng-include src="'app/sidenav/sidenav.template.html'"></ng-include>
-    </md-sidenav>
+  <div layout="row">
+    <div id="hoveringToggleLeft" ng-mouseover="toggleNavBar()" ng-show="user.isLogged"></div>
+    <!-- Content Cointainer -->
+    <div class="view-container" flex layout="column" layout-align="center">
+      <div ng-view flex layout="column" layout-align="center"></div>
+    </div>
+  </div>
 
-  </body>
+  <!-- Sidenav -->
+  <md-sidenav class="md-sidenav-left" md-theme="dark" md-component-id="left" layout="column" md-whiteframe="4">
+    <ng-include src="'app/sidenav/sidenav.template.html'"></ng-include>
+  </md-sidenav>
+
+</body>
+
 </html>

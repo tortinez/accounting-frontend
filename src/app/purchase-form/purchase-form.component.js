@@ -5,19 +5,28 @@ angular.
   module('purchaseForm').
   component('purchaseForm', {
     templateUrl: 'app/purchase-form/purchase-form.template.html',
-    controller: ['$routeParams', '$location', '$mdDialog', 'Purchase', 'Project', 'Auth',
-      function PurchaseFormController($routeParams, $location, $mdDialog, Purchase, Project, Auth) {
+    controller: ['$routeParams', '$location', '$mdDialog', 'Purchase', 'Project', 'Auth', 'Supplier', 'Employee', 'PurchaseStatus', 'PurchaseType',
+      function PurchaseFormController($routeParams, $location, $mdDialog, Purchase, Project, Auth, Supplier, Employee, PurchaseStatus, PurchaseType) {
         var vm = this;
 
         //get data if exist; if not assign an empty object
-        this.purchase = ($routeParams.id) ? Purchase.cachePurchase: {comments: '', requestDate : new Date().getTime()};
+        // this.purchase = ($routeParams.id) ? Purchase.cachePurchase: {comments: '', requestDate : new Date().getTime()};
 
         //get the USER information (role)
         this.user = Auth.user;
         
-
+        Purchase.api.get({id: $routeParams.id}).$promise
+            .then(function(res){
+              console.log(JSON.stringify(res));
+              res.requestDate = new Date(res.requestDate);
+              vm.purchase = res;
+            })
         //retrieve the list of projects, status, type and supplier
         this.projList = Project.api.query();
+        this.supplierList = Supplier.api.query();
+        this.employeeList = Employee.api.query();
+        this.statusList = PurchaseStatus.api.query();
+        this.typeList = PurchaseType.api.query();
 
         ///////////////////////////////////////////////////////////////////////
         //functions_____________________________________________________________
@@ -94,18 +103,6 @@ angular.
                   return lowerCaseItem.indexOf(lowercaseQuery) === 0;
                 })
         }
-        vm.autocompleteItemChange = function() {
-          var item = vm.autocompleteObj;
-          vm.params.chProj  = item.chProj ? item.chProj.name : null;
-          vm.params.reqProj = item.reqProj ? item.reqProj.name : null;
-          vm.params.status   = item.status ? item.status.name : null;
-          vm.params.supplier = item.supplier ? item.supplier.name : null;
-          vm.params.type     = item.type ? item.type.name : null;;
-
-          return vm.search();
-        }
-
-
       }
     ]
   });

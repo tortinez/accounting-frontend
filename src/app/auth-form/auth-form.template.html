@@ -31,6 +31,9 @@
             <md-button type="submit" class="md-raised md-primary" ng-click="$ctrl.login()">Login</md-button>
           </div>
         </form>
+
+        <div class="badge" ng-if="$ctrl.LoginStatus" id="tryLoginStatus">{{$ctrl.LoginStatus}}</b></div>
+
     </md-content>
   </md-card>
 </div>
