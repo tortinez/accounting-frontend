@@ -133,9 +133,14 @@ div.table-pagination div {
   margin-right: -6px !important;
 }
 
-
+/* Sidenav and general layout*/
 #hoveringToggleLeft {
-  width: 2%;
+  width: 1.5%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
 }
 
 /* Forms */
