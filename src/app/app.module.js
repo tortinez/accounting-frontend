@@ -45,7 +45,7 @@ controller('mainCtrl', function ($scope, $location, Auth, $mdSidenav) {
   $scope.sidemenuSections = [{
       header: 'Purchases',
       type: 'toogle',
-      icon: 'assets/icons/shoppingCart.svg',
+      icon: 'assets/icons/shopping-cart.svg',
       pages: [{
           title: 'Purchases Table',
           type: 'link',
@@ -82,7 +82,7 @@ controller('mainCtrl', function ($scope, $location, Auth, $mdSidenav) {
     {
       header: 'Clients',
       type: 'toogle',
-      icon: 'assets/icons/navNext.svg',
+      icon: 'assets/icons/clipboard-account.svg',
       pages: [{
           title: 'Clients Table',
           type: 'link',
@@ -99,21 +99,21 @@ controller('mainCtrl', function ($scope, $location, Auth, $mdSidenav) {
       header: 'Supplier',
       type: 'link',
       linkTo: '#!/suppliers',
-      icon: 'assets/icons/navNext.svg',
+      icon: 'assets/icons/box.svg',
       pages: [],
     },
     {
       header: 'Employees',
       type: 'link',
       linkTo: '#!/employees',
-      icon: 'assets/icons/navNext.svg',
+      icon: 'assets/icons/account-multiple.svg',
       pages: [],
     },
     {
       header: 'Users',
       type: 'link',
       linkTo: '#!/users',
-      icon: 'assets/icons/navNext.svg',
+      icon: 'assets/icons/account-settings.svg',
       pages: [],
     }
   ]

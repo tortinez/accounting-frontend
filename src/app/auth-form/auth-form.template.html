@@ -32,7 +32,8 @@
           </div>
         </form>
 
-        <div class="badge" ng-if="$ctrl.LoginStatus" id="tryLoginStatus">{{$ctrl.LoginStatus}}</b></div>
+        <div class="badge" ng-if="$ctrl.LoginStatus" id="tryLoginStatus">
+          <md-icon md-colors="{color: 'red-500'}" md-svg-src="assets/icons/alert-circle.svg"></md-icon>{{$ctrl.LoginStatus}}</b></div>
 
     </md-content>
   </md-card>
