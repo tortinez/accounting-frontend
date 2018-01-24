@@ -47,9 +47,6 @@ angular.
           min: new Date(1512302317224),
         },
 
-        //Cache data for editing an existing purchase
-        cachePurchase : {comments: '', requestDate : new Date().valueOf()},
-
         //other functions to return
         search: search,
         save: save,

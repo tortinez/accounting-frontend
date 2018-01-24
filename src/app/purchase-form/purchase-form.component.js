@@ -10,17 +10,16 @@ angular.
         var vm = this;
 
         //get data if exist; if not assign an empty object
-        // this.purchase = ($routeParams.id) ? Purchase.cachePurchase: {comments: '', requestDate : new Date().getTime()};
+        ($routeParams.id) ? Purchase.api.get({id: $routeParams.id}).$promise.then(
+                              function(res){
+                                res.date = new Date(res.requestDate);
+                                vm.purchase = res;
+                              })
+                            : vm.purchase = {comments: '', requestDate : new Date().getTime()};
 
         //get the USER information (role)
         this.user = Auth.user;
         
-        Purchase.api.get({id: $routeParams.id}).$promise
-            .then(function(res){
-              console.log(JSON.stringify(res));
-              res.requestDate = new Date(res.requestDate);
-              vm.purchase = res;
-            })
         //retrieve the list of projects, status, type and supplier
         this.projList = Project.api.query();
         this.supplierList = Supplier.api.query();

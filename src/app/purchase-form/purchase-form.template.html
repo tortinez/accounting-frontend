@@ -24,7 +24,7 @@
 
         <md-input-container>
           <label>Requesting Date</label>
-          <md-datepicker required ng-init="date=$ctrl.purchase.requestDate" ng-model="date" ng-change="$ctrl.purchase.requestDate=date.getTime()"></md-datepicker>
+          <md-datepicker required ng-model="$ctrl.purchase.date" ng-change="$ctrl.purchase.requestDate=$ctrl.purchase.date.getTime()"></md-datepicker>
           <div class="hint">dd/mm/yyyy</div>
         </md-input-container>
 

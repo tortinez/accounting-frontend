@@ -109,8 +109,4 @@ config(['$locationProvider', '$routeProvider', '$mdThemingProvider', '$mdDateLoc
       }
     });
   }
-]).filter('toDate', function () {
-  return function (input) {
-    return new Date(input);
-  }
-});
+]);
