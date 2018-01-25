@@ -1,90 +1,6 @@
 <div flex layout="column" layout-align="center" layout-fill>
   <!-- Filters Toolbar-->
-  <md-content class="filters-toolbar" md-theme="dark" ng-hide="$ctrl.hideFilters" layout="row" layout-sm="column" layout-align="space-around center"
-    layout-padding layout-wrap md-whiteframe="5">
-    <div layout="column" flex>
-      <md-input-container>
-        <label>Concept</label>
-        <input ng-model="$ctrl.params.item" ng-change="$ctrl.search()">
-      </md-input-container>
-
-      <div layout="" layout-align="center center">
-        <md-input-container>
-          <label>Min Amount (€)</label>
-          <input ng-model="$ctrl.params.amountMin" ng-change="$ctrl.search()" type="number" step="10">
-        </md-input-container>
-        <md-input-container>
-          <label>Max Amount (€)</label>
-          <input ng-model="$ctrl.params.amountMax" ng-change="$ctrl.search()" type="number" step="10">
-        </md-input-container>
-      </div>
-    </div>
-
-    <div layout="column" flex>
-      <md-autocomplete md-no-cache="false" md-selected-item="$ctrl.autocompleteObj.chProj" md-search-text="searchTextChProj" md-selected-item-change="$ctrl.autocompleteItemChange()"
-        md-items="item in $ctrl.autocompleteSearch(searchTextChProj, $ctrl.projList)" md-item-text="item.name" md-min-length="0"
-        md-floating-label="Charging Project" md-clear-button="true">
-        <md-item-template>
-          <span md-highlight-text="searchTextChProj" md-highlight-flags="^i">{{item.name}}</span>
-        </md-item-template>
-      </md-autocomplete>
-
-      <md-autocomplete md-no-cache="false" md-selected-item="$ctrl.autocompleteObj.reqProj" md-search-text="searchTextReqProj"
-        md-selected-item-change="$ctrl.autocompleteItemChange()" md-items="item in $ctrl.autocompleteSearch(searchTextReqProj, $ctrl.projList)"
-        md-item-text="item.name" md-min-length="0" md-floating-label="Requesting Project" md-clear-button="true">
-        <md-item-template>
-          <span md-highlight-text="searchTextReqProj" md-highlight-flags="^i">{{item.name}}</span>
-        </md-item-template>
-      </md-autocomplete>
-    </div>
-
-    <div layout="column" flex>
-      <md-autocomplete md-no-cache="false" md-selected-item="$ctrl.autocompleteObj.type" md-search-text="searchTextType" md-selected-item-change="$ctrl.autocompleteItemChange()"
-        md-items="item in $ctrl.autocompleteSearch(searchTextType, $ctrl.typeList)" md-item-text="item.name" md-min-length="0"
-        md-floating-label="Expense Type" md-clear-button="true">
-        <md-item-template>
-          <span md-highlight-text="searchTextType" md-highlight-flags="^i">{{item.name}}</span>
-        </md-item-template>
-      </md-autocomplete>
-
-      <md-autocomplete md-no-cache="false" md-selected-item="$ctrl.autocompleteObj.status" md-search-text="searchTextStatus" md-selected-item-change="$ctrl.autocompleteItemChange()"
-        md-items="item in $ctrl.autocompleteSearch(searchTextStatus, $ctrl.statusList)" md-item-text="item.name" md-min-length="0"
-        md-floating-label="Expense Status" md-clear-button="true">
-        <md-item-template>
-          <span md-highlight-text="searchTextStatus" md-highlight-flags="^i">{{item.name}}</span>
-        </md-item-template>
-      </md-autocomplete>
-    </div>
-
-    <div layout="column" flex>
-      <md-autocomplete md-no-cache="false" md-selected-item="$ctrl.autocompleteObj.employee" md-search-text="searchTextEmployee"
-        md-selected-item-change="$ctrl.autocompleteItemChange()" md-items="item in $ctrl.autocompleteSearch(searchTextEmployee, $ctrl.employeeList)"
-        md-item-text="item.fullname" md-min-length="0" md-floating-label="Requesting Employee" md-clear-button="true">
-        <md-item-template>
-          <span md-highlight-text="searchTextEmployee" md-highlight-flags="^i">{{item.fullname}}</span>
-        </md-item-template>
-      </md-autocomplete>
-
-      <md-autocomplete md-no-cache="false" md-selected-item="$ctrl.autocompleteObj.supplier" md-search-text="searchTextSupplier"
-        md-selected-item-change="$ctrl.autocompleteItemChange()" md-items="item in $ctrl.autocompleteSearch(searchTextSupplier, $ctrl.supplierList)"
-        md-item-text="item.name" md-min-length="0" md-floating-label="Supplier" md-clear-button="true">
-        <md-item-template>
-          <span md-highlight-text="searchTextSupplier" md-highlight-flags="^i">{{item.name}}</span>
-        </md-item-template>
-      </md-autocomplete>
-    </div>
-
-    <div layout="column" flex>
-      <md-input-container>
-        <label>Min Date</label>
-        <md-datepicker ng-model="$ctrl.params.dateMin" ng-change="$ctrl.search()" md-min-date="$ctrl.date.min" md-max-date="$ctrl.params.dateMax">
-      </md-input-container>
-      <md-input-container>
-        <label>Max Date</label>
-        <md-datepicker ng-model="$ctrl.params.dateMax" ng-change="$ctrl.search()" md-min-date="$ctrl.params.dateMin" md-max-date="$ctrl.date.max">
-      </md-input-container>
-    </div>
-  </md-content>
+  <ng-include src="'app/purchase-table/filters-toolbar.template.html'"></ng-include>
 
   <!-- Actual table -->
   <md-card layout="column" flex layout-align "center center">
@@ -93,31 +9,31 @@
       <div class="md-toolbar-tools">
         <div>Purchases</div>
         <span flex></span>
-        <md-button class="md-raised md-primary" ng-click="$ctrl.toggleFilters()">Filter</md-button>
+        <md-button class="md-raised md-primary" ng-click="vm.toggleFilters()">Filter</md-button>
         <md-button class="md-raised md-primary" ng-href="#!/purchaseform">Add Purchase</md-button>
       </div>
 
 
       <div class="table-pagination md-primary" md-colors="{background: 'primary-800'}">
         <div>Page:
-          <md-select ng-model="$ctrl.params.page" ng-change="$ctrl.search()" aria-label="selPage">
-            <md-option ng-repeat="n in [].constructor($ctrl.purchases.$metadata.totalPages) track by $index" ng-value="{{$index}}">{{$index+1}}</md-option>
-          </md-select> of {{$ctrl.purchases.$metadata.totalPages}}
+          <md-select ng-model="vm.params.page" ng-change="vm.search()" aria-label="selPage">
+            <md-option ng-repeat="n in [].constructor(vm.purchases.$metadata.totalPages) track by $index" ng-value="{{$index}}">{{$index+1}}</md-option>
+          </md-select> of {{vm.purchases.$metadata.totalPages}}
         </div>
         <div>Rows per page:
-          <md-select ng-model="$ctrl.params.size" ng-change="$ctrl.search()" aria-label="selSize">
-            <md-option ng-repeat="size in $ctrl.sizeOpt" ng-value="{{size}}">{{size}}</md-option>
+          <md-select ng-model="vm.params.size" ng-change="vm.search()" aria-label="selSize">
+            <md-option ng-repeat="size in vm.sizeOpt" ng-value="{{size}}">{{size}}</md-option>
           </md-select>
         </div>
-        <div>Viewing {{$ctrl.purchases.$metadata.page*$ctrl.purchases.$metadata.size+1}} - {{($ctrl.purchases.$metadata.page+1)*$ctrl.purchases.$metadata.size}}
-          of {{$ctrl.purchases.$metadata.totalElements}} purchases
+        <div>Viewing {{vm.purchases.$metadata.page*vm.purchases.$metadata.size+1}} - {{(vm.purchases.$metadata.page+1)*vm.purchases.$metadata.size}}
+          of {{vm.purchases.$metadata.totalElements}} purchases
         </div>
         <div>
-          <md-button class="md-icon-button" ng-click="$ctrl.prevPage()" ng-disabled="$ctrl.purchases.$metadata.page==0" aria-label="prevPage">
+          <md-button class="md-icon-button" ng-click="vm.prevPage()" ng-disabled="vm.purchases.$metadata.page==0" aria-label="prevPage">
             <md-tooltip md-direction="bottom">Previous page</md-tooltip>
             <md-icon md-svg-icon="assets/icons/navPrev.svg"></md-icon>
           </md-button>
-          <md-button class="md-icon-button" ng-click="$ctrl.nextPage()" ng-disabled="$ctrl.purchases.$metadata.last" aria-label="nextPage">
+          <md-button class="md-icon-button" ng-click="vm.nextPage()" ng-disabled="vm.purchases.$metadata.last" aria-label="nextPage">
             <md-tooltip md-direction="bottom">Next page</md-tooltip>
             <md-icon md-svg-icon="assets/icons/navNext.svg"></md-icon>
           </md-button>
@@ -128,7 +44,7 @@
 
     <!-- Table -->
     <md-table-container>
-      <table md-table ng-table="$ctrl.purchases" flex layout-fill>
+      <table md-table ng-table="vm.purchases" flex layout-fill>
         <thead md-head md-colors="{background: 'primary'}">
           <tr md-row>
             <th md-column class="md-thead">ID</th>
@@ -147,7 +63,7 @@
           </tr>
         </thead>
         <tbody md-body>
-          <tr md-row ng-repeat="purchase in $ctrl.purchases">
+          <tr md-row ng-repeat="purchase in vm.purchases">
             <td md-cell>{{purchase.id}}</td>
             <td md-cell>{{purchase.requestDate | date: "dd/MM/yyyy"}}</td>
             <td md-cell>{{purchase.type.name}}</td>
@@ -162,14 +78,13 @@
             <!-- <td md-cell>{{purchase.code}}</td> -->
             <!-- <td md-cell>{{purchase.comments}}</td> -->
             <td md-cell>
-              <md-button class="md-icon-button" ng-click="$ctrl.downloadInvoice(purchase)" ng-disabled="$ctrl.availableInvoice(purchase)"
-                aria-label="downloadInvoice">
+              <md-button class="md-icon-button" ng-click="vm.downloadInvoice(purchase)" ng-disabled="vm.availableInvoice(purchase)" aria-label="downloadInvoice">
                 <md-tooltip md-direction="bottom">Download Invoice</md-tooltip>
                 <md-icon class="table-icon" md-svg-icon="assets/icons/attach.svg"></md-icon>
               </md-button>
             </td>
             <td md-cell>
-                <md-button class="md-icon-button" ng-click="$ctrl.editItem(purchase)">
+              <md-button class="md-icon-button" ng-click="vm.editItem(purchase)">
                 <md-tooltip md-direction="bottom">Edit Purchase</md-tooltip>
                 <md-icon class="table-icon" md-svg-icon="assets/icons/edit.svg"></md-icon>
               </md-button>

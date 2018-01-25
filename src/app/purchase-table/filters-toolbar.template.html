@@ -1,0 +1,85 @@
+<md-content class="filters-toolbar" md-theme="dark" ng-hide="vm.hideFilters" layout="row" layout-sm="column" layout-align="space-around center"
+  layout-padding layout-wrap md-whiteframe="5">
+  <div layout="column" flex>
+    <md-input-container>
+      <label>Concept</label>
+      <input ng-model="vm.params.item" ng-change="vm.search()">
+    </md-input-container>
+
+    <div layout="" layout-align="center center">
+      <md-input-container>
+        <label>Min Amount (€)</label>
+        <input ng-model="vm.params.amountMin" ng-change="vm.search()" type="number" step="10">
+      </md-input-container>
+      <md-input-container>
+        <label>Max Amount (€)</label>
+        <input ng-model="vm.params.amountMax" ng-change="vm.search()" type="number" step="10">
+      </md-input-container>
+    </div>
+  </div>
+
+  <div layout="column" flex>
+    <md-autocomplete md-no-cache="false" md-selected-item="vm.autocompleteObj.chProj" md-search-text="searchTextChProj" md-selected-item-change="vm.autocompleteItemChange()"
+      md-items="item in vm.autocompleteSearch(searchTextChProj, vm.projList)" md-item-text="item.name" md-min-length="0" md-floating-label="Charging Project"
+      md-clear-button="true">
+      <md-item-template>
+        <span md-highlight-text="searchTextChProj" md-highlight-flags="^i">{{item.name}}</span>
+      </md-item-template>
+    </md-autocomplete>
+
+    <md-autocomplete md-no-cache="false" md-selected-item="vm.autocompleteObj.reqProj" md-search-text="searchTextReqProj" md-selected-item-change="vm.autocompleteItemChange()"
+      md-items="item in vm.autocompleteSearch(searchTextReqProj, vm.projList)" md-item-text="item.name" md-min-length="0" md-floating-label="Requesting Project"
+      md-clear-button="true">
+      <md-item-template>
+        <span md-highlight-text="searchTextReqProj" md-highlight-flags="^i">{{item.name}}</span>
+      </md-item-template>
+    </md-autocomplete>
+  </div>
+
+  <div layout="column" flex>
+    <md-autocomplete md-no-cache="false" md-selected-item="vm.autocompleteObj.type" md-search-text="searchTextType" md-selected-item-change="vm.autocompleteItemChange()"
+      md-items="item in vm.autocompleteSearch(searchTextType, vm.typeList)" md-item-text="item.name" md-min-length="0" md-floating-label="Expense Type"
+      md-clear-button="true">
+      <md-item-template>
+        <span md-highlight-text="searchTextType" md-highlight-flags="^i">{{item.name}}</span>
+      </md-item-template>
+    </md-autocomplete>
+
+    <md-autocomplete md-no-cache="false" md-selected-item="vm.autocompleteObj.status" md-search-text="searchTextStatus" md-selected-item-change="vm.autocompleteItemChange()"
+      md-items="item in vm.autocompleteSearch(searchTextStatus, vm.statusList)" md-item-text="item.name" md-min-length="0"
+      md-floating-label="Expense Status" md-clear-button="true">
+      <md-item-template>
+        <span md-highlight-text="searchTextStatus" md-highlight-flags="^i">{{item.name}}</span>
+      </md-item-template>
+    </md-autocomplete>
+  </div>
+
+  <div layout="column" flex>
+    <md-autocomplete md-no-cache="false" md-selected-item="vm.autocompleteObj.employee" md-search-text="searchTextEmployee" md-selected-item-change="vm.autocompleteItemChange()"
+      md-items="item in vm.autocompleteSearch(searchTextEmployee, vm.employeeList)" md-item-text="item.fullname" md-min-length="0"
+      md-floating-label="Requesting Employee" md-clear-button="true">
+      <md-item-template>
+        <span md-highlight-text="searchTextEmployee" md-highlight-flags="^i">{{item.fullname}}</span>
+      </md-item-template>
+    </md-autocomplete>
+
+    <md-autocomplete md-no-cache="false" md-selected-item="vm.autocompleteObj.supplier" md-search-text="searchTextSupplier" md-selected-item-change="vm.autocompleteItemChange()"
+      md-items="item in vm.autocompleteSearch(searchTextSupplier, vm.supplierList)" md-item-text="item.name" md-min-length="0"
+      md-floating-label="Supplier" md-clear-button="true">
+      <md-item-template>
+        <span md-highlight-text="searchTextSupplier" md-highlight-flags="^i">{{item.name}}</span>
+      </md-item-template>
+    </md-autocomplete>
+  </div>
+
+  <div layout="column" flex>
+    <md-input-container>
+      <label>Min Date</label>
+      <md-datepicker ng-model="vm.params.dateMin" ng-change="vm.search()" md-min-date="vm.date.min" md-max-date="vm.params.dateMax">
+    </md-input-container>
+    <md-input-container>
+      <label>Max Date</label>
+      <md-datepicker ng-model="vm.params.dateMax" ng-change="vm.search()" md-min-date="vm.params.dateMin" md-max-date="vm.date.max">
+    </md-input-container>
+  </div>
+</md-content>
