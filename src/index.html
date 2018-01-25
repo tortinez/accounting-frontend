@@ -54,6 +54,8 @@
   <script src="common/user/user.service.js"></script>
   <script src="common/auth/auth.module.js"></script>
   <script src="common/auth/auth.service.js"></script>
+  <script src="common/autocomplete-fields/autocomplete-fields.module.js"></script>
+  <script src="common/autocomplete-fields/autocomplete-fields.service.js"></script>
 
   <!-- Actual pages of the app -->
   <script src="app/auth-form/auth-form.module.js"></script>
@@ -95,7 +97,7 @@
       <!-- User info & Logout -->
       <md-button ng-click="main.handleLogout($event)" ng-show="user.isLogged">
         <div layout="row" layout-margin layout-align="center center">
-          <span>{{user.name}}  ({{user.role}})</span>
+          <span>{{user.name}} ({{user.role}})</span>
           <md-icon md-svg-src="/assets/icons/account.svg" style="width: '32px'; height: '32px'"></md-icon>
         </div>
       </md-button>
