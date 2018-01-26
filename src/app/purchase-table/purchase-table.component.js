@@ -71,7 +71,6 @@
 		};
 
 		//functions____________________________________________________________
-
 		vm.search = function() {
 			return (vm.purchases = Purchase.search(vm.params));
 		};

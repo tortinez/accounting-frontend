@@ -91,12 +91,12 @@
 			purchase.supplierId = purchase.supplier.id;
 
 			return purchase.id
-				? this.api.update(purchase).$promise
-				: this.api.save(purchase).$promise;
+				? this.api().update(purchase).$promise
+				: this.api().save(purchase).$promise;
 		}
 
 		function remove(purchase) {
-			return this.api.remove({ id: purchase.id }).$promise;
+			return this.api().remove({ id: purchase.id }).$promise;
 		}
 
 		//not returned functions

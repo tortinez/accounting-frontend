@@ -1,4 +1,6 @@
-'use strict';
+(function() {
+	'use strict';
 
-// Define the 'purchaseForm' module
-angular.module('purchaseForm', ['common.purchase']);
+	// Define the 'purchaseForm' module
+	angular.module('purchaseForm', ['common.purchase']);
+})();

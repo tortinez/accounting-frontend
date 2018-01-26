@@ -5,11 +5,11 @@
       <md-card layout="row" layout-sm="column" layout-align="space-around center" layout-padding layout-fill layout-wrap>
         <md-input-container>
           <label>Concept</label>
-          <input required ng-model="$ctrl.purchase.item">
+          <input required ng-model="vm.purchase.item">
         </md-input-container>
 
-        <md-autocomplete required md-no-cache="false" md-selected-item="$ctrl.purchase.supplier" md-search-text="searchTextSupplier"
-          md-items="item in $ctrl.autocompleteSearch(searchTextSupplier, $ctrl.supplierList)" md-item-text="item.name" md-min-length="0"
+        <md-autocomplete required md-no-cache="false" md-selected-item="vm.purchase.supplier" md-search-text="searchTextSupplier"
+          md-items="item in vm.autocompleteSearch(searchTextSupplier, vm.supplierList)" md-item-text="item.name" md-min-length="0"
           md-floating-label="Supplier" md-clear-button="true">
           <md-item-template>
             <span md-highlight-text="searchTextSupplier" md-highlight-flags="^i">{{item.name}}</span>
@@ -18,33 +18,33 @@
 
         <md-input-container>
           <label>Amount (€)</label>
-          <input required ng-model="$ctrl.purchase.amount" type="number" step=".01">
+          <input required ng-model="vm.purchase.amount" type="number" step=".01">
           <div class="hint">#####.## €</div>
         </md-input-container>
 
         <md-input-container>
           <label>Requesting Date</label>
-          <md-datepicker required ng-model="$ctrl.purchase.date" ng-change="$ctrl.purchase.requestDate=$ctrl.purchase.date.getTime()"></md-datepicker>
+          <md-datepicker required ng-model="vm.purchase.date" ng-change="vm.purchase.requestDate=vm.purchase.date.getTime()"></md-datepicker>
           <div class="hint">dd/mm/yyyy</div>
         </md-input-container>
 
-        <md-autocomplete required md-no-cache="false" md-selected-item="$ctrl.purchase.type" md-search-text="searchTextType" md-items="item in $ctrl.autocompleteSearch(searchTextType, $ctrl.typeList)"
+        <md-autocomplete required md-no-cache="false" md-selected-item="vm.purchase.type" md-search-text="searchTextType" md-items="item in vm.autocompleteSearch(searchTextType, vm.typeList)"
           md-item-text="item.name" md-min-length="0" md-floating-label="Expense Type" md-clear-button="true">
           <md-item-template>
             <span md-highlight-text="searchTextType" md-highlight-flags="^i">{{item.name}}</span>
           </md-item-template>
         </md-autocomplete>
 
-        <md-autocomplete required md-no-cache="false" md-selected-item="$ctrl.purchase.state" md-search-text="searchTextStatus" md-items="item in $ctrl.autocompleteSearch(searchTextStatus, $ctrl.statusList)"
+        <md-autocomplete required md-no-cache="false" md-selected-item="vm.purchase.state" md-search-text="searchTextStatus" md-items="item in vm.autocompleteSearch(searchTextStatus, vm.statusList)"
           md-item-text="item.name" md-min-length="0" md-floating-label="Expense Status" md-clear-button="true">
           <md-item-template>
             <span md-highlight-text="searchTextStatus" md-highlight-flags="^i">{{item.name}}</span>
           </md-item-template>
         </md-autocomplete>
 
-        <md-autocomplete required md-no-cache="false" md-selected-item="$ctrl.purchase.requestingEmployee" md-search-text="searchTextEmployee"
-          md-items="item in $ctrl.autocompleteSearch(searchTextEmployee, $ctrl.employeeList)" md-item-text="item.fullname"
-          md-min-length="0" md-floating-label="Requesting Employee" md-clear-button="true">
+        <md-autocomplete required md-no-cache="false" md-selected-item="vm.purchase.requestingEmployee" md-search-text="searchTextEmployee"
+          md-items="item in vm.autocompleteSearch(searchTextEmployee, vm.employeeList)" md-item-text="item.fullname" md-min-length="0"
+          md-floating-label="Requesting Employee" md-clear-button="true">
           <md-item-template>
             <span md-highlight-text="searchTextEmployee" md-highlight-flags="^i">{{item.fullname}}</span>
           </md-item-template>
@@ -52,28 +52,28 @@
 
         <md-input-container>
           <label>Code</label>
-          <input required ng-model="$ctrl.purchase.code">
+          <input required ng-model="vm.purchase.code">
         </md-input-container>
 
 
         <md-input-container layout-padding class="md-block" style="min-width: 300px">
           <label>Comments</label>
-          <textarea ng-model="$ctrl.purchase.comments" md-maxlength="50" rows="1" md-select-on-focus></textarea>
+          <textarea ng-model="vm.purchase.comments" md-maxlength="50" rows="1" md-select-on-focus></textarea>
         </md-input-container>
       </md-card>
     </div>
     <div flex>
       <h1>Project Information</h1>
       <md-card layout="row" layout-sm="column" layout-align="space-around center" flex layout-padding layout-wrap>
-        <md-autocomplete required md-no-cache="false" md-selected-item="$ctrl.purchase.requestingProject" md-search-text="searchTextReqProj"
-          md-items="item in $ctrl.autocompleteSearch(searchTextReqProj, $ctrl.projList)" md-item-text="item.name" md-min-length="0"
+        <md-autocomplete required md-no-cache="false" md-selected-item="vm.purchase.requestingProject" md-search-text="searchTextReqProj"
+          md-items="item in vm.autocompleteSearch(searchTextReqProj, vm.projList)" md-item-text="item.name" md-min-length="0"
           md-floating-label="Requesting Project" md-clear-button="true">
           <md-item-template>
             <span md-highlight-text="searchTextReqProj" md-highlight-flags="^i">{{item.name}}</span>
           </md-item-template>
         </md-autocomplete>
-        <md-autocomplete required md-no-cache="false" md-selected-item="$ctrl.purchase.chargingProject" md-search-text="searchTextChProj"
-          md-items="item in $ctrl.autocompleteSearch(searchTextChProj, $ctrl.projList)" md-item-text="item.name" md-min-length="0"
+        <md-autocomplete required md-no-cache="false" md-selected-item="vm.purchase.chargingProject" md-search-text="searchTextChProj"
+          md-items="item in vm.autocompleteSearch(searchTextChProj, vm.projList)" md-item-text="item.name" md-min-length="0"
           md-floating-label="Charging Project" md-clear-button="true">
           <md-item-template>
             <span md-highlight-text="searchTextChProj" md-highlight-flags="^i">{{item.name}}</span>
@@ -82,15 +82,15 @@
       </md-card>
       <h1>Invoice Information</h1>
       <md-card layout="row" layout-sm="column" layout-align="center" flex layout-padding layout-wrap>
-        <md-button class="md-raised" ng-disabled="!$ctrl.purchase.id" ng-click="$ctrl.showInvoiceInput($event)">Edit purchase invoice</md-button>
+        <md-button class="md-raised" ng-disabled="!vm.purchase.id" ng-click="vm.showInvoiceInput($event)">Edit purchase invoice</md-button>
       </md-card>
       <div layout="row" layout-align="space-between center">
         <div>
           <md-button type="submit" class="md-raised" ng-href="#!/purchases">Cancel</md-button>
-          <md-button type="submit" class="md-raised md-primary" ng-click="$ctrl.editPurchase()">Save</md-button>
+          <md-button type="submit" class="md-raised md-primary" ng-click="vm.editPurchase()">Save</md-button>
         </div>
         <div>
-          <md-button type="submit" class="md-raised md-warn" ng-click="$ctrl.showConfirm($event)" ng-hide="$ctrl.user.role=='USER' || !$ctrl.purchase.id">
+          <md-button type="submit" class="md-raised md-warn" ng-click="vm.showConfirm($event)" ng-hide="vm.user.role=='USER' || !vm.purchase.id">
             <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Purchase
           </md-button>
         </div>
