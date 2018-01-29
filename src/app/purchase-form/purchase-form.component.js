@@ -13,12 +13,8 @@
 		'$location',
 		'$mdDialog',
 		'Purchase',
-		'Project',
+		'OtherResource',
 		'Auth',
-		'Supplier',
-		'Employee',
-		'PurchaseStatus',
-		'PurchaseType',
 		'AutocompleteFields'
 	];
 	function PurchaseFormController(
@@ -26,12 +22,8 @@
 		$location,
 		$mdDialog,
 		Purchase,
-		Project,
+		OtherResource,
 		Auth,
-		Supplier,
-		Employee,
-		PurchaseStatus,
-		PurchaseType,
 		AutocompleteFields
 	) {
 		var vm = this;
@@ -39,11 +31,11 @@
 		//get the USER information (role)
 		vm.user = Auth.user;
 		//retrieve the list of projects, status, type and supplier
-		vm.projList = Project.api.query();
-		vm.supplierList = Supplier.api.query();
-		vm.employeeList = Employee.api.query();
-		vm.statusList = PurchaseStatus.api.query();
-		vm.typeList = PurchaseType.api.query();
+		vm.projList = OtherResource.api('project').query();
+		vm.supplierList = OtherResource.api('supplier').query();
+		vm.employeeList = OtherResource.api('employee').query();
+		vm.statusList = OtherResource.api('purchase-state').query();
+		vm.typeList = OtherResource.api('purchase-type').query();
 		//functions
 		vm.editPurchase = editPurchase;
 		vm.removeItem = removeItem;
@@ -62,7 +54,7 @@
 						res.date = new Date(res.requestDate);
 						vm.purchase = res;
 					})
-			: (vm.purchase = { comments: '', requestDate: new Date().getTime() });
+			: (vm.purchase = { comments: '', date: new Date() });
 
 		//functions_____________________________________________________________
 		function editPurchase() {

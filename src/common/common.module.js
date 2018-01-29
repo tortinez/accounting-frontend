@@ -6,7 +6,7 @@
 		'common.purchase',
 		'common.purchaseType',
 		'common.purchaseStatus',
-		'common.project',
+		'common.other-resource',
 		'common.projectType',
 		'common.client',
 		'common.clientType',

@@ -11,24 +11,16 @@
 	PurchaseTableController.$inject = [
 		'$location',
 		'Purchase',
-		'Project',
+		'OtherResource',
 		'Auth',
-		'Supplier',
-		'Employee',
-		'PurchaseStatus',
-		'PurchaseType',
 		'AutocompleteFields'
 	];
 
 	function PurchaseTableController(
 		$location,
 		Purchase,
-		Project,
+		OtherResource,
 		Auth,
-		Supplier,
-		Employee,
-		PurchaseStatus,
-		PurchaseType,
 		AutocompleteFields
 	) {
 		var vm = this;
@@ -39,11 +31,11 @@
 		vm.date = Purchase.date;
 		vm.sizeOpt = [50, 75, 100];
 		//retrieve the list of projects, status, type and supplier
-		vm.projList = Project.api.query();
-		vm.supplierList = Supplier.api.query();
-		vm.employeeList = Employee.api.query();
-		vm.statusList = PurchaseStatus.api.query();
-		vm.typeList = PurchaseType.api.query();
+		vm.projList = OtherResource.api('project').query();
+		vm.supplierList = OtherResource.api('supplier').query();
+		vm.employeeList = OtherResource.api('employee').query();
+		vm.statusList = OtherResource.api('purchase-state').query();
+		vm.typeList = OtherResource.api('purchase-type').query();
 
 		///////////////////////////////////////////////////////////////////////
 		//variables____________________________________________________________
