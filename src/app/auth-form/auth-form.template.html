@@ -1,39 +1,40 @@
 <div layout="row" layout-align="center center">
   <md-card flex="30" layout="column" layout-align="center">
     <md-toolbar>
-        <div class="md-toolbar-tools">
-          <h1 class="md-flex">Login</h1>
-        </div>
-    </md-toolbar> 
+      <div class="md-toolbar-tools">
+        <h1 class="md-flex">Login</h1>
+      </div>
+    </md-toolbar>
     <md-content flex layout="column" layout-padding layout-align="center center">
-        <form name="authForm">
-          <div flex>
-            <md-input-container>
-              <label>Username</label>
-              <input required md-no-asterisk name="user" ng-model="$ctrl.credentials.user">
-              <div ng-messages="authForm.user.$error">
-                <div ng-message="required">This field is required.</div>
-              </div>
-            </md-input-container>
-          </div>
-
-          <div flex>
-            <md-input-container> 
-              <label>Password</label>
-              <input required type="password" md-no-asterisk name="password" ng-model="$ctrl.credentials.password">
-              <div ng-messages="authForm.password.$error">
-                <div ng-message="required">This field is required.</div>
-              </div>
-            </md-input-container>
+      <form name="authForm">
+        <div flex>
+          <md-input-container>
+            <label>Username</label>
+            <input required md-no-asterisk name="user" ng-model="$ctrl.credentials.user">
+            <div ng-messages="authForm.user.$error">
+              <div ng-message="required">Please fill the username field.</div>
+            </div>
+          </md-input-container>
         </div>
-      
-          <div>
-            <md-button type="submit" class="md-raised md-primary" ng-click="$ctrl.login()">Login</md-button>
-          </div>
-        </form>
 
-        <div class="badge" ng-if="$ctrl.LoginStatus" id="tryLoginStatus">
-          <md-icon md-colors="{color: 'red-500'}" md-svg-src="assets/icons/alert-circle.svg"></md-icon>{{$ctrl.LoginStatus}}</b></div>
+        <div flex>
+          <md-input-container>
+            <label>Password</label>
+            <input required type="password" md-no-asterisk name="password" ng-model="$ctrl.credentials.password">
+            <div ng-messages="authForm.password.$error">
+              <div ng-message="required">Please fill the password.</div>
+            </div>
+          </md-input-container>
+        </div>
+
+        <div>
+          <md-button type="submit" class="md-raised md-primary" ng-click="$ctrl.login()">Login</md-button>
+        </div>
+      </form>
+
+      <div class="badge" ng-if="$ctrl.LoginStatus" id="tryLoginStatus">
+        <md-icon md-colors="{color: 'red-500'}" md-svg-src="assets/icons/alert-circle.svg"></md-icon>{{$ctrl.LoginStatus}}</b>
+      </div>
 
     </md-content>
   </md-card>

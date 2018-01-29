@@ -19,7 +19,8 @@
     "bootstrap": "3.3.x",
     "jquery": "2.2.x",
     "angular-material-data-table": "latest",
-    "angular-moment": "^1.2.0"
+    "angular-moment": "^1.2.0",
+    "angular-messages": "^1.6.8"
   },
   "resolutions": {
     "angular": "1.6.8"

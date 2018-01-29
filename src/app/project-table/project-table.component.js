@@ -71,7 +71,12 @@
 			function editProject() {
 				return OtherResource.save('project', $scope.project).then(
 					function(value) {
-						$mdDialog.hide();
+						OtherResource.api('project')
+							.query()
+							.$promise.then(function(res) {
+								vm.projects = res;
+								$mdDialog.hide();
+							});
 						showToast('Succesfully Saved!');
 						console.log('Project saved: ID=', value.id);
 					},
@@ -93,10 +98,7 @@
 						console.log('Succesfully removed');
 					},
 					function(err) {
-						if (err.status == 409)
-							showToast(
-								'The project could not be deleted since it has associated purchases'
-							);
+						if (err.status == 409 || err.statusText == 'Conflict') showError();
 						console.error(
 							'The item could not be deleted:',
 							err.status,
@@ -139,6 +141,22 @@
 					function() {
 						console.log('Delete project cancelled');
 					}
+				);
+			}
+
+			function showError(ev) {
+				$mdDialog.show(
+					$mdDialog
+						.alert()
+						.parent(angular.element(document.querySelector('#popupContainer')))
+						.clickOutsideToClose(true)
+						.title('Error deleting the project')
+						.textContent(
+							'The project you are trying to delete has associated some purchases. Please delete these purchases first'
+						)
+						.ariaLabel('Error Deleting Item')
+						.ok('Ok')
+						.targetEvent(ev)
 				);
 			}
 		}
