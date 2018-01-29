@@ -1,7 +1,9 @@
 (function() {
 	'use strict';
 
-	angular.module('common.other-resource').factory('OtherResource', OtherResource);
+	angular
+		.module('common.other-resource')
+		.factory('OtherResource', OtherResource);
 
 	OtherResource.$inject = ['$resource'];
 	function OtherResource($resource) {
@@ -32,9 +34,18 @@
 		//override save and remove $resource methods
 		function save(entity, item) {
 			//convert binded data to id parameters
-			item.managerId = item.manager.id;
-			item.clientId = item.client.id;
-			item.typeId = item.type.id;
+			switch (entity) {
+				case 'project':
+					item.managerId = item.manager.id;
+					item.clientId = item.client.id;
+					item.typeId = item.type.id;
+					break;
+				case 'client':
+					item.typeId = item.type.id;
+					break;
+				default:
+					break;
+			}
 
 			return item.id
 				? this.api(entity).update(item).$promise

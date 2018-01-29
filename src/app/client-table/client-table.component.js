@@ -58,7 +58,6 @@
 			$scope.showConfirm = showConfirm;
 			//get the data from the service
 			$scope.client = vm.client;
-			$scope.clientList = OtherResource.api('client').query();
 			$scope.typeList = OtherResource.api('client-type').query();
 
 			////////////////////////////////////////////////////////////////////////

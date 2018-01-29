@@ -31,7 +31,7 @@
         </md-input-container>
       </div>
       <md-autocomplete required md-require-match md-input-name="type" md-no-cache="false" md-selected-item="client.type" md-search-text="searchTextType"
-        md-items="item in autocompleteSearch(searchTextType, clientTypeList)" md-item-text="item.name" md-min-length="0" md-floating-label="Client Type"
+        md-items="item in autocompleteSearch(searchTextType, typeList)" md-item-text="item.name" md-min-length="0" md-floating-label="Client Type"
         md-clear-button="true">
         <md-item-template>
           <span md-highlight-text="searchTextType" md-highlight-flags="^i">{{item.name}}</span>

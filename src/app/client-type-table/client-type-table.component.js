@@ -2,7 +2,7 @@
 	'use strict';
 
 	// Register the 'clientType' page along with its controller an template
-	angular.module('ClientTypeTable').component('clientTypeTable', {
+	angular.module('clientTypeTable').component('clientTypeTable', {
 		templateUrl: 'app/client-type-table/client-type-table.template.html',
 		controller: ClientTypeTableController,
 		controllerAs: 'vm'
@@ -10,7 +10,7 @@
 
 	ClientTypeTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 
-	function ClientTypeTableController($mdDialog, ClientType) {
+	function ClientTypeTableController($mdDialog, Auth, OtherResource) {
 		var vm = this;
 		//get the items of the table
 		vm.clientTypes = OtherResource.api('client-type').query();
@@ -25,7 +25,7 @@
 		////////////////////////////////////////////////////////////////////////
 		//functions_____________________________________________________________
 		function editItem(clientType) {
-			vm.clientType = clienType;
+			vm.clientType = clientType;
 			vm.showEdit();
 		}
 
