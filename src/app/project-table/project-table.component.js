@@ -152,7 +152,7 @@
 						.clickOutsideToClose(true)
 						.title('Error deleting the project')
 						.textContent(
-							'The project you are trying to delete has associated some purchases. Please delete these purchases first'
+							'The project you are trying to delete has associated purchases. Please delete these purchases first'
 						)
 						.ariaLabel('Error Deleting Item')
 						.ok('Ok')

@@ -1,5 +1,5 @@
-<md-dialog aria-label="clientTypeForm">
-  <form ng-cloak>
+<md-dialog>
+  <form name="clientTypeForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Add/Edit Client Type</h2>
@@ -14,7 +14,11 @@
       <div layout="" layout-align="space-around center" layout-padding style="padding: 20px 0 0 0">
         <md-input-container>
           <label>Name</label>
-          <input required ng-model="clientType.name">
+          <input required name="name" ng-model="clientType.name">
+          <div ng-messages="clientTypeForm.name.$error">
+            <div ng-message="required">You
+              <b>must</b> provide a client type name.</div>
+          </div>
         </md-input-container>
       </div>
     </md-dialog-content>

@@ -1,4 +1,6 @@
-'use strict';
+(function() {
+	'use strict';
 
-// Define the 'client' module
-angular.module('clientTable', ['common.client']);
+	// Define the 'clent-table' module
+	angular.module('clientTable', ['common.other-resource']);
+})();

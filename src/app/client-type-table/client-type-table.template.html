@@ -6,14 +6,14 @@
       <div class="md-toolbar-tools">
         <div>Client Types</div>
         <span flex></span>
-        <md-button class="md-raised md-primary" ng-click="$ctrl.addItem()">Add Client Type</md-button>
+        <md-button class="md-raised md-primary" ng-click="vm.addItem()">Add Client Type</md-button>
       </div>
     </md-toolbar>
 
 
     <!-- Table -->
     <md-table-container>
-      <table md-table ng-table="$ctrl.clientTypes" flex layout-fill>
+      <table md-table ng-table="vm.clientTypes" flex layout-fill>
         <thead md-head md-colors="{background: 'primary'}">
           <tr md-row>
             <th md-column class="md-thead">ID</th>
@@ -22,11 +22,11 @@
           </tr>
         </thead>
         <tbody md-body>
-          <tr md-row ng-repeat="item in $ctrl.clientTypes">
+          <tr md-row ng-repeat="item in vm.clientTypes">
             <td md-cell>{{item.id}}</td>
             <td md-cell>{{item.name}}</td>
             <td md-cell>
-              <md-button class="md-icon-button" ng-click="$ctrl.editItem(item)">
+              <md-button class="md-icon-button" ng-click="vm.editItem(item)">
                   <md-tooltip md-direction="bottom">Edit Client Type</md-tooltip>
                   <md-icon class="table-icon" md-svg-icon="assets/icons/edit.svg"></md-icon></md-button>
             </td>

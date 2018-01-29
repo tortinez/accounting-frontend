@@ -1,5 +1,5 @@
-<md-dialog aria-label="clientForm">
-  <form ng-cloak>
+<md-dialog>
+  <form name="clientForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Add/Edit Client</h2>
@@ -14,26 +14,38 @@
       <div layout="" layout-align="space-around center" layout-padding style="padding: 20px 0 0 0">
         <md-input-container>
           <label>Name</label>
-          <input required ng-model="client.name">
+          <input required name="name" ng-model="client.name">
+          <div ng-messages="clientForm.name.$error">
+            <div ng-message="required">You
+              <b>must</b> provide a client name.</div>
+          </div>
         </md-input-container>
 
         <md-input-container>
           <label>Acronym</label>
-          <input required ng-model="client.acronym">
+          <input required name="acronym" ng-model="client.acronym">
+          <div ng-messages="clientForm.acronym.$error">
+            <div ng-message="required">You
+              <b>must</b> provide an acronym for the client.</div>
+          </div>
         </md-input-container>
       </div>
-      <md-autocomplete required md-no-cache="false" md-selected-item="client.type" md-search-text="searchTextType" md-items="item in autocompleteSearch(searchTextType, clientTypeList)"
-        md-item-text="item.name" md-min-length="0" md-floating-label="Client Type" md-clear-button="true">
+      <md-autocomplete required md-require-match md-input-name="type" md-no-cache="false" md-selected-item="client.type" md-search-text="searchTextType"
+        md-items="item in autocompleteSearch(searchTextType, clientTypeList)" md-item-text="item.name" md-min-length="0" md-floating-label="Client Type"
+        md-clear-button="true">
         <md-item-template>
           <span md-highlight-text="searchTextType" md-highlight-flags="^i">{{item.name}}</span>
         </md-item-template>
+        <div ng-messages="clientForm.type.$error">
+          <div ng-message="required">You
+            <b>must</b> select a type of client.</div>
+          <div ng-message="md-require-match">Please select an existing type.</div>
+        </div>
       </md-autocomplete>
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
-      <md-button type="submit" class="md-raised md-primary" ng-disabled="user.role=='USER'" ng-click="editClient()">Save
-        <md-tooltip ng-if="user.role=='USER'" md-direction="bottom">You don't have permission to create or edit a client</md-tooltip>
-      </md-button>
+      <md-button type="submit" class="md-raised md-primary" ng-click="editClient()">Save</md-button>
       <span flex></span>
       <md-button type="submit" class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="user.role=='USER' || !client.id">
         <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Client
