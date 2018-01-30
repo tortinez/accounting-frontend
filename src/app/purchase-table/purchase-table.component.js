@@ -50,6 +50,7 @@
 			status: null,
 			supplier: null,
 			type: null,
+			employee: null,
 			page: 0,
 			size: 50
 		};
@@ -59,7 +60,8 @@
 			reqProj: null,
 			status: null,
 			supplier: null,
-			type: null
+			type: null,
+			employee: null
 		};
 
 		//functions____________________________________________________________
@@ -104,6 +106,7 @@
 			vm.params.status = item.status ? item.status.name : null;
 			vm.params.supplier = item.supplier ? item.supplier.name : null;
 			vm.params.type = item.type ? item.type.name : null;
+			vm.params.employee = item.employee ? item.employee.fullname : null;
 
 			return vm.search();
 		};
