@@ -68,6 +68,8 @@
 			//get the data from the service
 			$scope.purchaseStatus = vm.purchaseStatus;
 
+			$scope.title = vm.title;
+
 			////////////////////////////////////////////////////////////////////////
 			//functions_____________________________________________________________
 			function cancel() {
@@ -100,7 +102,13 @@
 			function removeItem(purchaseStatus) {
 				OtherResource.remove('purchase-state', purchaseStatus).then(
 					function() {
-						$scope.showToast('Purchase Status Deleted!');
+						OtherResource.api('purchase-state')
+							.query()
+							.$promise.then(function(res) {
+								vm.purchaseStatuss = res;
+								$mdDialog.hide();
+							});
+						showToast('Purchase Status Deleted!');
 						console.log('Succesfully removed');
 					},
 					function(err) {

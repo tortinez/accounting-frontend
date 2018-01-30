@@ -63,6 +63,8 @@
 			//get the data from the service
 			$scope.clientType = vm.clientType;
 
+			$scope.title = vm.title;
+
 			////////////////////////////////////////////////////////////////////////
 			//functions_____________________________________________________________
 			function cancel() {
@@ -95,7 +97,12 @@
 			function removeItem(clientType) {
 				OtherResource.remove('client-type', clientType).then(
 					function() {
-						$scope.showToast('Client Type Deleted!');
+						OtherResource.api('client-type')
+							.query()
+							.$promise.then(function(res) {
+								vm.clientTypes = res;
+							});
+						showToast('Client Type Deleted!');
 						console.log('Succesfully removed');
 					},
 					function(err) {

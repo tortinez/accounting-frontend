@@ -63,6 +63,8 @@
 			//get the data from the service
 			$scope.purchaseType = vm.purchaseType;
 
+			$scope.title = vm.title;
+
 			////////////////////////////////////////////////////////////////////////
 			//functions_____________________________________________________________
 			function cancel() {
@@ -95,7 +97,12 @@
 			function removeItem(purchaseType) {
 				OtherResource.remove('purchase-type', purchaseType).then(
 					function() {
-						$scope.showToast('Purchase Type Deleted!');
+						OtherResource.api('purchase-type')
+							.query()
+							.$promise.then(function(res) {
+								vm.purchaseTypes = res;
+							});
+						showToast('Purchase Type Deleted!');
 						console.log('Succesfully removed');
 					},
 					function(err) {

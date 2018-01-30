@@ -63,6 +63,8 @@
 			//get the data from the service
 			$scope.supplier = vm.supplier;
 
+			$scope.title = vm.title;
+
 			////////////////////////////////////////////////////////////////////////
 			//functions_____________________________________________________________
 			function cancel() {
@@ -95,7 +97,12 @@
 			function removeItem(supplier) {
 				OtherResource.remove('supplier', supplier).then(
 					function() {
-						$scope.showToast('Supplier Deleted!');
+						OtherResource.api('supplier')
+							.query()
+							.$promise.then(function(res) {
+								vm.suppliers = res;
+							});
+						showToast('Supplier Deleted!');
 						console.log('Succesfully removed');
 					},
 					function(err) {

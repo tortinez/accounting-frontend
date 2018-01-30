@@ -63,6 +63,8 @@
 			//get the data from the service
 			$scope.projectType = vm.projectType;
 
+			$scope.title = vm.title;
+
 			////////////////////////////////////////////////////////////////////////
 			//functions_____________________________________________________________
 			function cancel() {
@@ -95,7 +97,12 @@
 			function removeItem(projectType) {
 				OtherResource.remove('project-type', projectType).then(
 					function() {
-						$scope.showToast('Project Type Deleted!');
+						OtherResource.api('project-type')
+							.query()
+							.$promise.then(function(res) {
+								vm.projectTypes = res;
+							});
+						showToast('Project Type Deleted!');
 						console.log('Succesfully removed');
 					},
 					function(err) {

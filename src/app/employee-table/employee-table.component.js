@@ -63,6 +63,8 @@
 			//get the data from the service
 			$scope.employee = vm.employee;
 
+			$scope.title = vm.title;
+
 			////////////////////////////////////////////////////////////////////////
 			//functions_____________________________________________________________
 			function cancel() {
@@ -95,7 +97,12 @@
 			function removeItem(employee) {
 				OtherResource.remove('employee', employee).then(
 					function() {
-						$scope.showToast('Employee Deleted!');
+						OtherResource.api('employee')
+							.query()
+							.$promise.then(function(res) {
+								vm.employees = res;
+							});
+						showToast('Employee Deleted!');
 						console.log('Succesfully removed');
 					},
 					function(err) {

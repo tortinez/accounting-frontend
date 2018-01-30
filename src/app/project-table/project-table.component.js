@@ -66,6 +66,8 @@
 			$scope.employeeList = OtherResource.api('employee').query();
 			$scope.typeList = OtherResource.api('project-type').query();
 
+			$scope.title = vm.title;
+
 			////////////////////////////////////////////////////////////////////////
 			//functions_____________________________________________________________
 			function cancel() {
@@ -98,7 +100,12 @@
 			function removeItem(project) {
 				OtherResource.remove('project', project).then(
 					function() {
-						$scope.showToast('Project Deleted!');
+						OtherResource.api('project')
+							.query()
+							.$promise.then(function(res) {
+								vm.projects = res;
+							});
+						showToast('Project Deleted!');
 						console.log('Succesfully removed');
 					},
 					function(err) {

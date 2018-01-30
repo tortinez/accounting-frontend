@@ -14,8 +14,10 @@
 		var vm = this;
 		//get the items of the table
 		vm.clients = OtherResource.api('client').query();
-		vm.client = {};
 		vm.user = Auth.user;
+		//variables
+		vm.client = {};
+		vm.title = '';
 		//functions
 		vm.editItem = editItem;
 		vm.addItem = addItem;
@@ -26,11 +28,13 @@
 		//functions_____________________________________________________________
 		function editItem(client) {
 			vm.client = client;
+			vm.title = 'Edit Client';
 			vm.showEdit();
 		}
 
 		function addItem() {
 			vm.client = {};
+			vm.title = 'Add client';
 			vm.showEdit();
 		}
 
@@ -59,6 +63,8 @@
 			//get the data from the service
 			$scope.client = vm.client;
 			$scope.typeList = OtherResource.api('client-type').query();
+
+			$scope.title = vm.title;
 
 			////////////////////////////////////////////////////////////////////////
 			//functions_____________________________________________________________
@@ -92,7 +98,12 @@
 			function removeItem(client) {
 				OtherResource.remove('client', client).then(
 					function() {
-						$scope.showToast('Client Deleted!');
+						OtherResource.api('client')
+							.query()
+							.$promise.then(function(res) {
+								vm.clients = res;
+							});
+						showToast('Client Deleted!');
 						console.log('Succesfully removed');
 					},
 					function(err) {
