@@ -1,4 +1,6 @@
-'use strict';
+(function() {
+	'use strict';
 
-// Define the 'common.auth' module
-angular.module('common.auth', ['ngResource']);
+	// Define the 'common.auth' module
+	angular.module('common.auth', ['ngResource']);
+})();

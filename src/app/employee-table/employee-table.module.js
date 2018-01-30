@@ -1,4 +1,6 @@
-'use strict';
+(function() {
+	'use strict';
 
-// Define the 'employee' module
-angular.module('employeeTable', ['common.employee']);
+	// Define the 'employee' module
+	angular.module('employeeTable', ['common.other-resource']);
+})();

@@ -47,7 +47,7 @@
     <md-dialog-actions layout="row">
       <md-button type="submit" class="md-raised md-primary" ng-click="editClient()">Save</md-button>
       <span flex></span>
-      <md-button type="submit" class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="user.role=='USER' || !client.id">
+      <md-button type="submit" class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="!client.id">
         <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Client
       </md-button>
     </md-dialog-actions>

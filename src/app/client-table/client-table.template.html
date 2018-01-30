@@ -6,7 +6,7 @@
       <div class="md-toolbar-tools">
         <div>Clients</div>
         <span flex></span>
-        <md-button class="md-raised md-primary" ng-click="vm.addItem()">Add Client</md-button>
+        <md-button class="md-raised md-primary" ng-click="vm.addItem()" ng-hide="vm.user.role == 'USER'">Add Client</md-button>
       </div>
     </md-toolbar>
 

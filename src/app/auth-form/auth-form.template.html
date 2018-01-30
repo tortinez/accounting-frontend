@@ -10,7 +10,7 @@
         <div flex>
           <md-input-container>
             <label>Username</label>
-            <input required md-no-asterisk name="user" ng-model="$ctrl.credentials.user">
+            <input required md-no-asterisk name="user" ng-model="vm.credentials.user">
             <div ng-messages="authForm.user.$error">
               <div ng-message="required">Please fill the username field.</div>
             </div>
@@ -20,7 +20,7 @@
         <div flex>
           <md-input-container>
             <label>Password</label>
-            <input required type="password" md-no-asterisk name="password" ng-model="$ctrl.credentials.password">
+            <input required type="password" md-no-asterisk name="password" ng-model="vm.credentials.password">
             <div ng-messages="authForm.password.$error">
               <div ng-message="required">Please fill the password.</div>
             </div>
@@ -28,12 +28,12 @@
         </div>
 
         <div>
-          <md-button type="submit" class="md-raised md-primary" ng-click="$ctrl.login()">Login</md-button>
+          <md-button type="submit" class="md-raised md-primary" ng-click="vm.login()">Login</md-button>
         </div>
       </form>
 
-      <div class="badge" ng-if="$ctrl.LoginStatus" id="tryLoginStatus">
-        <md-icon md-colors="{color: 'red-500'}" md-svg-src="assets/icons/alert-circle.svg"></md-icon>{{$ctrl.LoginStatus}}</b>
+      <div class="badge" ng-if="vm.LoginStatus" id="tryLoginStatus">
+        <md-icon md-colors="{color: 'red-500'}" md-svg-src="assets/icons/alert-circle.svg"></md-icon>{{vm.LoginStatus}}</b>
       </div>
 
     </md-content>

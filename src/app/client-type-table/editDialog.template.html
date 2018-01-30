@@ -2,7 +2,7 @@
   <form name="clientTypeForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Add/Edit Client Type</h2>
+        <h2>{{vm.title}}</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()">
           <md-icon md-svg-src="assets/icons/close.svg" aria-label="Close dialog"></md-icon>
@@ -28,7 +28,7 @@
         <md-tooltip ng-if="user.role=='USER'" md-direction="bottom">You don't have permission to create or edit a client type</md-tooltip>
       </md-button>
       <span flex></span>
-      <md-button type="submit" class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="user.role=='USER' || !clientType.id">
+      <md-button type="submit" class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="!clientType.id">
         <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Client Type
       </md-button>
     </md-dialog-actions>

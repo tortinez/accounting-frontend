@@ -1,30 +1,32 @@
-'use strict';
+(function() {
+	'use strict';
 
-// Register the 'authForm' page along with its controller an template
-angular.
-  module('authForm').
-  component('authForm', {
-    templateUrl: 'app/auth-form/auth-form.template.html',
-    controller: ['$routeParams', '$location', 'Auth',
-      function AuthFormController($routeParams, $location, Auth) {
-        var vm = this;
+	// Register the 'authForm' page along with its controller an template
+	angular.module('authForm').component('authForm', {
+		templateUrl: 'app/auth-form/auth-form.template.html',
+		controller: AuthFormController,
+		controllerAs: 'vm'
+	});
+	AuthFormController.$inject = ['$routeParams', '$location', 'Auth'];
 
-        vm.credentials={}; //variable to store credentials
-        
+	function AuthFormController($routeParams, $location, Auth) {
+		var vm = this;
 
-        ///////////////////////////////////////////////////////////////////////
-        //functions_____________________________________________________________
-        vm.login = function(){
-          return Auth.login(vm.credentials)
-            .then(function (status) {
-              if (!status) {
-                vm.LoginStatus='The username or password entered is incorrect';
-              }
-              if (status){
-                $location.path("/purchases")
-              }
-            })
-        };
-      }
-    ]
-  });
+		vm.credentials = {}; //variable to store credentials
+		vm.login = login;
+		vm.LoginStatus = '';
+
+		///////////////////////////////////////////////////////////////////////
+		//functions_____________________________________________________________
+		function login() {
+			return Auth.login(vm.credentials).then(function(status) {
+				if (!status) {
+					vm.LoginStatus = 'The username or password entered is incorrect';
+				}
+				if (status) {
+					$location.path('/purchases');
+				}
+			});
+		}
+	}
+})();

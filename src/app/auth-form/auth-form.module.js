@@ -1,4 +1,6 @@
-'use strict';
+(function() {
+	'use strict';
 
-// Define the 'invoiceForm' module
-angular.module('authForm', ['common.auth']);
+	// Define the 'authForm' module
+	angular.module('authForm', ['common.auth']);
+})();

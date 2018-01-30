@@ -1,4 +1,6 @@
-'use strict';
+(function() {
+	'use strict';
 
-// Define the 'purchaseStatus' module
-angular.module('purchaseStatusTable', ['common.purchaseStatus']);
+	// Define the 'purchase-status' module
+	angular.module('purchaseStatusTable', ['common.other-resource']);
+})();

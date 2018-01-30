@@ -14,8 +14,10 @@
 		var vm = this;
 		//get the items of the table
 		vm.projects = OtherResource.api('project').query();
-		vm.project = [];
 		vm.user = Auth.user;
+		//variables
+		vm.project = {};
+		vm.title = '';
 		//functions
 		vm.editItem = editItem;
 		vm.addItem = addItem;
@@ -26,11 +28,13 @@
 		//functions_____________________________________________________________
 		function editItem(project) {
 			vm.project = project;
+			vm.title = 'Edit Project';
 			vm.showEdit();
 		}
 
 		function addItem() {
 			vm.project = { description: '' };
+			vm.title = 'Add Project';
 			vm.showEdit();
 		}
 

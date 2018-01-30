@@ -14,7 +14,7 @@
 		var vm = this;
 		//get the items of the table
 		vm.clients = OtherResource.api('client').query();
-		vm.client = [];
+		vm.client = {};
 		vm.user = Auth.user;
 		//functions
 		vm.editItem = editItem;
@@ -30,7 +30,7 @@
 		}
 
 		function addItem() {
-			vm.client = { description: '' };
+			vm.client = {};
 			vm.showEdit();
 		}
 

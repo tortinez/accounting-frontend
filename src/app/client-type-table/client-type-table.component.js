@@ -14,8 +14,10 @@
 		var vm = this;
 		//get the items of the table
 		vm.clientTypes = OtherResource.api('client-type').query();
-		vm.clientType = [];
 		vm.user = Auth.user;
+		//variables
+		vm.clientType = {};
+		vm.title = '';
 		//functions
 		vm.editItem = editItem;
 		vm.addItem = addItem;
@@ -26,11 +28,13 @@
 		//functions_____________________________________________________________
 		function editItem(clientType) {
 			vm.clientType = clientType;
+			vm.title = 'Edit Client Type';
 			vm.showEdit();
 		}
 
 		function addItem() {
-			vm.clientType = { description: '' };
+			vm.clientType = {};
+			vm.title = 'Add Client Type';
 			vm.showEdit();
 		}
 

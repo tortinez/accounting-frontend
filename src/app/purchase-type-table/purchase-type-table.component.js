@@ -1,106 +1,167 @@
-'use strict';
+(function() {
+	'use strict';
 
-// Register the 'purchaseType' page along with its controller an template
-angular.
-module('purchaseTypeTable').
-component('purchaseTypeTable', {
-  templateUrl: 'app/purchase-type-table/purchase-type-table.template.html',
-  controller: ['$mdDialog', 'PurchaseType',
-    function PurchaseTableController($mdDialog, PurchaseType) {
-      var vm = this;
-      //get the items of the table
-      vm.purchaseTypes = PurchaseType.api.query();
+	// Register the 'purchaseType' page along with its controller an template
+	angular.module('purchaseTypeTable').component('purchaseTypeTable', {
+		templateUrl: 'app/purchase-type-table/purchase-type-table.template.html',
+		controller: PurchaseTypeTableController,
+		controllerAs: 'vm'
+	});
 
-      ///////////////////////////////////////////////////////////////////////
-      //functions_____________________________________________________________
-      this.editItem = function (purchaseType) {
-        PurchaseType.cachePurchaseType = purchaseType;
-        vm.showEdit();
-      }
+	PurchaseTypeTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 
-      this.addItem = function () {
-        PurchaseType.cachePurchaseType = {};
-        vm.showEdit();
-      }
+	function PurchaseTypeTableController($mdDialog, Auth, OtherResource) {
+		var vm = this;
+		//get the items of the table
+		vm.purchaseTypes = OtherResource.api('purchase-type').query();
+		vm.user = Auth.user;
+		//variables
+		vm.purchaseType = {};
+		vm.title = '';
+		//functions
+		vm.editItem = editItem;
+		vm.addItem = addItem;
+		//dialogs
+		vm.showEdit = showEdit;
 
-      //Dialogs_____________________________________________________________________
-      this.showEdit = function (ev) {
-        $mdDialog.show({
-          controller: DialogController,
-          templateUrl: 'app/purchase-type-table/editDialog.template.html',
-          targetEvent: ev,
-          parent: angular.element(document.body),
-          clickOutsideToClose: false
-        })
-      };
+		////////////////////////////////////////////////////////////////////////
+		//functions_____________________________________________________________
+		function editItem(purchaseType) {
+			vm.purchaseType = purchaseType;
+			vm.title = 'Edit Purchase Type';
+			vm.showEdit();
+		}
 
-      function DialogController($scope, $mdDialog, $mdToast, PurchaseType, Auth) {
-        //get the data from the service
-        $scope.purchaseType = PurchaseType.cachePurchaseType;
+		function addItem() {
+			vm.purchaseType = {};
+			vm.title = 'Add Purchase Type';
+			vm.showEdit();
+		}
 
-        //get the USER information (role)
-        $scope.user = Auth.user;
+		//Dialogs________________________________________________________________
+		function showEdit(ev) {
+			$mdDialog.show({
+				controller: DialogController,
+				templateUrl: 'app/purchase-type-table/editDialog.template.html',
+				targetEvent: ev,
+				parent: angular.element(document.body),
+				clickOutsideToClose: false
+			});
+		}
+		function DialogController(
+			$scope,
+			$routeParams,
+			$mdDialog,
+			$mdToast,
+			AutocompleteFields,
+			OtherResource
+		) {
+			//functions callable from the html
+			$scope.cancel = cancel;
+			$scope.editPurchaseType = editPurchaseType;
+			$scope.showConfirm = showConfirm;
+			//get the data from the service
+			$scope.purchaseType = vm.purchaseType;
 
-        //create a dialog and a toast to perform some actions
-        $scope.showToast = function (msg) {
-          $mdToast.show(
-            $mdToast.simple()
-            .textContent(msg)
-            .position('top right')
-            .hideDelay(5000)
-          );
-        };
+			////////////////////////////////////////////////////////////////////////
+			//functions_____________________________________________________________
+			function cancel() {
+				$mdDialog.cancel();
+			}
 
-        $scope.showConfirm = function (ev) {
-          var confirm = $mdDialog.confirm()
-            .title('Would you like to delete the purchase Type?')
-            .textContent('This action cannot be undone.')
-            .targetEvent(ev)
-            .ok('Delete')
-            .cancel('Cancel');
-  
-          $mdDialog.show(confirm).then(function () {
-            $scope.removeItem($scope.purchaseType).then(
-  
-              console.log('Purchase Type Deleted!'))
-          }, function () {
-            console.log('Delete purchase type cancelled');
-          });
-        };
+			function editPurchaseType() {
+				return OtherResource.save('purchase-type', $scope.purchaseType).then(
+					function(value) {
+						OtherResource.api('purchase-type')
+							.query()
+							.$promise.then(function(res) {
+								vm.purchaseTypes = res;
+								$mdDialog.hide();
+							});
+						showToast('Succesfully Saved!');
+						console.log('PurchaseType saved: ID=', value.id);
+					},
+					function(err) {
+						$mdDialog.hide();
+						console.error(
+							'The Purchase Type cannot be modified',
+							err.status,
+							err.statusText
+						);
+					}
+				);
+			}
 
-        //actual functions of the form
-        $scope.cancel = function () {
-          $mdDialog.cancel();
-        };
+			function removeItem(purchaseType) {
+				OtherResource.remove('purchase-type', purchaseType).then(
+					function() {
+						$scope.showToast('Purchase Type Deleted!');
+						console.log('Succesfully removed');
+					},
+					function(err) {
+						if (err.status == 409 || err.statusText == 'Conflict') showError();
+						console.error(
+							'The item could not be deleted:',
+							err.status,
+							err.statusText
+						);
+					}
+				);
+				$mdDialog.hide();
+			}
 
-        $scope.editPurchaseType = function () {
-          return PurchaseType.save($scope.purchaseType).then(
-              function (value) {
-                $mdDialog.hide();
-                $scope.showToast('Succesfully Saved!')
-                console.log('Purchase type saved: ID=', value.id);
-            },
-            function (err) {
-              $mdDialog.hide();
-              console.error("The purchase type cannot be modified", err.status, err.statusText)
-            });
-      };
+			//Related to the autocomplete form inputs
+			$scope.autocompleteSearch = function(query, items) {
+				return AutocompleteFields.search(query, items);
+			};
 
-      $scope.removeItem = function (purchaseType) {
-        PurchaseType.remove(purchaseType)
-          .then(
-            function () {
-              $scope.showToast('Purchase type Deleted!')
-              console.log('Succesfully removed')
-            },
-            function (err) {
-              $scope.showToast('The purchase type could not be deleted since it has associated purchases')
-              console.error('The item could not be deleted:', err.status, err.statusText)
-            }
-          )
-        $mdDialog.hide();
-      };
-    };
-  }
-]
-});
+			//create a dialog and a toast to perform some actions________________________
+			function showToast(msg) {
+				$mdToast.show(
+					$mdToast
+						.simple()
+						.textContent(msg)
+						.position('top right')
+						.hideDelay(3000)
+				);
+			}
+
+			function showConfirm(ev) {
+				var confirm = $mdDialog
+					.confirm()
+					.title('Would you like to delete the purchase type?')
+					.textContent('This action cannot be undone.')
+					.targetEvent(ev)
+					.ok('Delete')
+					.cancel('Cancel');
+
+				$mdDialog.show(confirm).then(
+					function() {
+						removeItem($scope.purchaseType).then(
+							console.log('Purchase Type Deleted!')
+						);
+					},
+					function() {
+						console.log('Delete purchase type cancelled');
+					}
+				);
+			}
+
+			function showError(ev) {
+				$mdDialog.show(
+					$mdDialog
+						.alert()
+						.parent(angular.element(document.querySelector('#popupContainer')))
+						.clickOutsideToClose(true)
+						.title('Error deleting the purchase type')
+						.textContent(
+							'The purchase type you are trying to delete has associated purchases. Please delete these purchases first'
+						)
+						.ariaLabel('Error Deleting Item')
+						.ok('Ok')
+						.targetEvent(ev)
+				);
+			}
+		}
+	}
+})();

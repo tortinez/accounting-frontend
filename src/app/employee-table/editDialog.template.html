@@ -1,8 +1,8 @@
-<md-dialog aria-label="employeeForm">
-  <form ng-cloak>
+<md-dialog>
+  <form name="employeeForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Add/Edit Employee</h2>
+        <h2>{{vm.title}}</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()">
           <md-icon md-svg-src="assets/icons/close.svg" aria-label="Close dialog"></md-icon>
@@ -11,15 +11,23 @@
     </md-toolbar>
 
     <md-dialog-content layout="column" layout-padding>
-        <div layout="" layout-align="space-around center" layout-padding style="padding: 20px 0 0 0">
-          <md-input-container>
+      <div layout="" layout-align="space-around center" layout-padding style="padding: 20px 0 0 0">
+        <md-input-container>
           <label>Full Name</label>
-          <input required ng-model="employee.fullname">
+          <input required name="name" ng-model="employee.fullname">
+          <div ng-messages="employeeForm.name.$error">
+            <div ng-message="required">You
+              <b>must</b> provide a researcher name.</div>
+          </div>
         </md-input-container>
 
         <md-input-container>
           <label>email</label>
-          <input required ng-model="employee.email">
+          <input required name="email" ng-model="employee.email">
+          <div ng-messages="projectForm.email.$error">
+            <div ng-message="required">You
+              <b>must</b> provide an email.</div>
+          </div>
         </md-input-container>
       </div>
 
@@ -30,11 +38,9 @@
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
-      <md-button type="submit" class="md-raised md-primary" ng-disabled="user.role=='USER'" ng-click="editEmployee()">Save
-          <md-tooltip ng-if="user.role=='USER'" md-direction="bottom">You don't have permission to create or edit an employee</md-tooltip>
-      </md-button>
+      <md-button type="submit" class="md-raised md-primary" ng-click="editEmployee()">Save</md-button>
       <span flex></span>
-      <md-button type="submit" class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="user.role=='USER' || !employee.id">
+      <md-button type="submit" class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="!employee.id">
         <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Employee
       </md-button>
     </md-dialog-actions>

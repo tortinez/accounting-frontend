@@ -1,8 +1,8 @@
-<md-dialog aria-label="projectTypeForm">
-  <form ng-cloak>
+<md-dialog>
+  <form name="projectTypeForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Add/Edit Project Type</h2>
+        <h2>{{vm.title}}</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()">
           <md-icon md-svg-src="assets/icons/close.svg" aria-label="Close dialog"></md-icon>
@@ -14,15 +14,17 @@
       <div layout="" layout-align="space-around center" layout-padding style="padding: 20px 0 0 0">
         <md-input-container>
           <label>Name</label>
-          <input required ng-model="projectType.name">
+          <input required name="name" ng-model="projectType.name">
+          <div ng-messages="projectTypeForm.name.$error">
+            <div ng-message="required">You
+              <b>must</b> provide a project type name.</div>
+          </div>
         </md-input-container>
       </div>
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
-      <md-button type="submit" class="md-raised md-primary" ng-disabled="user.role=='USER'" ng-click="editProjectType()">Save
-        <md-tooltip ng-if="user.role=='USER'" md-direction="bottom">You don't have permission to create or edit a project type</md-tooltip>
-      </md-button>
+      <md-button type="submit" class="md-raised md-primary" ng-click="editProjectType()">Save</md-button>
       <span flex></span>
       <md-button type="submit" class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="user.role=='USER' || !projectType.id">
         <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Project Type

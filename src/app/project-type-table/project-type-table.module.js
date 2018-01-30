@@ -1,4 +1,6 @@
-'use strict';
+(function() {
+	'use strict';
 
-// Define the 'projectType' module
-angular.module('projectTypeTable', ['common.projectType']);
+	// Define the 'project-type' module
+	angular.module('projectTypeTable', ['common.other-resource']);
+})();

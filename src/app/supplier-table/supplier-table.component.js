@@ -1,106 +1,165 @@
-'use strict';
+(function() {
+	'use strict';
 
-// Register the 'supplier' page along with its controller an template
-angular.
-module('supplierTable').
-component('supplierTable', {
-  templateUrl: 'app/supplier-table/supplier-table.template.html',
-  controller: ['$mdDialog', 'Supplier',
-    function SupplierTableController($mdDialog, Supplier) {
-      var vm = this;
-      //get the items of the table
-      vm.suppliers = Supplier.api.query();
+	// Register the 'supplier' page along with its controller an template
+	angular.module('supplierTable').component('supplierTable', {
+		templateUrl: 'app/supplier-table/supplier-table.template.html',
+		controller: SupplierTableController,
+		controllerAs: 'vm'
+	});
 
-      ///////////////////////////////////////////////////////////////////////
-      //functions_____________________________________________________________
-      this.editItem = function (supplier) {
-        Supplier.cacheSupplier = supplier;
-        vm.showEdit();
-      }
+	SupplierTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 
-      this.addItem = function () {
-        Supplier.cacheSupplier = {};
-        vm.showEdit();
-      }
+	function SupplierTableController($mdDialog, Auth, OtherResource) {
+		var vm = this;
+		//get the items of the table
+		vm.suppliers = OtherResource.api('supplier').query();
+		vm.user = Auth.user;
+		//variables
+		vm.supplier = {};
+		vm.title = '';
+		//functions
+		vm.editItem = editItem;
+		vm.addItem = addItem;
+		//dialogs
+		vm.showEdit = showEdit;
 
-      //Dialogs_____________________________________________________________________
-      this.showEdit = function (ev) {
-        $mdDialog.show({
-          controller: DialogController,
-          templateUrl: 'app/supplier-table/editDialog.template.html',
-          targetEvent: ev,
-          parent: angular.element(document.body),
-          clickOutsideToClose: false
-        })
-      };
+		////////////////////////////////////////////////////////////////////////
+		//functions_____________________________________________________________
+		function editItem(supplier) {
+			vm.supplier = supplier;
+			vm.title = 'Edit Supplier';
+			vm.showEdit();
+		}
 
-      function DialogController($scope, $mdDialog, $mdToast, Supplier, Auth) {
-        //get the data from the service
-        $scope.supplier = Supplier.cacheSupplier;
+		function addItem() {
+			vm.supplier = { description: '' };
+			vm.title = 'Add Supplier';
+			vm.showEdit();
+		}
 
-        //get the USER information (role)
-        $scope.user = Auth.user;
+		//Dialogs________________________________________________________________
+		function showEdit(ev) {
+			$mdDialog.show({
+				controller: DialogController,
+				templateUrl: 'app/supplier-table/editDialog.template.html',
+				targetEvent: ev,
+				parent: angular.element(document.body),
+				clickOutsideToClose: false
+			});
+		}
+		function DialogController(
+			$scope,
+			$routeParams,
+			$mdDialog,
+			$mdToast,
+			AutocompleteFields,
+			OtherResource
+		) {
+			//functions callable from the html
+			$scope.cancel = cancel;
+			$scope.editSupplier = editSupplier;
+			$scope.showConfirm = showConfirm;
+			//get the data from the service
+			$scope.supplier = vm.supplier;
 
-        //actual functions of the form
-        $scope.cancel = function () {
-          $mdDialog.cancel();
-        };
+			////////////////////////////////////////////////////////////////////////
+			//functions_____________________________________________________________
+			function cancel() {
+				$mdDialog.cancel();
+			}
 
-        $scope.editSupplier = function () {
-          return Supplier.save($scope.supplier).then(
-            function (value) {
-              $mdDialog.hide();
-              $scope.showToast('Succesfully Saved!')
-              console.log('Supplier saved: ID=', value.id);
-            },
-            function (err) {
-              $mdDialog.hide();
-              console.error("The supplier cannot be modified", err.status, err.statusText)
-            });
-        };
+			function editSupplier() {
+				return OtherResource.save('supplier', $scope.supplier).then(
+					function(value) {
+						OtherResource.api('supplier')
+							.query()
+							.$promise.then(function(res) {
+								vm.suppliers = res;
+								$mdDialog.hide();
+							});
+						showToast('Succesfully Saved!');
+						console.log('Supplier saved: ID=', value.id);
+					},
+					function(err) {
+						$mdDialog.hide();
+						console.error(
+							'The supplier cannot be modified',
+							err.status,
+							err.statusText
+						);
+					}
+				);
+			}
 
-        $scope.removeItem = function (supplier) {
-          Supplier.remove(supplier)
-            .then(
-              function () {
-                $scope.showToast('Supplier Deleted!')
-                console.log('Succesfully removed')
-              },
-              function (err) {
-                if (err.status == 500) $scope.showToast('The supplier could not be deleted since it has associated purchases')
-                console.error('The item could not be deleted:', err.status, err.statusText)
-              }
-            )
-          $mdDialog.hide();
-        };
+			function removeItem(supplier) {
+				OtherResource.remove('supplier', supplier).then(
+					function() {
+						$scope.showToast('Supplier Deleted!');
+						console.log('Succesfully removed');
+					},
+					function(err) {
+						if (err.status == 409 || err.statusText == 'Conflict') showError();
+						console.error(
+							'The item could not be deleted:',
+							err.status,
+							err.statusText
+						);
+					}
+				);
+				$mdDialog.hide();
+			}
 
-        //create a dialog and a toast to perform some actions
-        $scope.showToast = function (msg) {
-          $mdToast.show(
-            $mdToast.simple()
-            .textContent(msg)
-            .position('top right')
-            .hideDelay(5000)
-          );
-        };
+			//Related to the autocomplete form inputs
+			$scope.autocompleteSearch = function(query, items) {
+				return AutocompleteFields.search(query, items);
+			};
 
-        $scope.showConfirm = function (ev) {
-          var confirm = $mdDialog.confirm()
-            .title('Would you like to delete the supplier?')
-            .textContent('This action cannot be undone.')
-            .targetEvent(ev)
-            .ok('Delete')
-            .cancel('Cancel');
+			//create a dialog and a toast to perform some actions________________________
+			function showToast(msg) {
+				$mdToast.show(
+					$mdToast
+						.simple()
+						.textContent(msg)
+						.position('top right')
+						.hideDelay(5000)
+				);
+			}
 
-          $mdDialog.show(confirm).then(function () {
-            $scope.removeItem($scope.supplier).then(
+			function showConfirm(ev) {
+				var confirm = $mdDialog
+					.confirm()
+					.title('Would you like to delete the supplier?')
+					.textContent('This action cannot be undone.')
+					.targetEvent(ev)
+					.ok('Delete')
+					.cancel('Cancel');
 
-              console.log('Supplier Deleted!'))
-          }, function () {
-            console.log('Delete supplier cancelled');
-          });
-        };
-      };
-    }
-  ]
-});
+				$mdDialog.show(confirm).then(
+					function() {
+						removeItem($scope.supplier).then(console.log('Supplier Deleted!'));
+					},
+					function() {
+						console.log('Delete supplier cancelled');
+					}
+				);
+			}
+
+			function showError(ev) {
+				$mdDialog.show(
+					$mdDialog
+						.alert()
+						.parent(angular.element(document.querySelector('#popupContainer')))
+						.clickOutsideToClose(true)
+						.title('Error deleting the supplier')
+						.textContent(
+							'The supplier you are trying to delete has associated purchases. Please delete these purchases first'
+						)
+						.ariaLabel('Error Deleting Item')
+						.ok('Ok')
+						.targetEvent(ev)
+				);
+			}
+		}
+	}
+})();

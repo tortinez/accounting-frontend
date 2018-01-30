@@ -2,7 +2,7 @@
   <form name="projectForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Add/Edit project</h2>
+        <h2>{{vm.title}}</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()">
           <md-icon md-svg-src="assets/icons/close.svg" aria-label="Close dialog"></md-icon>
@@ -88,7 +88,7 @@
     <md-dialog-actions layout="row">
       <md-button type="submit" class="md-raised md-primary" ng-click="editProject()">Save</md-button>
       <span flex></span>
-      <md-button type="submit" class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="user.role=='USER' || !project.id">
+      <md-button type="submit" class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="!project.id">
         <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Project
       </md-button>
     </md-dialog-actions>

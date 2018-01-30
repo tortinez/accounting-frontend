@@ -1,12 +1,12 @@
 <div flex layout="column" layout-align="center center" layout-fill>
   <!-- Actual table -->
-  <md-card layout="column" flex layout-align"center center">
-     <!-- Pagination options and table title -->
+  <md-card layout="column" flex layout-align "center center">
+    <!-- Pagination options and table title -->
     <md-toolbar class="md-table-toolbar" md-colors="{background: 'grey-50'}">
       <div class="md-toolbar-tools">
         <div>Client Types</div>
         <span flex></span>
-        <md-button class="md-raised md-primary" ng-click="vm.addItem()">Add Client Type</md-button>
+        <md-button class="md-raised md-primary" ng-click="vm.addItem()" ng-hide="vm.user.role == 'USER'">Add Client Type</md-button>
       </div>
     </md-toolbar>
 
@@ -18,17 +18,18 @@
           <tr md-row>
             <th md-column class="md-thead">ID</th>
             <th md-column class="md-thead">Name</th>
-            <th md-column class="md-thead"></th>
+            <th md-column class="md-thead" ng-hide="vm.user.role == 'USER'"></th>
           </tr>
         </thead>
         <tbody md-body>
           <tr md-row ng-repeat="item in vm.clientTypes">
             <td md-cell>{{item.id}}</td>
             <td md-cell>{{item.name}}</td>
-            <td md-cell>
+            <td md-cell ng-hide="vm.user.role == 'USER'">
               <md-button class="md-icon-button" ng-click="vm.editItem(item)">
-                  <md-tooltip md-direction="bottom">Edit Client Type</md-tooltip>
-                  <md-icon class="table-icon" md-svg-icon="assets/icons/edit.svg"></md-icon></md-button>
+                <md-tooltip md-direction="bottom">Edit Client Type</md-tooltip>
+                <md-icon class="table-icon" md-svg-icon="assets/icons/edit.svg"></md-icon>
+              </md-button>
             </td>
           </tr>
         </tbody>

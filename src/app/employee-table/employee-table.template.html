@@ -1,38 +1,39 @@
 <div flex layout="column" layout-align="center center" layout-fill>
   <!-- Actual table -->
-  <md-card layout="column" flex layout-align"center center">
-     <!-- Pagination options and table title -->
+  <md-card layout="column" flex layout-align "center center">
+    <!-- Pagination options and table title -->
     <md-toolbar class="md-table-toolbar" md-colors="{background: 'grey-50'}">
       <div class="md-toolbar-tools">
         <div>Employees</div>
         <span flex></span>
-        <md-button class="md-raised md-primary" ng-click="$ctrl.addItem()">Add Employee</md-button>
+        <md-button class="md-raised md-primary" ng-click="vm.addItem()" ng-hide="vm.user.role == 'USER'">Add Employee</md-button>
       </div>
     </md-toolbar>
 
 
     <!-- Table -->
     <md-table-container>
-      <table md-table ng-table="$ctrl.employees" flex layout-fill>
+      <table md-table ng-table="vm.employees" flex layout-fill>
         <thead md-head md-colors="{background: 'primary'}">
           <tr md-row>
             <th md-column class="md-thead">ID</th>
             <th md-column class="md-thead">Full name</th>
             <th md-column class="md-thead">Email</th>
             <th md-column class="md-thead">Comments</th>
-            <th md-column class="md-thead"></th>
+            <th md-column class="md-thead" ng-hide="vm.user.role == 'USER'"></th>
           </tr>
         </thead>
         <tbody md-body>
-          <tr md-row ng-repeat="item in $ctrl.employees">
+          <tr md-row ng-repeat="item in vm.employees">
             <td md-cell>{{item.id}}</td>
             <td md-cell>{{item.fullname}}</td>
             <td md-cell>{{item.email}}</td>
             <td md-cell>{{item.comments}}</td>
-            <td md-cell>
-              <md-button class="md-icon-button" ng-click="$ctrl.editItem(item)">
-                  <md-tooltip md-direction="bottom">Edit Employee</md-tooltip>
-                  <md-icon class="table-icon" md-svg-icon="assets/icons/edit.svg"></md-icon></md-button>
+            <td md-cell ng-hide="vm.user.role == 'USER'">
+              <md-button class="md-icon-button" ng-click="vm.editItem(item)">
+                <md-tooltip md-direction="bottom">Edit Employee</md-tooltip>
+                <md-icon class="table-icon" md-svg-icon="assets/icons/edit.svg"></md-icon>
+              </md-button>
             </td>
           </tr>
         </tbody>
