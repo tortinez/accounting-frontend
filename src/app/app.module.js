@@ -9,6 +9,7 @@ angular
 		'ngMessages',
 		'angularMoment',
 		'accordion',
+		'validate',
 		'md.data.table',
 		'common',
 		'authForm',
