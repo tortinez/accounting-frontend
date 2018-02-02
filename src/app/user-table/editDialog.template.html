@@ -1,0 +1,87 @@
+<md-dialog>
+  <form name="userForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{title}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="assets/icons/close.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content layout="column" layout-padding>
+      <div layout="row" layout-align="space-around start" layout-padding>
+        <md-input-container>
+          <label>Username</label>
+          <input required name="name" ng-model="item.username">
+          <div ng-messages="userForm.name.$error">
+            <div ng-message="required">You
+              <b>must</b> provide a username.</div>
+          </div>
+        </md-input-container>
+
+        <md-autocomplete required md-require-match md-input-name="employee" md-no-cache="false" md-selected-item="item.employee"
+          md-search-text="searchTextEmployee" md-items="item in autocompleteSearch(searchTextEmployee, employeeList)" md-item-text="item.fullname"
+          md-min-length="0" md-floating-label="Person related to the account" md-clear-button="true">
+          <md-item-template>
+            <span md-highlight-text="searchTextEmployee" md-highlight-flags="^i">{{item.fullname}}</span>
+          </md-item-template>
+          <div ng-messages="userForm.employee.$error">
+            <div ng-message="required">You
+              <b>must</b> select a person for this account.</div>
+            <div ng-message="md-require-match">Please select an existing person.</div>
+          </div>
+        </md-autocomplete>
+      </div>
+
+      <!-- Add password fields when creating a new user -->
+      <div layout="row" layout-padding layout-align="space-around start" ng-show="!item.id">
+        <md-input-container>
+          <label>Password:</label>
+          <input type="password" required name="password" ng-model="item.password">
+          <div ng-messages="userForm.password.$error">
+            <div ng-message="required">You
+              <b>must</b> provide a valid password.</div>
+          </div>
+        </md-input-container>
+
+        <md-input-container>
+          <label>Confirm Password:</label>
+          <input type="password" required compare-to="item.password" name="confirmPassword" ng-model="item.confirmPassword">
+          <div ng-messages="userForm.confirmPassword.$error">
+            <div ng-message="required">You
+              <b>must</b> fill this field.</div>
+            <div ng-message="compareTo">The passwords entered do not match.</div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <div layout="row" layout-padding layout-align="space-around start">
+        <md-input-container flex>
+          <md-checkbox ng-model="item.enabled" class="md-primary">
+            Enabled User.
+          </md-checkbox>
+        </md-input-container>
+
+        <md-input-container flex>
+          <label>Account Role:</label>
+          <md-select required ng-model="role" ng-change="assignRoles(role)">
+            <md-option value="USER">User</md-option>
+            <md-option value="MANAGER">Manager</md-option>
+            <md-option value="ADMIN">Admin</md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button type="submit" class="md-raised md-primary" ng-click="editUser()">Save</md-button>
+      <span flex></span>
+      <md-button class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="!item.id">
+        <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete User
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

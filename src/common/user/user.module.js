@@ -1,4 +1,6 @@
-'use strict';
+(function() {
+	'use strict';
 
-// Define the 'common.user' module
-angular.module('common.user', ['ngResource']);
+	// Define the 'common.user' module
+	angular.module('common.user', ['ngResource']);
+})();

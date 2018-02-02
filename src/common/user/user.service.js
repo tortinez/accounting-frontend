@@ -1,37 +1,53 @@
-'use strict';
+(function() {
+	'use strict';
 
-angular.
-  module('common.user').
-  factory('User', ['$resource',
-    function ($resource) {
-      return {
-        api: $resource('/api/user/:id', {id: '@id'}, {
-          
-          //Modify some HTTP methods
-          query: {
-            method: 'GET',
-            isArray: true,         
-          },
-          update: { method: 'PUT'},     
-        }),
+	angular.module('common.user').factory('User', User);
 
-        //Cache data for editing an existing item
-        cacheUSer : {},
+	User.$inject = ['$resource'];
 
-        save: save,
-        remove: remove
-      };
+	function User($resource) {
+		return {
+			//api calls using $resource
+			api: api,
+			self: self,
+			//other functions
+			save: save,
+			remove: remove
+		};
 
-      //////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////
+		//Functions________________________________________________________________
+		function self() {
+			return $resource('/api/user/self', {});
+		}
 
-      //Functions________________________________________________________________
-      //override save and remove $resource methods
-      function save(user) {
-        return user.id ? this.api.update(user).$promise : this.api.save(user).$promise;
-      }
+		function api() {
+			return $resource(
+				'/api/user/:id',
+				{ id: '@id' },
+				{
+					//Modify some HTTP methods
+					query: {
+						method: 'GET',
+						isArray: true
+					},
+					update: { method: 'PUT' }
+				}
+			);
+		}
 
-      function remove(user) {
-        return this.api.remove({id: user.id}).$promise;
-      }
-    }
-  ]);
+		//override save and remove $resource methods
+		function save(user) {
+			//convert binded data to id parameters
+			user.employeeId = user.employee.id;
+
+			return user.id
+				? this.api().update(user).$promise
+				: this.api().save(user).$promise;
+		}
+
+		function remove(user) {
+			return this.api().remove({ id: user.id }).$promise;
+		}
+	}
+})();

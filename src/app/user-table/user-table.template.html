@@ -1,31 +1,50 @@
 <div flex layout="column" layout-align="center center" layout-fill>
   <!-- Actual table -->
-  <md-card layout="column" flex layout-align"center center">
-     <!-- Pagination options and table title -->
+  <md-card layout="column" flex layout-align "center center">
+    <!-- Pagination options and table title -->
     <md-toolbar class="md-table-toolbar" md-colors="{background: 'grey-50'}">
       <div class="md-toolbar-tools">
         <div>Users</div>
+        <span flex></span>
+        <md-button class="md-raised md-primary" ng-click="vm.addItem()">Add User</md-button>
       </div>
     </md-toolbar>
 
 
     <!-- Table -->
     <md-table-container>
-      <table md-table ng-table="$ctrl.users" flex layout-fill>
+      <table md-table ng-table="vm.users" flex layout-fill>
         <thead md-head md-colors="{background: 'primary'}">
           <tr md-row>
             <th md-column class="md-thead">ID</th>
             <th md-column class="md-thead">Username</th>
             <th md-column class="md-thead">Full name</th>
             <th md-column class="md-thead">Role</th>
+            <th md-column class="md-thead">Status</th>
+            <th md-column class="md-thead"></th>
+            <th md-column class="md-thead"></th>
           </tr>
         </thead>
         <tbody md-body>
-          <tr md-row ng-repeat="item in $ctrl.users">
+          <tr md-row ng-repeat="item in vm.users">
             <td md-cell>{{item.id}}</td>
             <td md-cell>{{item.username}}</td>
             <td md-cell>{{item.employee.fullname}}</td>
-            <td md-cell>{{item.roles[0]}}</td>
+            <td md-cell>{{vm.userRole(item)}}</td>
+            <td md-cell>
+              <div ng-if='!item.enabled'>Not </div>Enabled</td>
+            <td md-cell>
+              <md-button class="md-icon-button" ng-click="vm.editItem(item)">
+                <md-tooltip md-direction="bottom">Edit User</md-tooltip>
+                <md-icon class="table-icon" md-svg-icon="assets/icons/edit.svg"></md-icon>
+              </md-button>
+            </td>
+            <td md-cell>
+              <md-button class="md-icon-button" ng-click="vm.editPassword(item)">
+                <md-tooltip md-direction="bottom">Edit User Password</md-tooltip>
+                <md-icon class="table-icon" md-svg-icon="assets/icons/account-key.svg"></md-icon>
+              </md-button>
+            </td>
           </tr>
         </tbody>
       </table>
