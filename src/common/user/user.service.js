@@ -23,8 +23,8 @@
 
 		function api() {
 			return $resource(
-				'/api/user/:id',
-				{ id: '@id' },
+				'/api/user/:id/:pass',
+				{ id: '@id', pass: '' },
 				{
 					//Modify some HTTP methods
 					query: {
@@ -38,12 +38,41 @@
 
 		//override save and remove $resource methods
 		function save(user) {
+			var vm = this;
 			//convert binded data to id parameters
 			user.employeeId = user.employee.id;
 
-			return user.id
-				? this.api().update(user).$promise
-				: this.api().save(user).$promise;
+			if (user.password) {
+				return user.id
+					? vm.api().save(
+							{
+								id: user.id,
+								pass: 'password',
+								password: user.password
+							},
+							{}
+						).$promise
+					: vm
+							.api()
+							.save(user)
+							.$promise.then(function(res) {
+								var userPassword = user.password;
+								var model = vm; // reassign the api callback functions
+
+								model.api().save(
+									{
+										id: res.id,
+										pass: 'password',
+										password: userPassword
+									},
+									{}
+								).$promise;
+							});
+			} else {
+				return user.id
+					? this.api().update(user).$promise
+					: this.api().save(user).$promise;
+			}
 		}
 
 		function remove(user) {

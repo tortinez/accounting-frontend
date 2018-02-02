@@ -143,7 +143,7 @@
 			}
 
 			function removeItem(user) {
-				OtherResource.remove(supplier).then(
+				User.remove(user).then(
 					function() {
 						User.api()
 							.query()
