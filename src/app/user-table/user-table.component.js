@@ -21,9 +21,11 @@
 		//functions
 		vm.editItem = editItem;
 		vm.addItem = addItem;
+		vm.editPassword = editPassword;
 		vm.userRole = userRole;
 		//dialogs
 		vm.showEdit = showEdit;
+		vm.showPasswordEdit = showPasswordEdit;
 
 		////////////////////////////////////////////////////////////////////////
 		//functions_____________________________________________________________
@@ -37,6 +39,11 @@
 			vm.item = {};
 			vm.title = 'Add User';
 			vm.showEdit();
+		}
+
+		function editPassword(user) {
+			vm.item = user;
+			vm.showPasswordEdit();
 		}
 
 		function userRole(item) {
@@ -59,6 +66,15 @@
 		}
 
 		//Dialogs________________________________________________________________
+		function showPasswordEdit(ev) {
+			$mdDialog.show({
+				controller: DialogController,
+				templateUrl: 'app/user-table/editPasswordDialog.template.html',
+				targetEvent: ev,
+				parent: angular.element(document.body),
+				clickOutsideToClose: false
+			});
+		}
 		function showEdit(ev) {
 			$mdDialog.show({
 				controller: DialogController,
@@ -114,7 +130,11 @@
 						console.log('User saved: ID=', value.id);
 					},
 					function(err) {
-						$mdDialog.hide();
+						if (err.status == 409) {
+							showToast('This username is already in use');
+						} else {
+							showToast('An error occured');
+						}
 						console.error(
 							'The user cannot be modified',
 							err.status,
