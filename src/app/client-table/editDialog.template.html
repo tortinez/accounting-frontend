@@ -1,5 +1,5 @@
 <md-dialog>
-  <form name="clientForm">
+  <form name="clientForm" ng-submit="editClient()">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>{{title}}</h2>
@@ -45,9 +45,9 @@
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
-      <md-button type="submit" class="md-raised md-primary" ng-click="editClient()">Save</md-button>
+      <md-button type="submit" class="md-raised md-primary">Save</md-button>
       <span flex></span>
-      <md-button type="submit" class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="!client.id">
+      <md-button class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="!client.id">
         <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Client
       </md-button>
     </md-dialog-actions>

@@ -1,5 +1,5 @@
 <md-dialog>
-  <form name="clientTypeForm">
+  <form name="clientTypeForm" ng-submit="editClientType()">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>{{title}}</h2>
@@ -24,11 +24,11 @@
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
-      <md-button type="submit" class="md-raised md-primary" ng-disabled="user.role=='USER'" ng-click="editClientType()">Save
+      <md-button type="submit" class="md-raised md-primary" ng-disabled="user.role=='USER'">Save
         <md-tooltip ng-if="user.role=='USER'" md-direction="bottom">You don't have permission to create or edit a client type</md-tooltip>
       </md-button>
       <span flex></span>
-      <md-button type="submit" class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="!clientType.id">
+      <md-button class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="!clientType.id">
         <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Client Type
       </md-button>
     </md-dialog-actions>

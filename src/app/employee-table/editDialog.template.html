@@ -1,5 +1,5 @@
 <md-dialog>
-  <form name="employeeForm">
+  <form name="employeeForm" ng-submit="editEmployee()">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>{{title}}</h2>
@@ -38,9 +38,9 @@
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
-      <md-button type="submit" class="md-raised md-primary" ng-click="editEmployee()">Save</md-button>
+      <md-button type="submit" class="md-raised md-primary">Save</md-button>
       <span flex></span>
-      <md-button type="submit" class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="!employee.id">
+      <md-button class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="!employee.id">
         <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Employee
       </md-button>
     </md-dialog-actions>

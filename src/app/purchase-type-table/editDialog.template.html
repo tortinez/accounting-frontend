@@ -1,5 +1,5 @@
 <md-dialog>
-  <form name="purchaseTypeForm">
+  <form name="purchaseTypeForm" ng-submit="editPurchaseType()">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>{{title}}</h2>
@@ -24,9 +24,9 @@
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
-      <md-button type="submit" class="md-raised md-primary" ng-click="editPurchaseType()">Save</md-button>
+      <md-button type="submit" class="md-raised md-primary">Save</md-button>
       <span flex></span>
-      <md-button type="submit" class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="!purchaseType.id">
+      <md-button class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="!purchaseType.id">
         <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Purchase Type
       </md-button>
     </md-dialog-actions>
