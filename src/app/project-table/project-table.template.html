@@ -37,7 +37,9 @@
             <td md-cell>{{item.type.name}}</td>
             <td md-cell>{{item.description}}</td>
             <td md-cell>
-              <span ng-if="!item.finished">Not</span> Finished</td>
+              <span ng-if="!item.finished">Not Finished</span>
+              <span ng-if="item.finished">Finished</span>
+            </td>
             <td md-cell ng-hide="vm.user.role == 'USER'">
               <md-button class="md-icon-button" ng-click="vm.editItem(item)">
                 <md-tooltip md-direction="bottom">Edit Project</md-tooltip>
