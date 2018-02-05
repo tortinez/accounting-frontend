@@ -58,7 +58,7 @@
 
 		//functions_____________________________________________________________
 		function editPurchase() {
-			return Purchase.save(this.purchase).then(
+			return Purchase.save(vm.purchase).then(
 				function(value) {
 					console.log('Purchase saved: ID=', value.id);
 					$location.path('/purchases');

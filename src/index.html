@@ -47,6 +47,8 @@
   <!-- Actual pages of the app -->
   <script src="app/auth-form/auth-form.module.js"></script>
   <script src="app/auth-form/auth-form.component.js"></script>
+  <script src="app/account-info/account-info.module.js"></script>
+  <script src="app/account-info/account-info.component.js"></script>
   <script src="app/purchase-table/purchase-table.module.js"></script>
   <script src="app/purchase-table/purchase-table.component.js"></script>
   <script src="app/purchase-form/purchase-form.module.js"></script>
@@ -82,12 +84,28 @@
       <h2 id="toolbar-title">Accounting System</h2>
       <span flex></span>
       <!-- User info & Logout -->
-      <md-button ng-click="main.handleLogout($event)" ng-show="user.isLogged">
-        <div layout="row" layout-margin layout-align="center center">
-          <span>{{user.name}} ({{user.role}})</span>
-          <md-icon md-svg-src="/assets/icons/account.svg" style="width: '32px'; height: '32px'"></md-icon>
-        </div>
-      </md-button>
+      <md-menu ng-show="user.isLogged" md-position-mode="target-right target" width="4">
+        <md-button ng-click="$mdMenu.open($event)">
+          <div layout="row" layout-margin layout-align="center center">
+            <span>{{user.name}} ({{user.role}})</span>
+            <md-icon md-menu-origin md-svg-src="/assets/icons/settings.svg" style="width: '32px'; height: '32px'"></md-icon>
+          </div>
+        </md-button>
+        <md-menu-content>
+          <md-menu-item>
+            <md-button ng-click="showAccountInfo()">
+              <md-icon md-svg-src="/assets/icons/account.svg"></md-icon>
+              Account Info
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="handleLogout()">
+              <md-icon md-svg-src="/assets/icons/logout.svg"></md-icon>
+              Logout
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
     </div>
   </md-toolbar>
 

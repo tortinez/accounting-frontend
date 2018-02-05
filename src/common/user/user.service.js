@@ -12,13 +12,14 @@
 			self: self,
 			//other functions
 			save: save,
-			remove: remove
+			remove: remove,
+			saveSelfPassword: saveSelfPassword
 		};
 
 		///////////////////////////////////////////////////////////////////////////
 		//Functions________________________________________________________________
 		function self() {
-			return $resource('/api/user/self', {});
+			return $resource('/api/user/self/:pass', { pass: '' });
 		}
 
 		function api() {
@@ -77,6 +78,17 @@
 
 		function remove(user) {
 			return this.api().remove({ id: user.id }).$promise;
+		}
+
+		function saveSelfPassword(user) {
+			var vm = this;
+			return vm.self().save(
+				{
+					pass: 'password',
+					password: user.password
+				},
+				{}
+			).$promise;
 		}
 	}
 })();

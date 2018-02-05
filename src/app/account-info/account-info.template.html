@@ -1,0 +1,47 @@
+<div flex layout="column" layout-align="center center" layout-fill>
+  <md-card layout="column" layout-align="center">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h1 class="md-flex">Account Info</h1>
+      </div>
+    </md-toolbar>
+    <md-content flex layout="column" layout-padding layout-align="start start">
+      <div>
+        <p>
+          <h3>Username: </h3> {{vm.user.username}}</p>
+        <p>
+          <h3>Person related to this account: </h3> {{vm.user.employee.fullname}}</p>
+        <p>
+          <h3>Role: </h3> {{vm.userRole()}}</p>
+      </div>
+      <div>
+        <h2>Change Password</h2>
+        <form name="passwordForm" ng-submit="vm.editPassword()">
+          <div layout="row" layout-padding layout-align="space-around start">
+            <md-input-container>
+              <label>New Password:</label>
+              <input type="password" required name="password" ng-model="vm.user.password">
+              <div ng-messages="passwordForm.password.$error">
+                <div ng-message="required">You
+                  <b>must</b> provide a valid password.</div>
+              </div>
+            </md-input-container>
+
+            <md-input-container>
+              <label>Confirm Password:</label>
+              <input type="password" required compare-to="vm.user.password" name="confirmPassword" ng-model="vm.user.confirmPassword">
+              <div ng-messages="passwordForm.confirmPassword.$error">
+                <div ng-message="required">You
+                  <b>must</b> fill this field.</div>
+                <div ng-message="compareTo">The passwords entered do not match.</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div>
+            <md-button type="submit" class="md-raised md-primary">Change Password</md-button>
+          </div>
+      </div>
+      </form>
+    </md-content>
+  </md-card>
+</div>
