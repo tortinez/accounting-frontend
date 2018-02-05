@@ -61,7 +61,13 @@
 			$scope.editProject = editProject;
 			$scope.showConfirm = showConfirm;
 			//get the data from the service
-			$scope.project = vm.project;
+			vm.project.id
+				? OtherResource.api('project')
+						.get({ id: vm.project.id })
+						.$promise.then(function(res) {
+							$scope.project = res;
+						})
+				: ($scope.project = {});
 			$scope.clientList = OtherResource.api('client').query();
 			$scope.employeeList = OtherResource.api('employee').query();
 			$scope.typeList = OtherResource.api('project-type').query();
@@ -88,6 +94,7 @@
 					},
 					function(err) {
 						$mdDialog.hide();
+						showToast('An error occured');
 						console.error(
 							'The project cannot be modified',
 							err.status,

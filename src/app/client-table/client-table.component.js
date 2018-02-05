@@ -61,7 +61,13 @@
 			$scope.editClient = editClient;
 			$scope.showConfirm = showConfirm;
 			//get the data from the service
-			$scope.client = vm.client;
+			vm.client.id
+				? OtherResource.api('client')
+						.get({ id: vm.client.id })
+						.$promise.then(function(res) {
+							$scope.client = res;
+						})
+				: ($scope.client = {});
 			$scope.typeList = OtherResource.api('client-type').query();
 
 			$scope.title = vm.title;
@@ -86,6 +92,7 @@
 					},
 					function(err) {
 						$mdDialog.hide();
+						showToast('An error occured');
 						console.error(
 							'The client cannot be modified',
 							err.status,

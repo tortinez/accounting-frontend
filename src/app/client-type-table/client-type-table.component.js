@@ -53,7 +53,6 @@
 			$routeParams,
 			$mdDialog,
 			$mdToast,
-			AutocompleteFields,
 			OtherResource
 		) {
 			//functions callable from the html
@@ -61,7 +60,13 @@
 			$scope.editClientType = editClientType;
 			$scope.showConfirm = showConfirm;
 			//get the data from the service
-			$scope.clientType = vm.clientType;
+			vm.clientType.id
+				? OtherResource.api('client-type')
+						.get({ id: vm.clientType.id })
+						.$promise.then(function(res) {
+							$scope.clientType = res;
+						})
+				: ($scope.clientType = {});
 
 			$scope.title = vm.title;
 
@@ -85,6 +90,7 @@
 					},
 					function(err) {
 						$mdDialog.hide();
+						showToast('An error occured');
 						console.error(
 							'The Client Type cannot be modified',
 							err.status,
@@ -116,11 +122,6 @@
 				);
 				$mdDialog.hide();
 			}
-
-			//Related to the autocomplete form inputs
-			$scope.autocompleteSearch = function(query, items) {
-				return AutocompleteFields.search(query, items);
-			};
 
 			//create a dialog and a toast to perform some actions________________________
 			function showToast(msg) {

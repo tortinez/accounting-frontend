@@ -53,7 +53,6 @@
 			$routeParams,
 			$mdDialog,
 			$mdToast,
-			AutocompleteFields,
 			OtherResource
 		) {
 			//functions callable from the html
@@ -61,7 +60,13 @@
 			$scope.editProjectType = editProjectType;
 			$scope.showConfirm = showConfirm;
 			//get the data from the service
-			$scope.projectType = vm.projectType;
+			vm.projectType.id
+				? OtherResource.api('project-type')
+						.get({ id: vm.projectType.id })
+						.$promise.then(function(res) {
+							$scope.projectType = res;
+						})
+				: ($scope.projectType = {});
 
 			$scope.title = vm.title;
 
@@ -85,6 +90,7 @@
 					},
 					function(err) {
 						$mdDialog.hide();
+						showToast('An error occured');
 						console.error(
 							'The Project Type cannot be modified',
 							err.status,
@@ -116,11 +122,6 @@
 				);
 				$mdDialog.hide();
 			}
-
-			//Related to the autocomplete form inputs
-			$scope.autocompleteSearch = function(query, items) {
-				return AutocompleteFields.search(query, items);
-			};
 
 			//create a dialog and a toast to perform some actions________________________
 			function showToast(msg) {

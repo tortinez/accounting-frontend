@@ -53,7 +53,6 @@
 			$routeParams,
 			$mdDialog,
 			$mdToast,
-			AutocompleteFields,
 			OtherResource
 		) {
 			//functions callable from the html
@@ -61,7 +60,13 @@
 			$scope.editEmployee = editEmployee;
 			$scope.showConfirm = showConfirm;
 			//get the data from the service
-			$scope.employee = vm.employee;
+			vm.employee.id
+				? OtherResource.api('employee')
+						.get({ id: vm.employee.id })
+						.$promise.then(function(res) {
+							$scope.employee = res;
+						})
+				: ($scope.employee = {});
 
 			$scope.title = vm.title;
 
@@ -85,6 +90,7 @@
 					},
 					function(err) {
 						$mdDialog.hide();
+						showToast('An error occured');
 						console.error(
 							'The employee cannot be modified',
 							err.status,
@@ -116,11 +122,6 @@
 				);
 				$mdDialog.hide();
 			}
-
-			//Related to the autocomplete form inputs
-			$scope.autocompleteSearch = function(query, items) {
-				return AutocompleteFields.search(query, items);
-			};
 
 			//create a dialog and a toast to perform some actions________________________
 			function showToast(msg) {

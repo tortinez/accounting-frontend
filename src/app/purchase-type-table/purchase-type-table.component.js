@@ -61,7 +61,13 @@
 			$scope.editPurchaseType = editPurchaseType;
 			$scope.showConfirm = showConfirm;
 			//get the data from the service
-			$scope.purchaseType = vm.purchaseType;
+			vm.purchaseType.id
+				? OtherResource.api('purchase-type')
+						.get({ id: vm.purchaseType.id })
+						.$promise.then(function(res) {
+							$scope.purchaseType = res;
+						})
+				: ($scope.purchaseType = {});
 
 			$scope.title = vm.title;
 
@@ -85,6 +91,7 @@
 					},
 					function(err) {
 						$mdDialog.hide();
+						showToast('An error occured');
 						console.error(
 							'The Purchase Type cannot be modified',
 							err.status,
@@ -116,11 +123,6 @@
 				);
 				$mdDialog.hide();
 			}
-
-			//Related to the autocomplete form inputs
-			$scope.autocompleteSearch = function(query, items) {
-				return AutocompleteFields.search(query, items);
-			};
 
 			//create a dialog and a toast to perform some actions________________________
 			function showToast(msg) {

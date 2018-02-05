@@ -106,8 +106,8 @@
 							$scope.role = vm.userRole($scope.item);
 						})
 				: ($scope.item = {});
-
 			$scope.employeeList = OtherResource.api('employee').query();
+
 			$scope.role = '';
 			$scope.title = vm.title;
 
@@ -133,6 +133,7 @@
 						if (err.status == 409) {
 							showToast('This username is already in use');
 						} else {
+							$mdDialog.hide();
 							showToast('An error occured');
 						}
 						console.error(
@@ -174,6 +175,7 @@
 						console.log('Succesfully removed');
 					},
 					function(err) {
+						showToast('An error occured');
 						console.error(
 							'The item could not be deleted:',
 							err.status,

@@ -58,7 +58,6 @@
 			$routeParams,
 			$mdDialog,
 			$mdToast,
-			AutocompleteFields,
 			OtherResource
 		) {
 			//functions callable from the html
@@ -66,7 +65,13 @@
 			$scope.editPurchaseStatus = editPurchaseStatus;
 			$scope.showConfirm = showConfirm;
 			//get the data from the service
-			$scope.purchaseStatus = vm.purchaseStatus;
+			vm.purchaseStatus.id
+				? OtherResource.api('purchase-state')
+						.get({ id: vm.purchaseStatus.id })
+						.$promise.then(function(res) {
+							$scope.purchaseStatus = res;
+						})
+				: ($scope.purchaseStatus = {});
 
 			$scope.title = vm.title;
 
@@ -90,6 +95,7 @@
 					},
 					function(err) {
 						$mdDialog.hide();
+						showToast('An error occured');
 						console.error(
 							'The Purchase Status cannot be modified',
 							err.status,
@@ -122,11 +128,6 @@
 				);
 				$mdDialog.hide();
 			}
-
-			//Related to the autocomplete form inputs
-			$scope.autocompleteSearch = function(query, items) {
-				return AutocompleteFields.search(query, items);
-			};
 
 			//create a dialog and a toast to perform some actions________________________
 			function showToast(msg) {
