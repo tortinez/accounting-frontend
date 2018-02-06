@@ -45,6 +45,8 @@
 			dateMax: Purchase.date.max,
 			dateMin: Purchase.date.min,
 			item: '',
+			codeRP: '',
+			codeLV: '',
 			chProj: null,
 			reqProj: null,
 			status: null,

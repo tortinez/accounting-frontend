@@ -108,9 +108,10 @@
 				q.push('requestDate<' + vm.dateMax.valueOf());
 			if (vm.dateMin !== date.min)
 				q.push('requestDate>' + vm.dateMin.valueOf());
-			if (vm.amountMax !== 0) q.push('amount<' + vm.amountMax);
-			if (vm.amountMin !== 1e4) q.push('amount>' + vm.amountMin);
-			if (vm.item !== '') q.push('item~' + vm.item);
+			if (vm.amountMax !== null) q.push('amount<' + vm.amountMax);
+			if (vm.amountMin !== null) q.push('amount>' + vm.amountMin);
+			if (vm.codeRP !== '') q.push('codeRP~' + vm.codeRP);
+			if (vm.codeLV !== '') q.push('codeLV~' + vm.codeLV);
 			if (vm.chProj !== null) q.push('chargingProject.name~' + vm.chProj);
 			if (vm.reqProj !== null) q.push('requestingProject.name~' + vm.reqProj);
 			if (vm.status !== null) q.push('state.name~' + vm.status);

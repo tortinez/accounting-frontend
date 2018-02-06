@@ -19,19 +19,31 @@
   </div>
 
   <div layout="column" flex>
+    <md-input-container>
+      <label>Code RP</label>
+      <input ng-model="vm.params.codeRP" ng-change="vm.search()">
+    </md-input-container>
+
+    <md-input-container>
+      <label>Code LV</label>
+      <input ng-model="vm.params.codeLV" ng-change="vm.search()">
+    </md-input-container>
+  </div>
+
+  <div layout="column" flex>
     <md-autocomplete md-no-cache="false" md-selected-item="vm.autocompleteObj.chProj" md-search-text="searchTextChProj" md-selected-item-change="vm.autocompleteItemChange()"
-      md-items="item in vm.autocompleteSearch(searchTextChProj, vm.projList)" md-item-text="item.name" md-min-length="0" md-floating-label="Charging Project"
-      md-clear-button="true">
+      md-items="item in vm.autocompleteSearch(searchTextChProj, vm.projList)" md-item-text="item.code + ' - '+ item.name" md-min-length="0"
+      md-floating-label="Charging Project" md-clear-button="true">
       <md-item-template>
-        <span md-highlight-text="searchTextChProj" md-highlight-flags="^i">{{item.name}}</span>
+        <span md-highlight-text="searchTextChProj" md-highlight-flags="^i">{{item.code}} - {{item.name}}</span>
       </md-item-template>
     </md-autocomplete>
 
     <md-autocomplete md-no-cache="false" md-selected-item="vm.autocompleteObj.reqProj" md-search-text="searchTextReqProj" md-selected-item-change="vm.autocompleteItemChange()"
-      md-items="item in vm.autocompleteSearch(searchTextReqProj, vm.projList)" md-item-text="item.name" md-min-length="0" md-floating-label="Requesting Project"
-      md-clear-button="true">
+      md-items="item in vm.autocompleteSearch(searchTextReqProj, vm.projList)" md-item-text="item.code + ' - '+ item.name"
+      md-min-length="0" md-floating-label="Requesting Project" md-clear-button="true">
       <md-item-template>
-        <span md-highlight-text="searchTextReqProj" md-highlight-flags="^i">{{item.name}}</span>
+        <span md-highlight-text="searchTextReqProj" md-highlight-flags="^i">{{item.code}} - {{item.name}}</span>
       </md-item-template>
     </md-autocomplete>
   </div>
