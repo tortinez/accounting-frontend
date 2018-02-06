@@ -17,7 +17,7 @@
           <input required name="name" ng-model="employee.fullname">
           <div ng-messages="employeeForm.name.$error">
             <div ng-message="required">You
-              <b>must</b> provide a researcher name.</div>
+              <b>must</b> provide a name.</div>
           </div>
         </md-input-container>
 
@@ -41,7 +41,7 @@
       <md-button type="submit" class="md-raised md-primary">Save</md-button>
       <span flex></span>
       <md-button class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="!employee.id">
-        <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Employee
+        <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Person
       </md-button>
     </md-dialog-actions>
   </form>

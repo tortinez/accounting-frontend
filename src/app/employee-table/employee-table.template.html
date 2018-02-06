@@ -4,9 +4,9 @@
     <!-- Pagination options and table title -->
     <md-toolbar class="md-table-toolbar" md-colors="{background: 'grey-50'}">
       <div class="md-toolbar-tools">
-        <div>Employees</div>
+        <div>MCIA Staff</div>
         <span flex></span>
-        <md-button class="md-raised md-primary" ng-click="vm.addItem()" ng-hide="vm.user.role == 'USER'">Add Employee</md-button>
+        <md-button class="md-raised md-primary" ng-click="vm.addItem()" ng-hide="vm.user.role == 'USER'">Add Person</md-button>
       </div>
     </md-toolbar>
 
@@ -31,7 +31,7 @@
             <td md-cell>{{item.comments}}</td>
             <td md-cell ng-hide="vm.user.role == 'USER'">
               <md-button class="md-icon-button" ng-click="vm.editItem(item)">
-                <md-tooltip md-direction="bottom">Edit Employee</md-tooltip>
+                <md-tooltip md-direction="bottom">Edit Person</md-tooltip>
                 <md-icon class="table-icon" md-svg-icon="assets/icons/edit.svg"></md-icon>
               </md-button>
             </td>

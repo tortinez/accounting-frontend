@@ -28,13 +28,13 @@
 		//functions_____________________________________________________________
 		function editItem(employee) {
 			vm.employee = employee;
-			vm.title = 'Edit Employee';
+			vm.title = 'Edit Person';
 			vm.showEdit();
 		}
 
 		function addItem() {
 			vm.employee = { comments: '' };
-			vm.title = 'Add Employee';
+			vm.title = 'Add Person';
 			vm.showEdit();
 		}
 
@@ -108,7 +108,7 @@
 							.$promise.then(function(res) {
 								vm.employees = res;
 							});
-						showToast('Employee Deleted!');
+						showToast('Person Deleted!');
 						console.log('Succesfully removed');
 					},
 					function(err) {
@@ -137,7 +137,7 @@
 			function showConfirm(ev) {
 				var confirm = $mdDialog
 					.confirm()
-					.title('Would you like to delete the employee?')
+					.title('Would you like to delete the person?')
 					.textContent('This action cannot be undone.')
 					.targetEvent(ev)
 					.ok('Delete')
@@ -161,7 +161,7 @@
 						.clickOutsideToClose(true)
 						.title('Error deleting the employee')
 						.textContent(
-							'The employee you are trying to delete has associated purchases. Please delete these purchases first'
+							'The perosn you are trying to delete has associated purchases. Please delete these purchases first'
 						)
 						.ariaLabel('Error Deleting Item')
 						.ok('Ok')

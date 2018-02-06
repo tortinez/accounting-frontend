@@ -120,7 +120,7 @@
 					pages: []
 				},
 				{
-					header: 'Employees',
+					header: 'Staff',
 					type: 'link',
 					linkTo: '#!/employees',
 					icon: 'assets/icons/account-multiple.svg',
