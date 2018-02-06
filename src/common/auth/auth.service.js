@@ -15,6 +15,7 @@
 
 		return {
 			login: login,
+			logout: logout,
 			isAuthenticated: isAuthenticated,
 			user: vm.user
 		};
@@ -40,8 +41,8 @@
 			);
 		}
 
-		function auth(credentials) {
-			return resource(credentials).login().$promise;
+		function logoutResource() {
+			return $resource('/logout', {}, {});
 		}
 
 		//LOGIN FUNCTION
@@ -50,6 +51,11 @@
 				.login()
 				.$promise.then(getAuthSuccess)
 				.catch(getAuthFailed);
+		}
+
+		//LOGOUT FUNCTION
+		function logout() {
+			return logoutResource().get().$promise;
 		}
 
 		//Check if user was already logged in a previous session

@@ -43,7 +43,14 @@
 			};
 
 			$scope.handleLogout = function() {
-				console.error('Not implemented');
+				Auth.logout().then(
+					function(res) {},
+					function(err) {
+						console.log('Logout performed succesfully');
+						Auth.user.isLogged = false;
+						$location.path('/login');
+					}
+				);
 			};
 
 			//Related to the sidenav
