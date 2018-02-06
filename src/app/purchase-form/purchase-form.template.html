@@ -1,5 +1,5 @@
 <div flex layout="column" layout-fill layout-align="center">
-  <form name="purchaseForm" ng-click="vm.editPurchase()" layout="row" flex layout-padding layout-fill id="purchaseForm" layout-align="center">
+  <form name="purchaseForm" ng-submit="vm.editPurchase()" layout="row" flex layout-padding layout-fill id="purchaseForm" layout-align="center">
     <div flex>
       <h1>General Information</h1>
       <md-card layout="row" layout-sm="column" layout-align="space-around center" layout-padding layout-fill layout-wrap>
@@ -134,7 +134,7 @@
           <md-button type="submit" class="md-raised md-primary">Save</md-button>
         </div>
         <div>
-          <md-button type="submit" class="md-raised md-warn" ng-click="vm.showConfirm($event)" ng-hide="vm.user.role=='USER' || !vm.purchase.id">
+          <md-button class="md-raised md-warn" ng-click="vm.showConfirm($event)" ng-hide="vm.user.role=='USER' || !vm.purchase.id">
             <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Purchase
           </md-button>
         </div>

@@ -12,6 +12,7 @@
 		'$routeParams',
 		'$location',
 		'$mdDialog',
+		'$mdToast',
 		'Purchase',
 		'OtherResource',
 		'Auth',
@@ -21,6 +22,7 @@
 		$routeParams,
 		$location,
 		$mdDialog,
+		$mdToast,
 		Purchase,
 		OtherResource,
 		Auth,
@@ -60,10 +62,12 @@
 		function editPurchase() {
 			return Purchase.save(vm.purchase).then(
 				function(value) {
+					showToast('Purchase succesfully saved!');
 					console.log('Purchase saved: ID=', value.id);
 					$location.path('/purchases');
 				},
 				function(err) {
+					showToast('An error occured');
 					console.error(
 						'The purchase cannot be modified',
 						err.status,
@@ -76,6 +80,7 @@
 		function removeItem(purchase) {
 			Purchase.remove(purchase).then(
 				function() {
+					showToast('Purchase succesfully removed!');
 					console.log('Succesfully removed');
 					$location.path('/purchases');
 				},
@@ -158,6 +163,17 @@
 					r.readAsArrayBuffer(f);
 				}
 			}
+		}
+
+		//create a toast to perform some actions________________________
+		function showToast(msg) {
+			$mdToast.show(
+				$mdToast
+					.simple()
+					.textContent(msg)
+					.position('top right')
+					.hideDelay(3000)
+			);
 		}
 	}
 })();

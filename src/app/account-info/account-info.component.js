@@ -8,9 +8,9 @@
 		controllerAs: 'vm'
 	});
 
-	AccountInfoController.$inject = ['$location', 'User'];
+	AccountInfoController.$inject = ['$location', '$mdToast', 'User'];
 
-	function AccountInfoController($location, User) {
+	function AccountInfoController($location, $mdToast, User) {
 		var vm = this;
 		//variables
 		vm.user = {};
@@ -33,6 +33,7 @@
 			return User.saveSelfPassword(vm.user).then(
 				function(value) {
 					console.log('Password changed');
+					showToast('Password Changed');
 					$location.path('/purchases');
 				},
 				function(err) {
@@ -62,6 +63,17 @@
 					break;
 			}
 			return role;
+		}
+
+		//create a toast to perform some actions________________________
+		function showToast(msg) {
+			$mdToast.show(
+				$mdToast
+					.simple()
+					.textContent(msg)
+					.position('top right')
+					.hideDelay(3000)
+			);
 		}
 	}
 })();
