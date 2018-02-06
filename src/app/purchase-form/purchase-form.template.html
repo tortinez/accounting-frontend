@@ -1,58 +1,92 @@
 <div flex layout="column" layout-fill layout-align="center">
-  <form name="purchaseForm" layout="row" flex layout-padding layout-fill id="purchaseForm" layout-align="center">
+  <form name="purchaseForm" ng-click="vm.editPurchase()" layout="row" flex layout-padding layout-fill id="purchaseForm" layout-align="center">
     <div flex>
       <h1>General Information</h1>
       <md-card layout="row" layout-sm="column" layout-align="space-around center" layout-padding layout-fill layout-wrap>
         <md-input-container>
           <label>Concept</label>
-          <input required ng-model="vm.purchase.item">
+          <input required name="item" ng-model="vm.purchase.item">
+          <div ng-messages="purchaseForm.item.$error">
+            <div ng-message="required">The concept field is required.</div>
+          </div>
         </md-input-container>
 
-        <md-autocomplete required md-no-cache="false" md-selected-item="vm.purchase.supplier" md-search-text="searchTextSupplier"
-          md-items="item in vm.autocompleteSearch(searchTextSupplier, vm.supplierList)" md-item-text="item.name" md-min-length="0"
-          md-floating-label="Supplier" md-clear-button="true">
+        <md-autocomplete required md-require-match md-input-name="supplier" md-no-cache="false" md-selected-item="vm.purchase.supplier"
+          md-search-text="searchTextSupplier" md-items="item in vm.autocompleteSearch(searchTextSupplier, vm.supplierList)"
+          md-item-text="item.name" md-min-length="0" md-floating-label="Supplier" md-clear-button="true">
           <md-item-template>
             <span md-highlight-text="searchTextSupplier" md-highlight-flags="^i">{{item.name}}</span>
           </md-item-template>
+          <div ng-messages="purchaseForm.supplier.$error">
+            <div ng-message="required">You
+              <b>must</b> select a supplier.</div>
+            <div ng-message="md-require-match">Please select an existing supplier.</div>
+          </div>
         </md-autocomplete>
 
         <md-input-container>
           <label>Amount (€)</label>
-          <input required ng-model="vm.purchase.amount" type="number" step=".01">
+          <input required name="amount" ng-model="vm.purchase.amount" type="number" step=".01">
           <div class="hint">#####.## €</div>
+          <div ng-messages="purchaseForm.amount.$error">
+            <div ng-message="required">The amount field is required.</div>
+          </div>
         </md-input-container>
 
         <md-input-container>
           <label>Requesting Date</label>
-          <md-datepicker required ng-model="vm.purchase.date" ng-change="vm.purchase.requestDate=vm.purchase.date.getTime()"></md-datepicker>
+          <md-datepicker required name="date" ng-model="vm.purchase.date" ng-change="vm.purchase.requestDate=vm.purchase.date.getTime()"></md-datepicker>
           <div class="hint">dd/mm/yyyy</div>
+          <div ng-messages="purchaseForm.date.$error">
+            <div ng-message="required">The requesting date is required.</div>
+          </div>
         </md-input-container>
 
-        <md-autocomplete required md-no-cache="false" md-selected-item="vm.purchase.type" md-search-text="searchTextType" md-items="item in vm.autocompleteSearch(searchTextType, vm.typeList)"
-          md-item-text="item.name" md-min-length="0" md-floating-label="Expense Type" md-clear-button="true">
+        <md-autocomplete required md-require-match md-input-name="type" md-no-cache="false" md-selected-item="vm.purchase.type" md-search-text="searchTextType"
+          md-items="item in vm.autocompleteSearch(searchTextType, vm.typeList)" md-item-text="item.name" md-min-length="0"
+          md-floating-label="Expense Type" md-clear-button="true">
           <md-item-template>
             <span md-highlight-text="searchTextType" md-highlight-flags="^i">{{item.name}}</span>
           </md-item-template>
+          <div ng-messages="purchaseForm.type.$error">
+            <div ng-message="required">You
+              <b>must</b> select a purchase type.</div>
+            <div ng-message="md-require-match">Please select an existing purchase type.</div>
+          </div>
         </md-autocomplete>
 
-        <md-autocomplete required md-no-cache="false" md-selected-item="vm.purchase.state" md-search-text="searchTextStatus" md-items="item in vm.autocompleteSearch(searchTextStatus, vm.statusList)"
-          md-item-text="item.name" md-min-length="0" md-floating-label="Expense Status" md-clear-button="true">
+        <md-autocomplete required md-require-match md-input-name="status" md-no-cache="false" md-selected-item="vm.purchase.state"
+          md-search-text="searchTextStatus" md-items="item in vm.autocompleteSearch(searchTextStatus, vm.statusList)" md-item-text="item.name"
+          md-min-length="0" md-floating-label="Expense Status" md-clear-button="true">
           <md-item-template>
             <span md-highlight-text="searchTextStatus" md-highlight-flags="^i">{{item.name}}</span>
           </md-item-template>
+          <div ng-messages="purchaseForm.status.$error">
+            <div ng-message="required">You
+              <b>must</b> select a purchase status.</div>
+            <div ng-message="md-require-match">Please select an existing purchase status.</div>
+          </div>
         </md-autocomplete>
 
-        <md-autocomplete required md-no-cache="false" md-selected-item="vm.purchase.requestingEmployee" md-search-text="searchTextEmployee"
-          md-items="item in vm.autocompleteSearch(searchTextEmployee, vm.employeeList)" md-item-text="item.fullname" md-min-length="0"
-          md-floating-label="Requesting Employee" md-clear-button="true">
+        <md-autocomplete required md-require-match md-input-name="employee" md-no-cache="false" md-selected-item="vm.purchase.requestingEmployee"
+          md-search-text="searchTextEmployee" md-items="item in vm.autocompleteSearch(searchTextEmployee, vm.employeeList)"
+          md-item-text="item.fullname" md-min-length="0" md-floating-label="Requesting Employee" md-clear-button="true">
           <md-item-template>
             <span md-highlight-text="searchTextEmployee" md-highlight-flags="^i">{{item.fullname}}</span>
           </md-item-template>
+          <div ng-messages="purchaseForm.employee.$error">
+            <div ng-message="required">You
+              <b>must</b> select an employee.</div>
+            <div ng-message="md-require-match">Please select an existing employee.</div>
+          </div>
         </md-autocomplete>
 
         <md-input-container>
           <label>Code</label>
-          <input required ng-model="vm.purchase.code">
+          <input required name="code" ng-model="vm.purchase.code">
+          <div ng-messages="purchaseForm.code.$error">
+            <div ng-message="required">The code field is required.</div>
+          </div>
         </md-input-container>
 
 
@@ -65,19 +99,29 @@
     <div flex>
       <h1>Project Information</h1>
       <md-card layout="row" layout-sm="column" layout-align="space-around center" flex layout-padding layout-wrap>
-        <md-autocomplete required md-no-cache="false" md-selected-item="vm.purchase.requestingProject" md-search-text="searchTextReqProj"
-          md-items="item in vm.autocompleteSearch(searchTextReqProj, vm.projList)" md-item-text="item.name" md-min-length="0"
-          md-floating-label="Requesting Project" md-clear-button="true">
+        <md-autocomplete required md-require-match md-input-name="reqProj" md-no-cache="false" md-selected-item="vm.purchase.requestingProject"
+          md-search-text="searchTextReqProj" md-items="item in vm.autocompleteSearch(searchTextReqProj, vm.projList)" md-item-text="item.name"
+          md-min-length="0" md-floating-label="Requesting Project" md-clear-button="true">
           <md-item-template>
             <span md-highlight-text="searchTextReqProj" md-highlight-flags="^i">{{item.name}}</span>
           </md-item-template>
+          <div ng-messages="purchaseForm.reqProj.$error">
+            <div ng-message="required">You
+              <b>must</b> select a requesting project.</div>
+            <div ng-message="md-require-match">Please select an existing requesting project.</div>
+          </div>
         </md-autocomplete>
-        <md-autocomplete required md-no-cache="false" md-selected-item="vm.purchase.chargingProject" md-search-text="searchTextChProj"
-          md-items="item in vm.autocompleteSearch(searchTextChProj, vm.projList)" md-item-text="item.name" md-min-length="0"
-          md-floating-label="Charging Project" md-clear-button="true">
+        <md-autocomplete required md-require-match md-input-name="chProj" md-no-cache="false" md-selected-item="vm.purchase.chargingProject"
+          md-search-text="searchTextChProj" md-items="item in vm.autocompleteSearch(searchTextChProj, vm.projList)" md-item-text="item.name"
+          md-min-length="0" md-floating-label="Charging Project" md-clear-button="true">
           <md-item-template>
             <span md-highlight-text="searchTextChProj" md-highlight-flags="^i">{{item.name}}</span>
           </md-item-template>
+          <div ng-messages="purchaseForm.chProj.$error">
+            <div ng-message="required">You
+              <b>must</b> select a charging project.</div>
+            <div ng-message="md-require-match">Please select an existing charging project.</div>
+          </div>
         </md-autocomplete>
       </md-card>
       <h1>Invoice Information</h1>
@@ -86,8 +130,8 @@
       </md-card>
       <div layout="row" layout-align="space-between center">
         <div>
-          <md-button type="submit" class="md-raised" ng-href="#!/purchases">Cancel</md-button>
-          <md-button type="submit" class="md-raised md-primary" ng-click="vm.editPurchase()">Save</md-button>
+          <md-button class="md-raised" ng-href="#!/purchases">Cancel</md-button>
+          <md-button type="submit" class="md-raised md-primary">Save</md-button>
         </div>
         <div>
           <md-button type="submit" class="md-raised md-warn" ng-click="vm.showConfirm($event)" ng-hide="vm.user.role=='USER' || !vm.purchase.id">
