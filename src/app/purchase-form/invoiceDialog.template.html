@@ -1,5 +1,5 @@
 <md-dialog aria-label="Upload Purchase Invoice">
-  <form ng-cloak>
+  <form ng-cloak ng-submit="uploadFile()">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Invoice Upload</h2>
@@ -14,13 +14,17 @@
       <div class="md-dialog-content">
         <h2>Upload a pdf file for the invoice</h2>
         <p>
-          <input class="md-primary" accept="application/pdf" type="file" id="file" name="file"></input>
+          <input required class="md-primary" accept="application/pdf" type="file" id="file" name="file"></input>
         </p>
+        <p ng-if="hasInvoice" id="invoiceMsg">This purchase already
+          <b>has</b> an invoice uploaded. You can upload a pdf to replace the current file or remove the current pdf.</p>
       </div>
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
-      <md-button class="md-raised md-primary" ng-click="uploadFile()">Upload</md-button>
+      <md-button type="submit" class="md-raised md-primary">Upload</md-button>
+      <span flex></span>
+      <md-button ng-disabled="!hasInvoice" class="md-raised md-warn" ng-click="deleteFile()">Remove Invoice</md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>

@@ -131,6 +131,9 @@
 		function DialogController($scope, $mdDialog, Purchase) {
 			$scope.cancel = cancel;
 			$scope.uploadFile = uploadFile;
+			$scope.deleteFile = deleteFile;
+
+			$scope.hasInvoice = vm.purchase.invoicePath ? true : false;
 
 			//////////////////////////////////////////////
 			function cancel() {
@@ -149,6 +152,7 @@
 							.upload({ id: vm.purchase.id }, blob)
 							.$promise.then(
 								function(res) {
+									showToast('File uploaded succesfully');
 									console.log('File uploaded succesfully');
 									$mdDialog.hide();
 								},
@@ -162,6 +166,21 @@
 
 					r.readAsArrayBuffer(f);
 				}
+			}
+
+			function deleteFile() {
+				return Purchase.invoice()
+					.delete({ id: vm.purchase.id })
+					.$promise.then(
+						function(res) {
+							showToast('Invoice removed');
+							console.log('Invoice removed');
+							$mdDialog.hide();
+						},
+						function(err) {
+							console.error('An error ocurred while uploading: ' + err.status);
+						}
+					);
 			}
 		}
 
