@@ -64,25 +64,9 @@ table.md-table > tbody > tr.md-row:hover {
 	width: auto;
 	padding: 3px 7px;
 	text-align: center;
-	color: white !important;
 	white-space: nowrap;
 	vertical-align: middle;
 	border-radius: 10px;
-}
-.badge.red {
-	background-color: #f44336;
-}
-.badge.orange {
-	background-color: #ff5722;
-}
-.badge.green {
-	background-color: #4caf50;
-}
-.badge.blue {
-	background-color: #2196f3;
-}
-.badge.purple {
-	background-color: #673ab7;
 }
 
 /* Pagination toolbar*/

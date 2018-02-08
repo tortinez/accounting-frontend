@@ -10,6 +10,7 @@
 
 	PurchaseTableController.$inject = [
 		'$location',
+		'mdPickerColors',
 		'Purchase',
 		'OtherResource',
 		'Auth',
@@ -18,6 +19,7 @@
 
 	function PurchaseTableController(
 		$location,
+		mdPickerColors,
 		Purchase,
 		OtherResource,
 		Auth,
@@ -36,6 +38,17 @@
 		vm.employeeList = OtherResource.api('employee').query();
 		vm.statusList = OtherResource.api('purchase-state').query();
 		vm.typeList = OtherResource.api('purchase-type').query();
+		//functions
+		vm.search = search;
+		vm.downloadInvoice = downloadInvoice;
+		vm.availableInvoice = availableInvoice;
+		vm.editItem = editItem;
+		vm.prevPage = prevPage;
+		vm.nextPage = nextPage;
+		vm.autocompleteSearch = autocompleteSearch;
+		vm.autocompleteItemChange = autocompleteItemChange;
+		vm.toggleFilters = toggleFilters;
+		vm.badgeColor = badgeColor;
 
 		///////////////////////////////////////////////////////////////////////
 		//variables____________________________________________________________
@@ -67,41 +80,41 @@
 		};
 
 		//functions____________________________________________________________
-		vm.search = function() {
+		function search() {
 			return (vm.purchases = Purchase.search(vm.params));
-		};
+		}
 
-		vm.downloadInvoice = function(purchase) {
+		function downloadInvoice(purchase) {
 			return window.open(['/api/purchase/' + purchase.id + '/invoice']);
-		};
+		}
 
-		vm.availableInvoice = function(purchase) {
+		function availableInvoice(purchase) {
 			return purchase.invoicePath == null;
-		};
+		}
 
-		vm.editItem = function(purchase) {
+		function editItem(purchase) {
 			Purchase.cachePurchase = purchase;
 			return $location.path('/purchaseform/' + purchase.id);
-		};
+		}
 
 		//Related to the pagination bar buttons
-		vm.prevPage = function() {
+		function prevPage() {
 			vm.params.page = vm.params.page - 1;
 			return vm.search();
-		};
+		}
 
-		vm.nextPage = function() {
+		function nextPage() {
 			vm.params.page = vm.params.page + 1;
 			return vm.search();
-		};
+		}
 
 		//Related to the filters
 		//Autocomplete fields
-		vm.autocompleteSearch = function(query, items) {
+		function autocompleteSearch(query, items) {
 			return AutocompleteFields.search(query, items);
-		};
+		}
 
-		vm.autocompleteItemChange = function() {
+		function autocompleteItemChange() {
 			var item = vm.autocompleteObj;
 			vm.params.chProj = item.chProj ? item.chProj.name : null;
 			vm.params.reqProj = item.reqProj ? item.reqProj.name : null;
@@ -111,9 +124,16 @@
 			vm.params.employee = item.employee ? item.employee.fullname : null;
 
 			return vm.search();
-		};
-		vm.toggleFilters = function() {
+		}
+
+		//other___
+		function toggleFilters() {
 			vm.hideFilters = !vm.hideFilters;
-		};
+		}
+
+		function badgeColor(hex) {
+			var color = mdPickerColors.getColor(hex);
+			return color.name;
+		}
 	}
 })();

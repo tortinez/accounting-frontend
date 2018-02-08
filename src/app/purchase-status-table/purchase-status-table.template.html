@@ -24,7 +24,10 @@
         <tbody md-body>
           <tr md-row ng-repeat="item in vm.purchaseStatuss">
             <td md-cell>{{item.id}}</td>
-            <td md-cell>{{item.name}}</td>
+            <td md-cell>
+              <!-- {{item.name}} -->
+              <div class="badge" md-colors="{background: vm.badgeColor('{{item.color}}')}">{{item.name}}</div>
+            </td>
             <td md-cell ng-hide="vm.user.role == 'USER'">
               <md-button class="md-icon-button" ng-click="vm.editItem(item)">
                 <md-tooltip md-direction="bottom">Edit Purchase Status</md-tooltip>

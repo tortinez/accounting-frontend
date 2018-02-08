@@ -11,11 +11,17 @@
 
 	PurchaseStatusTableController.$inject = [
 		'$mdDialog',
+		'mdPickerColors',
 		'Auth',
 		'OtherResource'
 	];
 
-	function PurchaseStatusTableController($mdDialog, Auth, OtherResource) {
+	function PurchaseStatusTableController(
+		$mdDialog,
+		mdPickerColors,
+		Auth,
+		OtherResource
+	) {
 		var vm = this;
 		//get the items of the table
 		vm.purchaseStatuss = OtherResource.api('purchase-state').query();
@@ -26,6 +32,7 @@
 		//functions
 		vm.editItem = editItem;
 		vm.addItem = addItem;
+		vm.badgeColor = badgeColor;
 		//dialogs
 		vm.showEdit = showEdit;
 
@@ -43,6 +50,11 @@
 			vm.showEdit();
 		}
 
+		function badgeColor(hex) {
+			var color = mdPickerColors.getColor(hex);
+			return color.name;
+		}
+
 		//Dialogs________________________________________________________________
 		function showEdit(ev) {
 			$mdDialog.show({
@@ -58,6 +70,7 @@
 			$routeParams,
 			$mdDialog,
 			$mdToast,
+			mdPickerColors,
 			OtherResource
 		) {
 			//functions callable from the html
@@ -70,6 +83,7 @@
 						.get({ id: vm.purchaseStatus.id })
 						.$promise.then(function(res) {
 							$scope.purchaseStatus = res;
+							$scope.color = mdPickerColors.getColor(res.color);
 						})
 				: ($scope.purchaseStatus = {});
 
@@ -82,6 +96,7 @@
 			}
 
 			function editPurchaseStatus() {
+				$scope.purchaseStatus.color = $scope.color.hex;
 				return OtherResource.save('purchase-state', $scope.purchaseStatus).then(
 					function(value) {
 						OtherResource.api('purchase-state')

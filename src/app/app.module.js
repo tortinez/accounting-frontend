@@ -9,6 +9,7 @@
 			'ngRoute',
 			'ngMessages',
 			'angularMoment',
+			'mdColorMenu',
 			'accordion',
 			'validate',
 			'md.data.table',

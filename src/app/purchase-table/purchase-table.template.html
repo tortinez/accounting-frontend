@@ -77,7 +77,7 @@
             <td md-cell>{{purchase.codeRP}}</td>
             <td md-cell>{{purchase.codeLV}}</td>
             <td md-cell>
-              <span ng-class="{30:'badge red', 31:'badge blue', 32:'badge orange', 33:'badge green', 34:'badge purple'}[purchase.state.id]">{{purchase.state.name}}</span>
+              <span class="badge" md-colors="{background: vm.badgeColor('{{purchase.state.color}}')}">{{purchase.state.name}}</span>
             </td>
             <!-- <td md-cell>{{purchase.code}}</td> -->
             <!-- <td md-cell>{{purchase.comments}}</td> -->

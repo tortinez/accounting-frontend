@@ -21,9 +21,11 @@
 		"protractor": "^4.0.9"
 	},
 	"scripts": {
-		"postinstall": "bower install",
+		"prebower-patch": "bower install",
+		"postinstall": "npm run bower-patch",
 		"prestart": "npm install",
 		"start": "http-server ./src -a localhost -p 8000 -c-1 -P http://localhost:8080",
+		"bower-patch": "patch -N ./src/bower_components/md-color-menu/md-color-menu.js < ./md-color-menu.patch.js",
 		"pretest": "npm install",
 		"test": "karma start karma.conf.js",
 		"test-single-run": "karma start karma.conf.js --single-run",
