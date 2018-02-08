@@ -21,54 +21,55 @@
 		//functions
 		vm.editItem = editItem;
 		vm.addItem = addItem;
-		//dialogs
-		vm.showEdit = showEdit;
 
 		////////////////////////////////////////////////////////////////////////
 		//functions_____________________________________________________________
 		function editItem(projectType) {
 			vm.projectType = projectType;
 			vm.title = 'Edit Project Type';
-			vm.showEdit();
+			showFormDialog();
 		}
 
 		function addItem() {
 			vm.projectType = {};
 			vm.title = 'Add Project Type';
-			vm.showEdit();
+			showFormDialog();
 		}
 
 		//Dialogs________________________________________________________________
-		function showEdit(ev) {
+		function showFormDialog(ev) {
 			$mdDialog.show({
-				controller: DialogController,
-				templateUrl: 'app/project-type-table/editDialog.template.html',
+				controller: FormDialogController,
+				controllerAs: 'vm',
+				templateUrl: 'app/project-type-table/form-dialog.template.html',
 				targetEvent: ev,
 				parent: angular.element(document.body),
-				clickOutsideToClose: false
+				clickOutsideToClose: false,
+				locals: { title: vm.title, itemId: vm.projectType.id }
 			});
 		}
-		function DialogController(
-			$scope,
-			$routeParams,
+		function FormDialogController(
 			$mdDialog,
 			$mdToast,
-			OtherResource
+			OtherResource,
+			title,
+			itemId
 		) {
+			var vm2 = this;
 			//functions callable from the html
-			$scope.cancel = cancel;
-			$scope.editProjectType = editProjectType;
-			$scope.showConfirm = showConfirm;
+			vm2.cancel = cancel;
+			vm2.editProjectType = editProjectType;
+			vm2.showConfirmDialog = showConfirmDialog;
 			//get the data from the service
-			vm.projectType.id
+			itemId
 				? OtherResource.api('project-type')
-						.get({ id: vm.projectType.id })
+						.get({ id: itemId })
 						.$promise.then(function(res) {
-							$scope.projectType = res;
+							vm2.projectType = res;
 						})
-				: ($scope.projectType = {});
+				: (vm2.projectType = {});
 
-			$scope.title = vm.title;
+			vm2.title = title;
 
 			////////////////////////////////////////////////////////////////////////
 			//functions_____________________________________________________________
@@ -77,7 +78,7 @@
 			}
 
 			function editProjectType() {
-				return OtherResource.save('project-type', $scope.projectType).then(
+				return OtherResource.save('project-type', vm2.projectType).then(
 					function(value) {
 						OtherResource.api('project-type')
 							.query()
@@ -112,7 +113,7 @@
 						console.log('Succesfully removed');
 					},
 					function(err) {
-						if (err.status == 409 || err.statusText == 'Conflict') showError();
+						if (err.status == 409) showErrorDialog();
 						console.error(
 							'The item could not be deleted:',
 							err.status,
@@ -130,11 +131,11 @@
 						.simple()
 						.textContent(msg)
 						.position('top right')
-						.hideDelay(3000)
+						.hideDelay(2500)
 				);
 			}
 
-			function showConfirm(ev) {
+			function showConfirmDialog(ev) {
 				var confirm = $mdDialog
 					.confirm()
 					.title('Would you like to delete the project type?')
@@ -145,7 +146,7 @@
 
 				$mdDialog.show(confirm).then(
 					function() {
-						removeItem($scope.projectType).then(
+						removeItem(vm2.projectType).then(
 							console.log('Project Type Deleted!')
 						);
 					},
@@ -155,7 +156,7 @@
 				);
 			}
 
-			function showError(ev) {
+			function showErrorDialog(ev) {
 				$mdDialog.show(
 					$mdDialog
 						.alert()

@@ -21,56 +21,59 @@
 		//functions
 		vm.editItem = editItem;
 		vm.addItem = addItem;
-		//dialogs
-		vm.showEdit = showEdit;
 
 		////////////////////////////////////////////////////////////////////////
 		//functions_____________________________________________________________
 		function editItem(client) {
 			vm.client = client;
 			vm.title = 'Edit Client';
-			vm.showEdit();
+			showFormDialog();
 		}
 
 		function addItem() {
 			vm.client = {};
 			vm.title = 'Add client';
-			vm.showEdit();
+			showFormDialog();
 		}
 
 		//Dialogs________________________________________________________________
-		function showEdit(ev) {
+		function showFormDialog(ev) {
+			console.log('opening a dialog');
 			$mdDialog.show({
-				controller: DialogController,
-				templateUrl: 'app/client-table/editDialog.template.html',
+				controller: FormDialogController,
+				controllerAs: 'vm',
+				templateUrl: 'app/client-table/form-dialog.template.html',
 				targetEvent: ev,
 				parent: angular.element(document.body),
-				clickOutsideToClose: false
+				clickOutsideToClose: false,
+				locals: { title: vm.title, itemId: vm.client.id }
 			});
 		}
-		function DialogController(
-			$scope,
-			$routeParams,
+		function FormDialogController(
 			$mdDialog,
 			$mdToast,
 			AutocompleteFields,
-			OtherResource
+			OtherResource,
+			title,
+			itemId
 		) {
+			var vm2 = this;
 			//functions callable from the html
-			$scope.cancel = cancel;
-			$scope.editClient = editClient;
-			$scope.showConfirm = showConfirm;
+			vm2.cancel = cancel;
+			vm2.editClient = editClient;
+			vm2.autocompleteSearch = autocompleteSearch;
+			vm2.showConfirmDialog = showConfirmDialog;
 			//get the data from the service
-			vm.client.id
+			itemId
 				? OtherResource.api('client')
-						.get({ id: vm.client.id })
+						.get({ id: itemId })
 						.$promise.then(function(res) {
-							$scope.client = res;
+							vm2.client = res;
 						})
-				: ($scope.client = {});
-			$scope.typeList = OtherResource.api('client-type').query();
+				: (vm2.client = {});
+			vm2.typeList = OtherResource.api('client-type').query();
 
-			$scope.title = vm.title;
+			vm2.title = vm.title;
 
 			////////////////////////////////////////////////////////////////////////
 			//functions_____________________________________________________________
@@ -79,7 +82,7 @@
 			}
 
 			function editClient() {
-				return OtherResource.save('client', $scope.client).then(
+				return OtherResource.save('client', vm2.client).then(
 					function(value) {
 						OtherResource.api('client')
 							.query()
@@ -114,7 +117,7 @@
 						console.log('Succesfully removed');
 					},
 					function(err) {
-						if (err.status == 409 || err.statusText == 'Conflict') showError();
+						if (err.status == 409) showErrorDialog();
 						console.error(
 							'The item could not be deleted:',
 							err.status,
@@ -126,9 +129,9 @@
 			}
 
 			//Related to the autocomplete form inputs
-			$scope.autocompleteSearch = function(query, items) {
+			function autocompleteSearch(query, items) {
 				return AutocompleteFields.search(query, items);
-			};
+			}
 
 			//create a dialog and a toast to perform some actions________________________
 			function showToast(msg) {
@@ -137,11 +140,11 @@
 						.simple()
 						.textContent(msg)
 						.position('top right')
-						.hideDelay(5000)
+						.hideDelay(2500)
 				);
 			}
 
-			function showConfirm(ev) {
+			function showConfirmDialog(ev) {
 				var confirm = $mdDialog
 					.confirm()
 					.title('Would you like to delete the client?')
@@ -152,7 +155,7 @@
 
 				$mdDialog.show(confirm).then(
 					function() {
-						removeItem($scope.client).then(console.log('Client Deleted!'));
+						removeItem(vm2.client).then(console.log('Client Deleted!'));
 					},
 					function() {
 						console.log('Delete client cancelled');
@@ -160,7 +163,7 @@
 				);
 			}
 
-			function showError(ev) {
+			function showErrorDialog(ev) {
 				$mdDialog.show(
 					$mdDialog
 						.alert()

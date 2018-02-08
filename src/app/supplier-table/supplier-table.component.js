@@ -21,54 +21,55 @@
 		//functions
 		vm.editItem = editItem;
 		vm.addItem = addItem;
-		//dialogs
-		vm.showEdit = showEdit;
 
 		////////////////////////////////////////////////////////////////////////
 		//functions_____________________________________________________________
 		function editItem(supplier) {
 			vm.supplier = supplier;
 			vm.title = 'Edit Supplier';
-			vm.showEdit();
+			showFormDialog();
 		}
 
 		function addItem() {
 			vm.supplier = { description: '' };
 			vm.title = 'Add Supplier';
-			vm.showEdit();
+			showFormDialog();
 		}
 
 		//Dialogs________________________________________________________________
-		function showEdit(ev) {
+		function showFormDialog(ev) {
 			$mdDialog.show({
-				controller: DialogController,
-				templateUrl: 'app/supplier-table/editDialog.template.html',
+				controller: FormDialogController,
+				controllerAs: 'vm',
+				templateUrl: 'app/supplier-table/form-dialog.template.html',
 				targetEvent: ev,
 				parent: angular.element(document.body),
-				clickOutsideToClose: false
+				clickOutsideToClose: false,
+				locals: { title: vm.title, itemId: vm.supplier.id }
 			});
 		}
-		function DialogController(
-			$scope,
-			$routeParams,
+		function FormDialogController(
 			$mdDialog,
 			$mdToast,
-			OtherResource
+			OtherResource,
+			title,
+			itemId
 		) {
+			var vm2 = this;
 			//functions callable from the html
-			$scope.cancel = cancel;
-			$scope.editSupplier = editSupplier;
-			$scope.showConfirm = showConfirm;
+			vm2.cancel = cancel;
+			vm2.editSupplier = editSupplier;
+			vm2.showConfirmDialog = showConfirmDialog;
 			//get the data from the service
-			vm.supplier.id
+			itemId
 				? OtherResource.api('supplier')
-						.get({ id: vm.supplier.id })
+						.get({ id: itemId })
 						.$promise.then(function(res) {
-							$scope.supplier = res;
+							vm2.supplier = res;
 						})
-				: ($scope.supplier = {});
+				: (vm2.supplier = {});
 
-			$scope.title = vm.title;
+			vm2.title = title;
 
 			////////////////////////////////////////////////////////////////////////
 			//functions_____________________________________________________________
@@ -77,7 +78,7 @@
 			}
 
 			function editSupplier() {
-				return OtherResource.save('supplier', $scope.supplier).then(
+				return OtherResource.save('supplier', vm2.supplier).then(
 					function(value) {
 						OtherResource.api('supplier')
 							.query()
@@ -112,7 +113,7 @@
 						console.log('Succesfully removed');
 					},
 					function(err) {
-						if (err.status == 409 || err.statusText == 'Conflict') showError();
+						if (err.status == 409) showErrorDialog();
 						console.error(
 							'The item could not be deleted:',
 							err.status,
@@ -130,11 +131,11 @@
 						.simple()
 						.textContent(msg)
 						.position('top right')
-						.hideDelay(5000)
+						.hideDelay(2500)
 				);
 			}
 
-			function showConfirm(ev) {
+			function showConfirmDialog(ev) {
 				var confirm = $mdDialog
 					.confirm()
 					.title('Would you like to delete the supplier?')
@@ -145,7 +146,7 @@
 
 				$mdDialog.show(confirm).then(
 					function() {
-						removeItem($scope.supplier).then(console.log('Supplier Deleted!'));
+						removeItem(vm2.supplier).then(console.log('Supplier Deleted!'));
 					},
 					function() {
 						console.log('Delete supplier cancelled');
@@ -153,7 +154,7 @@
 				);
 			}
 
-			function showError(ev) {
+			function showErrorDialog(ev) {
 				$mdDialog.show(
 					$mdDialog
 						.alert()

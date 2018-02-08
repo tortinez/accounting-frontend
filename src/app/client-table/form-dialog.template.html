@@ -1,10 +1,10 @@
 <md-dialog>
-  <form name="clientForm" ng-submit="editClient()">
+  <form name="clientForm" ng-submit="vm.editClient()">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>{{title}}</h2>
+        <h2>{{vm.title}}</h2>
         <span flex></span>
-        <md-button class="md-icon-button" ng-click="cancel()">
+        <md-button class="md-icon-button" ng-click="vm.cancel()">
           <md-icon md-svg-src="assets/icons/close.svg" aria-label="Close dialog"></md-icon>
         </md-button>
       </div>
@@ -14,7 +14,7 @@
       <div layout="" layout-align="space-around center" layout-padding style="padding: 20px 0 0 0">
         <md-input-container>
           <label>Name</label>
-          <input required name="name" ng-model="client.name">
+          <input required name="name" ng-model="vm.client.name">
           <div ng-messages="clientForm.name.$error">
             <div ng-message="required">You
               <b>must</b> provide a client name.</div>
@@ -23,15 +23,15 @@
 
         <md-input-container>
           <label>Acronym</label>
-          <input required name="acronym" ng-model="client.acronym">
+          <input required name="acronym" ng-model="vm.client.acronym">
           <div ng-messages="clientForm.acronym.$error">
             <div ng-message="required">You
               <b>must</b> provide an acronym for the client.</div>
           </div>
         </md-input-container>
       </div>
-      <md-autocomplete required md-require-match md-input-name="type" md-no-cache="false" md-selected-item="client.type" md-search-text="searchTextType"
-        md-items="item in autocompleteSearch(searchTextType, typeList)" md-item-text="item.name" md-min-length="0" md-floating-label="Client Type"
+      <md-autocomplete required md-require-match md-input-name="type" md-no-cache="false" md-selected-item="vm.client.type" md-search-text="searchTextType"
+        md-items="item in vm.autocompleteSearch(searchTextType, vm.typeList)" md-item-text="item.name" md-min-length="0" md-floating-label="Client Type"
         md-clear-button="true">
         <md-item-template>
           <span md-highlight-text="searchTextType" md-highlight-flags="^i">{{item.name}}</span>
@@ -47,7 +47,7 @@
     <md-dialog-actions layout="row">
       <md-button type="submit" class="md-raised md-primary">Save</md-button>
       <span flex></span>
-      <md-button class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="!client.id">
+      <md-button class="md-raised md-warn" ng-click="vm.showConfirmDialog($event)" ng-hide="!vm.client.id">
         <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Client
       </md-button>
     </md-dialog-actions>

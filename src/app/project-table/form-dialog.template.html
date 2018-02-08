@@ -1,10 +1,10 @@
 <md-dialog>
-  <form name="projectForm" ng-submit="editProject()">
+  <form name="projectForm" ng-submit="vm.editProject()">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>{{title}}</h2>
+        <h2>{{vm.title}}</h2>
         <span flex></span>
-        <md-button class="md-icon-button" ng-click="cancel()">
+        <md-button class="md-icon-button" ng-click="vm.cancel()">
           <md-icon md-svg-src="assets/icons/close.svg" aria-label="Close dialog"></md-icon>
         </md-button>
       </div>
@@ -14,7 +14,7 @@
       <div layout="" layout-align="space-around center" layout-padding style="padding: 20px 0 0 0">
         <md-input-container>
           <label>Name</label>
-          <input required name="name" ng-model="project.name">
+          <input required name="name" ng-model="vm.project.name">
           <div ng-messages="projectForm.name.$error">
             <div ng-message="required">You
               <b>must</b> provide a project name.</div>
@@ -23,7 +23,7 @@
 
         <md-input-container>
           <label>Code</label>
-          <input required name="code" ng-model="project.code">
+          <input required name="code" ng-model="vm.project.code">
           <div ng-messages="projectForm.code.$error">
             <div ng-message="required">You
               <b>must</b> provide a project code.</div>
@@ -31,9 +31,9 @@
         </md-input-container>
       </div>
       <div layout="" layout-padding layout-align="space-around center">
-        <md-autocomplete required md-require-match md-input-name="employee" md-no-cache="false" md-selected-item="project.manager"
-          md-search-text="searchTextEmployee" md-items="item in autocompleteSearch(searchTextEmployee, employeeList)" md-item-text="item.fullname"
-          md-min-length="0" md-floating-label="Manager" md-clear-button="true">
+        <md-autocomplete required md-require-match md-input-name="employee" md-no-cache="false" md-selected-item="vm.project.manager"
+          md-search-text="searchTextEmployee" md-items="item in vm.autocompleteSearch(searchTextEmployee, vm.employeeList)"
+          md-item-text="item.fullname" md-min-length="0" md-floating-label="Manager" md-clear-button="true">
           <md-item-template>
             <span md-highlight-text="searchTextEmployee" md-highlight-flags="^i">{{item.fullname}}</span>
           </md-item-template>
@@ -44,9 +44,9 @@
           </div>
         </md-autocomplete>
 
-        <md-autocomplete required md-require-match md-input-name="client" md-no-cache="false" md-selected-item="project.client" md-search-text="searchTextClient"
-          md-items="item in autocompleteSearch(searchTextClient, clientList)" md-item-text="item.name" md-min-length="0" md-floating-label="Client"
-          md-clear-button="true">
+        <md-autocomplete required md-require-match md-input-name="client" md-no-cache="false" md-selected-item="vm.project.client"
+          md-search-text="searchTextClient" md-items="item in vm.autocompleteSearch(searchTextClient, vm.clientList)" md-item-text="item.name"
+          md-min-length="0" md-floating-label="Client" md-clear-button="true">
           <md-item-template>
             <span md-highlight-text="searchTextClient" md-highlight-flags="^i">{{item.name}}</span>
           </md-item-template>
@@ -57,9 +57,9 @@
           </div>
         </md-autocomplete>
 
-        <md-autocomplete required md-require-match md-input-name="type" md-no-cache="false" md-selected-item="project.type" md-search-text="searchTextType"
-          md-items="item in autocompleteSearch(searchTextType, typeList)" md-item-text="item.name" md-min-length="0" md-floating-label="Project Type"
-          md-clear-button="true">
+        <md-autocomplete required md-require-match md-input-name="type" md-no-cache="false" md-selected-item="vm.project.type" md-search-text="searchTextType"
+          md-items="item in vm.autocompleteSearch(searchTextType, vm.typeList)" md-item-text="item.name" md-min-length="0"
+          md-floating-label="Project Type" md-clear-button="true">
           <md-item-template>
             <span md-highlight-text="searchTextType" md-highlight-flags="^i">{{item.name}}</span>
           </md-item-template>
@@ -73,7 +73,7 @@
 
       <md-input-container>
         <label>Status</label>
-        <md-select required ng-model="project.finished">
+        <md-select required ng-model="vm.project.finished">
           <md-option value="true">Finished</md-option>
           <md-option value="false">Not Finished</md-option>
         </md-select>
@@ -81,14 +81,14 @@
 
       <md-input-container class="md-block">
         <label>Description</label>
-        <textarea ng-model="project.description" md-maxlength="150" rows="1" md-select-on-focus></textarea>
+        <textarea ng-model="vm.project.description" md-maxlength="150" rows="1" md-select-on-focus></textarea>
       </md-input-container>
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
       <md-button type="submit" class="md-raised md-primary">Save</md-button>
       <span flex></span>
-      <md-button class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="!project.id">
+      <md-button class="md-raised md-warn" ng-click="vm.showConfirmDialog($event)" ng-hide="!vm.project.id">
         <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Project
       </md-button>
     </md-dialog-actions>

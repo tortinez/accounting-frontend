@@ -21,55 +21,56 @@
 		//functions
 		vm.editItem = editItem;
 		vm.addItem = addItem;
-		//dialogs
-		vm.showEdit = showEdit;
 
 		////////////////////////////////////////////////////////////////////////
 		//functions_____________________________________________________________
 		function editItem(purchaseType) {
 			vm.purchaseType = purchaseType;
 			vm.title = 'Edit Purchase Type';
-			vm.showEdit();
+			showFormDialog();
 		}
 
 		function addItem() {
 			vm.purchaseType = {};
 			vm.title = 'Add Purchase Type';
-			vm.showEdit();
+			showFormDialog();
 		}
 
 		//Dialogs________________________________________________________________
-		function showEdit(ev) {
+		function showFormDialog(ev) {
 			$mdDialog.show({
-				controller: DialogController,
-				templateUrl: 'app/purchase-type-table/editDialog.template.html',
+				controller: FormDialogController,
+				controllerAs: 'vm',
+				templateUrl: 'app/purchase-type-table/form-dialog.template.html',
 				targetEvent: ev,
 				parent: angular.element(document.body),
-				clickOutsideToClose: false
+				clickOutsideToClose: false,
+				locals: { title: vm.title, itemId: vm.purchaseType.id }
 			});
 		}
-		function DialogController(
-			$scope,
-			$routeParams,
+		function FormDialogController(
 			$mdDialog,
 			$mdToast,
 			AutocompleteFields,
-			OtherResource
+			OtherResource,
+			title,
+			itemId
 		) {
+			var vm2 = this;
 			//functions callable from the html
-			$scope.cancel = cancel;
-			$scope.editPurchaseType = editPurchaseType;
-			$scope.showConfirm = showConfirm;
+			vm2.cancel = cancel;
+			vm2.editPurchaseType = editPurchaseType;
+			vm2.showConfirmDialog = showConfirmDialog;
 			//get the data from the service
-			vm.purchaseType.id
+			itemId
 				? OtherResource.api('purchase-type')
-						.get({ id: vm.purchaseType.id })
+						.get({ id: itemId })
 						.$promise.then(function(res) {
-							$scope.purchaseType = res;
+							vm2.purchaseType = res;
 						})
-				: ($scope.purchaseType = {});
+				: (vm2.purchaseType = {});
 
-			$scope.title = vm.title;
+			vm2.title = title;
 
 			////////////////////////////////////////////////////////////////////////
 			//functions_____________________________________________________________
@@ -78,7 +79,7 @@
 			}
 
 			function editPurchaseType() {
-				return OtherResource.save('purchase-type', $scope.purchaseType).then(
+				return OtherResource.save('purchase-type', vm2.purchaseType).then(
 					function(value) {
 						OtherResource.api('purchase-type')
 							.query()
@@ -113,7 +114,7 @@
 						console.log('Succesfully removed');
 					},
 					function(err) {
-						if (err.status == 409 || err.statusText == 'Conflict') showError();
+						if (err.status == 409) showErrorDialog();
 						console.error(
 							'The item could not be deleted:',
 							err.status,
@@ -131,11 +132,11 @@
 						.simple()
 						.textContent(msg)
 						.position('top right')
-						.hideDelay(3000)
+						.hideDelay(2500)
 				);
 			}
 
-			function showConfirm(ev) {
+			function showConfirmDialog(ev) {
 				var confirm = $mdDialog
 					.confirm()
 					.title('Would you like to delete the purchase type?')
@@ -146,7 +147,7 @@
 
 				$mdDialog.show(confirm).then(
 					function() {
-						removeItem($scope.purchaseType).then(
+						removeItem(vm2.purchaseType).then(
 							console.log('Purchase Type Deleted!')
 						);
 					},
@@ -156,7 +157,7 @@
 				);
 			}
 
-			function showError(ev) {
+			function showErrorDialog(ev) {
 				$mdDialog.show(
 					$mdDialog
 						.alert()

@@ -21,58 +21,60 @@
 		//functions
 		vm.editItem = editItem;
 		vm.addItem = addItem;
-		//dialogs
-		vm.showEdit = showEdit;
 
 		////////////////////////////////////////////////////////////////////////
 		//functions_____________________________________________________________
 		function editItem(project) {
 			vm.project = project;
 			vm.title = 'Edit Project';
-			vm.showEdit();
+			showFormDialog();
 		}
 
 		function addItem() {
-			vm.project = { description: '' };
+			vm.project = {};
 			vm.title = 'Add Project';
-			vm.showEdit();
+			showFormDialog();
 		}
 
 		//Dialogs________________________________________________________________
-		function showEdit(ev) {
+		function showFormDialog(ev) {
 			$mdDialog.show({
-				controller: DialogController,
-				templateUrl: 'app/project-table/editDialog.template.html',
+				controller: FormDialogController,
+				controllerAs: 'vm',
+				templateUrl: 'app/project-table/form-dialog.template.html',
 				targetEvent: ev,
 				parent: angular.element(document.body),
-				clickOutsideToClose: false
+				clickOutsideToClose: false,
+				locals: { title: vm.title, itemId: vm.project.id }
 			});
 		}
-		function DialogController(
-			$scope,
-			$routeParams,
+		function FormDialogController(
 			$mdDialog,
 			$mdToast,
 			AutocompleteFields,
-			OtherResource
+			OtherResource,
+			title,
+			itemId
 		) {
+			var vm2 = this;
 			//functions callable from the html
-			$scope.cancel = cancel;
-			$scope.editProject = editProject;
-			$scope.showConfirm = showConfirm;
+			vm2.cancel = cancel;
+			vm2.editProject = editProject;
+			vm2.showConfirmDialog = showConfirmDialog;
+			vm2.autocompleteSearch = autocompleteSearch;
 			//get the data from the service
 			vm.project.id
 				? OtherResource.api('project')
 						.get({ id: vm.project.id })
 						.$promise.then(function(res) {
-							$scope.project = res;
+							vm2.project = res;
 						})
-				: ($scope.project = {});
-			$scope.clientList = OtherResource.api('client').query();
-			$scope.employeeList = OtherResource.api('employee').query();
-			$scope.typeList = OtherResource.api('project-type').query();
+				: (vm2.project = { description: '' });
+			vm2.clientList = OtherResource.api('client').query();
+			vm2.employeeList = OtherResource.api('employee').query();
+			vm2.typeList = OtherResource.api('project-type').query();
 
-			$scope.title = vm.title;
+			vm2.title = title;
 
 			////////////////////////////////////////////////////////////////////////
 			//functions_____________________________________________________________
@@ -81,7 +83,7 @@
 			}
 
 			function editProject() {
-				return OtherResource.save('project', $scope.project).then(
+				return OtherResource.save('project', vm2.project).then(
 					function(value) {
 						OtherResource.api('project')
 							.query()
@@ -116,7 +118,7 @@
 						console.log('Succesfully removed');
 					},
 					function(err) {
-						if (err.status == 409 || err.statusText == 'Conflict') showError();
+						if (err.status == 409) showErrorDialog();
 						console.error(
 							'The item could not be deleted:',
 							err.status,
@@ -128,9 +130,9 @@
 			}
 
 			//Related to the autocomplete form inputs
-			$scope.autocompleteSearch = function(query, items) {
+			function autocompleteSearch(query, items) {
 				return AutocompleteFields.search(query, items);
-			};
+			}
 
 			//create a dialog and a toast to perform some actions________________________
 			function showToast(msg) {
@@ -139,11 +141,11 @@
 						.simple()
 						.textContent(msg)
 						.position('top right')
-						.hideDelay(5000)
+						.hideDelay(2500)
 				);
 			}
 
-			function showConfirm(ev) {
+			function showConfirmDialog(ev) {
 				var confirm = $mdDialog
 					.confirm()
 					.title('Would you like to delete the project?')
@@ -154,7 +156,7 @@
 
 				$mdDialog.show(confirm).then(
 					function() {
-						removeItem($scope.project).then(console.log('Project Deleted!'));
+						removeItem(vm2.project).then(console.log('Project Deleted!'));
 					},
 					function() {
 						console.log('Delete project cancelled');
@@ -162,7 +164,7 @@
 				);
 			}
 
-			function showError(ev) {
+			function showErrorDialog(ev) {
 				$mdDialog.show(
 					$mdDialog
 						.alert()

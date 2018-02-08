@@ -1,10 +1,10 @@
 <md-dialog>
-  <form name="purchaseStatusForm" ng-submit="editPurchaseStatus()">
+  <form name="purchaseStatusForm" ng-submit="vm.editPurchaseStatus()">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>{{title}}</h2>
+        <h2>{{vm.title}}</h2>
         <span flex></span>
-        <md-button class="md-icon-button" ng-click="cancel()">
+        <md-button class="md-icon-button" ng-click="vm.cancel()">
           <md-icon md-svg-src="assets/icons/close.svg" aria-label="Close dialog"></md-icon>
         </md-button>
       </div>
@@ -14,7 +14,7 @@
       <div layout="" layout-align="space-around center" layout-padding style="padding: 20px 0 0 0">
         <md-input-container>
           <label>Name</label>
-          <input required name="name" ng-model="purchaseStatus.name">
+          <input required name="name" ng-model="vm.purchaseStatus.name">
           <div ng-messages="purchaseStatusForm.name.$error">
             <div ng-message="required">You
               <b>must</b> provide a project status name.</div>
@@ -23,9 +23,9 @@
       </div>
       <div layout="" layout-align="center center">
         Status color:
-        <md-color-menu color="color" style="padding: 0 0 0 20px">
-          <md-button class="md-icon-button" ng-style="color.style">
-            <md-icon md-svg-src="assets/icons/shopping-cart.svg" ng-style="color.style"></md-icon>
+        <md-color-menu color="vm.color" style="padding: 0 0 0 20px">
+          <md-button class="md-icon-button" ng-style="vm.color.style">
+            <md-icon md-svg-src="assets/icons/palette.svg" ng-style="vm.color.style"></md-icon>
           </md-button>
         </md-color-menu>
       </div>
@@ -34,7 +34,7 @@
     <md-dialog-actions layout="row">
       <md-button type="submit" class="md-raised md-primary">Save</md-button>
       <span flex></span>
-      <md-button class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="!purchaseStatus.id">
+      <md-button class="md-raised md-warn" ng-click="vm.showConfirmDialog($event)" ng-hide="!vm.purchaseStatus.id">
         <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Purchase Status
       </md-button>
     </md-dialog-actions>

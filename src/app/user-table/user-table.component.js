@@ -23,27 +23,24 @@
 		vm.addItem = addItem;
 		vm.editPassword = editPassword;
 		vm.userRole = userRole;
-		//dialogs
-		vm.showEdit = showEdit;
-		vm.showPasswordEdit = showPasswordEdit;
 
 		////////////////////////////////////////////////////////////////////////
 		//functions_____________________________________________________________
 		function editItem(user) {
 			vm.item = user;
 			vm.title = 'Edit User';
-			vm.showEdit();
+			showFormDialog();
 		}
 
 		function addItem() {
 			vm.item = {};
 			vm.title = 'Add User';
-			vm.showEdit();
+			showFormDialog();
 		}
 
 		function editPassword(user) {
 			vm.item = user;
-			vm.showPasswordEdit();
+			showPasswordFormDialog();
 		}
 
 		function userRole(item) {
@@ -66,50 +63,56 @@
 		}
 
 		//Dialogs________________________________________________________________
-		function showPasswordEdit(ev) {
+		function showPasswordFormDialog(ev) {
 			$mdDialog.show({
-				controller: DialogController,
-				templateUrl: 'app/user-table/editPasswordDialog.template.html',
+				controller: FormDialogController,
+				controllerAs: 'vm',
+				templateUrl: 'app/user-table/password-form-dialog.template.html',
 				targetEvent: ev,
 				parent: angular.element(document.body),
-				clickOutsideToClose: false
+				clickOutsideToClose: false,
+				locals: { title: vm.title, itemId: vm.item.id }
 			});
 		}
-		function showEdit(ev) {
+		function showFormDialog(ev) {
 			$mdDialog.show({
-				controller: DialogController,
-				templateUrl: 'app/user-table/editDialog.template.html',
+				controller: FormDialogController,
+				controllerAs: 'vm',
+				templateUrl: 'app/user-table/form-dialog.template.html',
 				targetEvent: ev,
 				parent: angular.element(document.body),
-				clickOutsideToClose: false
+				clickOutsideToClose: false,
+				locals: { title: vm.title, itemId: vm.item.id }
 			});
 		}
-		function DialogController(
-			$scope,
-			$routeParams,
+		function FormDialogController(
 			$mdDialog,
 			$mdToast,
 			AutocompleteFields,
-			OtherResource
+			OtherResource,
+			title,
+			itemId
 		) {
+			var vm2 = this;
 			//functions callable from the html
-			$scope.cancel = cancel;
-			$scope.editUser = editUser;
-			$scope.assignRoles = assignRoles;
-			$scope.showConfirm = showConfirm;
+			vm2.cancel = cancel;
+			vm2.editUser = editUser;
+			vm2.assignRoles = assignRoles;
+			vm2.showConfirmDialog = showConfirmDialog;
+			vm2.autocompleteSearch = autocompleteSearch;
 			//get the data from the service
-			vm.item.id
+			itemId
 				? User.api()
-						.get({ id: vm.item.id })
+						.get({ id: itemId })
 						.$promise.then(function(res) {
-							$scope.item = res;
-							$scope.role = vm.userRole($scope.item);
+							vm2.item = res;
+							vm2.role = vm.userRole(vm2.item);
 						})
-				: ($scope.item = {});
-			$scope.employeeList = OtherResource.api('employee').query();
+				: (vm2.item = {});
+			vm2.employeeList = OtherResource.api('employee').query();
 
-			$scope.role = '';
-			$scope.title = vm.title;
+			vm2.role = '';
+			vm2.title = title;
 
 			////////////////////////////////////////////////////////////////////////
 			//functions_____________________________________________________________
@@ -118,7 +121,7 @@
 			}
 
 			function editUser() {
-				return User.save($scope.item).then(
+				return User.save(vm2.item).then(
 					function(value) {
 						User.api()
 							.query()
@@ -148,19 +151,19 @@
 			function assignRoles(role) {
 				switch (role) {
 					case 'USER':
-						$scope.item.roles = ['USER'];
+						vm2.item.roles = ['USER'];
 						break;
 					case 'MANAGER':
-						$scope.item.roles = ['USER', 'MANAGER'];
+						vm2.item.roles = ['USER', 'MANAGER'];
 						break;
 					case 'ADMIN':
-						$scope.item.roles = ['USER', 'MANAGER', 'ADMIN'];
+						vm2.item.roles = ['USER', 'MANAGER', 'ADMIN'];
 						break;
 					default:
-						$scope.item.roles = ['USER'];
+						vm2.item.roles = ['USER'];
 						break;
 				}
-				return $scope.item;
+				return vm2.item;
 			}
 
 			function removeItem(user) {
@@ -187,9 +190,9 @@
 			}
 
 			//Related to the autocomplete form inputs
-			$scope.autocompleteSearch = function(query, items) {
+			function autocompleteSearch(query, items) {
 				return AutocompleteFields.search(query, items);
-			};
+			}
 
 			//create a dialog and a toast to perform some actions________________________
 			function showToast(msg) {
@@ -198,11 +201,11 @@
 						.simple()
 						.textContent(msg)
 						.position('top right')
-						.hideDelay(3000)
+						.hideDelay(2500)
 				);
 			}
 
-			function showConfirm(ev) {
+			function showConfirmDialog(ev) {
 				var confirm = $mdDialog
 					.confirm()
 					.title('Would you like to delete the user?')
@@ -213,7 +216,7 @@
 
 				$mdDialog.show(confirm).then(
 					function() {
-						removeItem($scope.item).then(console.log('User Deleted!'));
+						removeItem(vm2.item).then(console.log('User Deleted!'));
 					},
 					function() {
 						console.log('Delete user cancelled');

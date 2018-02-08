@@ -33,21 +33,19 @@
 		vm.editItem = editItem;
 		vm.addItem = addItem;
 		vm.badgeColor = badgeColor;
-		//dialogs
-		vm.showEdit = showEdit;
 
 		////////////////////////////////////////////////////////////////////////
 		//functions_____________________________________________________________
 		function editItem(purchaseStatus) {
 			vm.purchaseStatus = purchaseStatus;
 			vm.title = 'Edit Purchase Status';
-			vm.showEdit();
+			showFormDialog();
 		}
 
 		function addItem() {
 			vm.purchaseStatus = {};
 			vm.title = 'Add Purchase Status';
-			vm.showEdit();
+			showFormDialog();
 		}
 
 		function badgeColor(hex) {
@@ -56,38 +54,62 @@
 		}
 
 		//Dialogs________________________________________________________________
-		function showEdit(ev) {
+		function showFormDialog(ev) {
 			$mdDialog.show({
-				controller: DialogController,
-				templateUrl: 'app/purchase-status-table/editDialog.template.html',
+				controller: FormDialogController,
+				templateUrl: 'app/purchase-status-table/form-dialog.template.html',
+				controllerAs: 'vm',
 				targetEvent: ev,
 				parent: angular.element(document.body),
-				clickOutsideToClose: false
+				clickOutsideToClose: false,
+				locals: { title: vm.title, itemId: vm.purchaseStatus.id }
 			});
 		}
-		function DialogController(
-			$scope,
-			$routeParams,
+		function FormDialogController(
 			$mdDialog,
 			$mdToast,
 			mdPickerColors,
-			OtherResource
+			OtherResource,
+			title,
+			itemId
 		) {
-			//functions callable from the html
-			$scope.cancel = cancel;
-			$scope.editPurchaseStatus = editPurchaseStatus;
-			$scope.showConfirm = showConfirm;
-			//get the data from the service
-			vm.purchaseStatus.id
-				? OtherResource.api('purchase-state')
-						.get({ id: vm.purchaseStatus.id })
-						.$promise.then(function(res) {
-							$scope.purchaseStatus = res;
-							$scope.color = mdPickerColors.getColor(res.color);
-						})
-				: ($scope.purchaseStatus = {});
+			var vm2 = this;
 
-			$scope.title = vm.title;
+			vm2.colorArray = [
+				//"random" color for new states
+				'#c62828',
+				'#7b1fa2',
+				'#283593',
+				'#039be5',
+				'#2e7d32',
+				'#fdd835',
+				'#f57c00',
+				'#d84315'
+			];
+
+			//functions callable from the html
+			vm2.cancel = cancel;
+			vm2.editPurchaseStatus = editPurchaseStatus;
+			vm2.showConfirmDialog = showConfirmDialog;
+			//get the data from the service
+			itemId
+				? OtherResource.api('purchase-state')
+						.get({ id: itemId })
+						.$promise.then(function(res) {
+							vm2.purchaseStatus = res;
+							vm2.color = mdPickerColors.getColor(
+								res.color == 'undefined'
+									? vm2.colorArray[
+											Math.floor(Math.random() * vm2.colorArray.length)
+										]
+									: res.color
+							);
+						})
+				: (vm2.color = mdPickerColors.getColor(
+						vm2.colorArray[Math.floor(Math.random() * vm2.colorArray.length)]
+					));
+
+			vm2.title = title;
 
 			////////////////////////////////////////////////////////////////////////
 			//functions_____________________________________________________________
@@ -96,8 +118,8 @@
 			}
 
 			function editPurchaseStatus() {
-				$scope.purchaseStatus.color = $scope.color.hex;
-				return OtherResource.save('purchase-state', $scope.purchaseStatus).then(
+				vm2.purchaseStatus.color = vm2.color.hex;
+				return OtherResource.save('purchase-state', vm2.purchaseStatus).then(
 					function(value) {
 						OtherResource.api('purchase-state')
 							.query()
@@ -133,7 +155,7 @@
 						console.log('Succesfully removed');
 					},
 					function(err) {
-						if (err.status == 409 || err.statusText == 'Conflict') showError();
+						if (err.status == 409) showErrorDialog();
 						console.error(
 							'The item could not be deleted:',
 							err.status,
@@ -151,11 +173,11 @@
 						.simple()
 						.textContent(msg)
 						.position('top right')
-						.hideDelay(3000)
+						.hideDelay(2500)
 				);
 			}
 
-			function showConfirm(ev) {
+			function showConfirmDialog(ev) {
 				var confirm = $mdDialog
 					.confirm()
 					.title('Would you like to delete the purchase status?')
@@ -166,7 +188,7 @@
 
 				$mdDialog.show(confirm).then(
 					function() {
-						removeItem($scope.purchaseStatus).then(
+						removeItem(vm2.purchaseStatus).then(
 							console.log('Purchase Status Deleted!')
 						);
 					},
@@ -176,7 +198,7 @@
 				);
 			}
 
-			function showError(ev) {
+			function showErrorDialog(ev) {
 				$mdDialog.show(
 					$mdDialog
 						.alert()

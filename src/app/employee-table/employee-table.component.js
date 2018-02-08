@@ -21,54 +21,55 @@
 		//functions
 		vm.editItem = editItem;
 		vm.addItem = addItem;
-		//dialogs
-		vm.showEdit = showEdit;
 
 		////////////////////////////////////////////////////////////////////////
 		//functions_____________________________________________________________
 		function editItem(employee) {
 			vm.employee = employee;
 			vm.title = 'Edit Person';
-			vm.showEdit();
+			showFormDialog();
 		}
 
 		function addItem() {
-			vm.employee = { comments: '' };
+			vm.employee = {};
 			vm.title = 'Add Person';
-			vm.showEdit();
+			showFormDialog();
 		}
 
 		//Dialogs________________________________________________________________
-		function showEdit(ev) {
+		function showFormDialog(ev) {
 			$mdDialog.show({
-				controller: DialogController,
-				templateUrl: 'app/employee-table/editDialog.template.html',
+				controller: FormDialogController,
+				controllerAs: 'vm',
+				templateUrl: 'app/employee-table/form-dialog.template.html',
 				targetEvent: ev,
 				parent: angular.element(document.body),
-				clickOutsideToClose: false
+				clickOutsideToClose: false,
+				locals: { title: vm.title, ItemId: vm.employee.id }
 			});
 		}
-		function DialogController(
-			$scope,
-			$routeParams,
+		function FormDialogController(
 			$mdDialog,
 			$mdToast,
-			OtherResource
+			OtherResource,
+			title,
+			ItemId
 		) {
+			var vm2 = this;
 			//functions callable from the html
-			$scope.cancel = cancel;
-			$scope.editEmployee = editEmployee;
-			$scope.showConfirm = showConfirm;
+			vm2.cancel = cancel;
+			vm2.editEmployee = editEmployee;
+			vm2.showConfirmDialog = showConfirmDialog;
 			//get the data from the service
-			vm.employee.id
+			ItemId
 				? OtherResource.api('employee')
-						.get({ id: vm.employee.id })
+						.get({ id: ItemId })
 						.$promise.then(function(res) {
-							$scope.employee = res;
+							vm2.employee = res;
 						})
-				: ($scope.employee = {});
+				: (vm2.employee = { comments: '' });
 
-			$scope.title = vm.title;
+			vm2.title = title;
 
 			////////////////////////////////////////////////////////////////////////
 			//functions_____________________________________________________________
@@ -77,7 +78,7 @@
 			}
 
 			function editEmployee() {
-				return OtherResource.save('employee', $scope.employee).then(
+				return OtherResource.save('employee', vm2.employee).then(
 					function(value) {
 						OtherResource.api('employee')
 							.query()
@@ -112,7 +113,7 @@
 						console.log('Succesfully removed');
 					},
 					function(err) {
-						if (err.status == 409 || err.statusText == 'Conflict') showError();
+						if (err.status == 409) showErrorDialog();
 						console.error(
 							'The item could not be deleted:',
 							err.status,
@@ -134,7 +135,7 @@
 				);
 			}
 
-			function showConfirm(ev) {
+			function showConfirmDialog(ev) {
 				var confirm = $mdDialog
 					.confirm()
 					.title('Would you like to delete the person?')
@@ -145,7 +146,7 @@
 
 				$mdDialog.show(confirm).then(
 					function() {
-						removeItem($scope.employee).then(console.log('Employee Deleted!'));
+						removeItem(vm2.employee).then(console.log('Employee Deleted!'));
 					},
 					function() {
 						console.log('Delete employee cancelled');
@@ -153,7 +154,7 @@
 				);
 			}
 
-			function showError(ev) {
+			function showErrorDialog(ev) {
 				$mdDialog.show(
 					$mdDialog
 						.alert()

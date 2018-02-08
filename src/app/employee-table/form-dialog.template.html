@@ -1,10 +1,10 @@
 <md-dialog>
-  <form name="employeeForm" ng-submit="editEmployee()">
+  <form name="employeeForm" ng-submit="vm.editEmployee()">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>{{title}}</h2>
+        <h2>{{vm.title}}</h2>
         <span flex></span>
-        <md-button class="md-icon-button" ng-click="cancel()">
+        <md-button class="md-icon-button" ng-click="vm.cancel()">
           <md-icon md-svg-src="assets/icons/close.svg" aria-label="Close dialog"></md-icon>
         </md-button>
       </div>
@@ -14,7 +14,7 @@
       <div layout="" layout-align="space-around center" layout-padding style="padding: 20px 0 0 0">
         <md-input-container>
           <label>Full Name</label>
-          <input required name="name" ng-model="employee.fullname">
+          <input required name="name" ng-model="vm.employee.fullname">
           <div ng-messages="employeeForm.name.$error">
             <div ng-message="required">You
               <b>must</b> provide a name.</div>
@@ -23,7 +23,7 @@
 
         <md-input-container>
           <label>email</label>
-          <input required name="email" ng-model="employee.email">
+          <input required name="email" ng-model="vm.employee.email">
           <div ng-messages="employeeForm.email.$error">
             <div ng-message="required">You
               <b>must</b> provide an email.</div>
@@ -33,14 +33,14 @@
 
       <md-input-container class="md-block">
         <label>Comments</label>
-        <textarea ng-model="employee.description" md-maxlength="40" rows="1" md-select-on-focus></textarea>
+        <textarea ng-model="vm.employee.description" md-maxlength="40" rows="1" md-select-on-focus></textarea>
       </md-input-container>
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
       <md-button type="submit" class="md-raised md-primary">Save</md-button>
       <span flex></span>
-      <md-button class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="!employee.id">
+      <md-button class="md-raised md-warn" ng-click="vm.showConfirmDialog($event)" ng-hide="!vm.employee.id">
         <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Person
       </md-button>
     </md-dialog-actions>

@@ -1,10 +1,10 @@
 <md-dialog>
-  <form name="supplierForm" ng-submit="editSupplier()">
+  <form name="projectTypeForm" ng-submit="vm.editProjectType()">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>{{title}}</h2>
+        <h2>{{vm.title}}</h2>
         <span flex></span>
-        <md-button class="md-icon-button" ng-click="cancel()">
+        <md-button class="md-icon-button" ng-click="vm.cancel()">
           <md-icon md-svg-src="assets/icons/close.svg" aria-label="Close dialog"></md-icon>
         </md-button>
       </div>
@@ -14,10 +14,10 @@
       <div layout="" layout-align="space-around center" layout-padding style="padding: 20px 0 0 0">
         <md-input-container>
           <label>Name</label>
-          <input required name="name" ng-model="supplier.name">
-          <div ng-messages="supplierForm.name.$error">
+          <input required name="name" ng-model="vm.projectType.name">
+          <div ng-messages="projectTypeForm.name.$error">
             <div ng-message="required">You
-              <b>must</b> provide a supplier name.</div>
+              <b>must</b> provide a project type name.</div>
           </div>
         </md-input-container>
       </div>
@@ -26,8 +26,8 @@
     <md-dialog-actions layout="row">
       <md-button type="submit" class="md-raised md-primary">Save</md-button>
       <span flex></span>
-      <md-button class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="!supplier.id">
-        <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Supplier
+      <md-button class="md-raised md-warn" ng-click="vm.showConfirmDialog($event)" ng-hide="!vm.projectType.id">
+        <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Project Type
       </md-button>
     </md-dialog-actions>
   </form>

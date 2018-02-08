@@ -1,10 +1,10 @@
 <md-dialog>
-  <form name="purchaseTypeForm" ng-submit="editPurchaseType()">
+  <form name="clientTypeForm" ng-submit="vm.editClientType()">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>{{title}}</h2>
+        <h2>{{vm.title}}</h2>
         <span flex></span>
-        <md-button class="md-icon-button" ng-click="cancel()">
+        <md-button class="md-icon-button" ng-click="vm.cancel()">
           <md-icon md-svg-src="assets/icons/close.svg" aria-label="Close dialog"></md-icon>
         </md-button>
       </div>
@@ -14,10 +14,10 @@
       <div layout="" layout-align="space-around center" layout-padding style="padding: 20px 0 0 0">
         <md-input-container>
           <label>Name</label>
-          <input required name="name" ng-model="purchaseType.name">
-          <div ng-messages="purchaseTypeForm.name.$error">
+          <input required name="name" ng-model="vm.clientType.name">
+          <div ng-messages="clientTypeForm.name.$error">
             <div ng-message="required">You
-              <b>must</b> provide a purchase type name.</div>
+              <b>must</b> provide a client type name.</div>
           </div>
         </md-input-container>
       </div>
@@ -26,8 +26,8 @@
     <md-dialog-actions layout="row">
       <md-button type="submit" class="md-raised md-primary">Save</md-button>
       <span flex></span>
-      <md-button class="md-raised md-warn" ng-click="showConfirm($event)" ng-hide="!purchaseType.id">
-        <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Purchase Type
+      <md-button class="md-raised md-warn" ng-click="vm.showConfirmDialog($event)" ng-hide="!vm.clientType.id">
+        <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Client Type
       </md-button>
     </md-dialog-actions>
   </form>
