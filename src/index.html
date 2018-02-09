@@ -47,6 +47,7 @@
   <script src="common/autocomplete-fields/autocomplete-fields.service.js"></script>
 
   <!-- Actual pages of the app -->
+  <script src="app/main/main.controller.js"></script>
   <script src="app/auth-form/auth-form.module.js"></script>
   <script src="app/auth-form/auth-form.component.js"></script>
   <script src="app/account-info/account-info.module.js"></script>
@@ -75,7 +76,7 @@
   <script src="app/user-table/user-table.component.js"></script>
 </head>
 
-<body ng-controller="mainCtrl" layout="column">
+<body ng-controller="MainController as vm" layout="column">
   <!-- Toolbar -->
   <md-toolbar layout="row">
     <div class="md-toolbar-tools" flex layout="row">
@@ -86,22 +87,22 @@
       <h2 id="toolbar-title">Accounting System</h2>
       <span flex></span>
       <!-- User info & Logout -->
-      <md-menu ng-show="user.isLogged" md-position-mode="target-right target" width="4">
+      <md-menu ng-show="vm.user.isLogged" md-position-mode="target-right target" width="4">
         <md-button ng-click="$mdMenu.open($event)">
           <div layout="row" layout-margin layout-align="center center">
-            <span>{{user.name}} ({{user.role}})</span>
+            <span>{{vm.user.name}} ({{vm.user.role}})</span>
             <md-icon md-menu-origin md-svg-src="/assets/icons/settings.svg" style="width: '32px'; height: '32px'"></md-icon>
           </div>
         </md-button>
         <md-menu-content>
           <md-menu-item>
-            <md-button ng-click="showAccountInfo()">
+            <md-button ng-click="vm.showAccountInfo()">
               <md-icon md-svg-src="/assets/icons/account.svg"></md-icon>
               Account Info
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-click="handleLogout()">
+            <md-button ng-click="vm.handleLogout()">
               <md-icon md-svg-src="/assets/icons/logout.svg"></md-icon>
               Logout
             </md-button>
@@ -112,7 +113,7 @@
   </md-toolbar>
 
   <div>
-    <div id="hoveringToggleLeft" ng-mouseover="toggleNavBar()" ng-show="user.isLogged"></div>
+    <div id="hoveringToggleLeft" ng-mouseover="vm.toggleNavBar()" ng-show="vm.user.isLogged"></div>
     <!-- Content Cointainer -->
     <div class="view-container" layout="column" layout-align="center">
       <div ng-view flex layout="column" layout-align="center"></div>
@@ -121,7 +122,7 @@
 
   <!-- Sidenav -->
   <md-sidenav class="md-sidenav-left" md-theme="dark" md-component-id="left" layout="column" md-whiteframe="4">
-    <ng-include src="'app/sidenav/sidenav.template.html'"></ng-include>
+    <ng-include src="'app/main/sidenav.template.html'"></ng-include>
   </md-sidenav>
 
 </body>
