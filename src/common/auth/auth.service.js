@@ -1,8 +1,6 @@
 (function() {
 	'use strict';
 
-	angular.module('common.auth').factory('Auth', Auth);
-
 	Auth.$inject = ['$resource'];
 
 	function Auth($resource) {
@@ -83,4 +81,6 @@
 			return false;
 		}
 	}
+
+	export default Auth;
 })();

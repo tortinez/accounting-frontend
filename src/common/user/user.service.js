@@ -1,8 +1,6 @@
 (function() {
 	'use strict';
 
-	angular.module('common.user').factory('User', User);
-
 	User.$inject = ['$resource'];
 
 	function User($resource) {
@@ -91,4 +89,6 @@
 			).$promise;
 		}
 	}
+
+	export default User;
 })();

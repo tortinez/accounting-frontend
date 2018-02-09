@@ -1,10 +1,6 @@
 (function() {
 	'use strict';
 
-	angular
-		.module('common.autocomplete-fields')
-		.factory('AutocompleteFields', AutocompleteFields);
-
 	function AutocompleteFields() {
 		return { search: search };
 
@@ -20,4 +16,6 @@
 					});
 		}
 	}
+
+	export default AutocompleteFields;
 })();

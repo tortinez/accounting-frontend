@@ -1,8 +1,6 @@
 (function() {
 	'use strict';
 
-	angular.module('common.purchase').factory('Purchase', Purchase);
-
 	Purchase.$inject = ['$resource'];
 
 	function Purchase($resource) {
@@ -129,4 +127,6 @@
 			return fd;
 		}
 	}
+
+	export default Purchase;
 })();

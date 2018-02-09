@@ -1,13 +1,6 @@
 (function() {
 	'use strict';
 
-	angular
-		.module('AccountingFEapp')
-		.config(routingConfig)
-		.config(themingConfig)
-		.config(dateConfig)
-		.run(onChangeRun);
-
 	// App Routing
 	routingConfig.$inject = ['$locationProvider', '$routeProvider'];
 
@@ -136,5 +129,5 @@
 		});
 	}
 
-	export {routingConfig, themingConfig, dateConfig, onChangeRun};
+	export { routingConfig, themingConfig, dateConfig, onChangeRun };
 })();

@@ -1,10 +1,6 @@
 (function() {
 	'use strict';
 
-	angular
-		.module('common.other-resource')
-		.factory('OtherResource', OtherResource);
-
 	OtherResource.$inject = ['$resource'];
 	function OtherResource($resource) {
 		return {
@@ -56,4 +52,6 @@
 			return this.api(entity).remove({ id: item.id }).$promise;
 		}
 	}
+
+	export default OtherResource;
 })();
