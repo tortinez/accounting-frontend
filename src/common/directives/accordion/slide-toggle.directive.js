@@ -1,7 +1,8 @@
 (function() {
 	'use strict';
 	// 'accordion' module, extracted from https://codepen.io/anayarojo/pen/JRmvAW
-	angular.module('accordion').directive('slideToggle', function() {
+
+	function slideToggle() {
 		return {
 			restrict: 'A',
 			link: function(scope, element, attrs) {
@@ -29,5 +30,7 @@
 				});
 			}
 		};
-	});
+	}
+
+	export default slideToggle;
 })();

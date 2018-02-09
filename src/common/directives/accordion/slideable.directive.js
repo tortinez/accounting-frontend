@@ -1,7 +1,8 @@
 (function() {
 	'use strict';
 	// 'accordion' module, extracted from https://codepen.io/anayarojo/pen/JRmvAW
-	angular.module('accordion').directive('slideable', function() {
+
+	function slideable() {
 		return {
 			restrict: 'C',
 			compile: function(element, attr) {
@@ -30,5 +31,7 @@
 				};
 			}
 		};
-	});
+	}
+
+	export default slideable;
 })();
