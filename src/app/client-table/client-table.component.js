@@ -1,13 +1,6 @@
 (function() {
 	'use strict';
 
-	// Register the 'client' page along with its controller an template
-	angular.module('clientTable').component('clientTable', {
-		templateUrl: 'app/client-table/client-table.template.html',
-		controller: ClientTableController,
-		controllerAs: 'vm'
-	});
-
 	ClientTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 
 	function ClientTableController($mdDialog, Auth, OtherResource) {
@@ -42,7 +35,7 @@
 			$mdDialog.show({
 				controller: FormDialogController,
 				controllerAs: 'vm',
-				templateUrl: 'app/client-table/form-dialog.template.html',
+				template: require('./form-dialog.template.html'),
 				targetEvent: ev,
 				parent: angular.element(document.body),
 				clickOutsideToClose: false,
@@ -180,4 +173,6 @@
 			}
 		}
 	}
+
+	export default ClientTableController;
 })();

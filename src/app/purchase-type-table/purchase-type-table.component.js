@@ -1,13 +1,6 @@
 (function() {
 	'use strict';
 
-	// Register the 'purchaseType' page along with its controller an template
-	angular.module('purchaseTypeTable').component('purchaseTypeTable', {
-		templateUrl: 'app/purchase-type-table/purchase-type-table.template.html',
-		controller: PurchaseTypeTableController,
-		controllerAs: 'vm'
-	});
-
 	PurchaseTypeTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 
 	function PurchaseTypeTableController($mdDialog, Auth, OtherResource) {
@@ -41,7 +34,7 @@
 			$mdDialog.show({
 				controller: FormDialogController,
 				controllerAs: 'vm',
-				templateUrl: 'app/purchase-type-table/form-dialog.template.html',
+				template: require('./form-dialog.template.html'),
 				targetEvent: ev,
 				parent: angular.element(document.body),
 				clickOutsideToClose: false,
@@ -174,4 +167,6 @@
 			}
 		}
 	}
+
+	export default PurchaseTypeTableController;
 })();

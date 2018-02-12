@@ -1,14 +1,6 @@
 (function() {
 	'use strict';
 
-	// Register the 'purchaseStatus' page along with its controller an template
-	angular.module('purchaseStatusTable').component('purchaseStatusTable', {
-		templateUrl:
-			'app/purchase-status-table/purchase-status-table.template.html',
-		controller: PurchaseStatusTableController,
-		controllerAs: 'vm'
-	});
-
 	PurchaseStatusTableController.$inject = [
 		'$mdDialog',
 		'mdPickerColors',
@@ -57,7 +49,7 @@
 		function showFormDialog(ev) {
 			$mdDialog.show({
 				controller: FormDialogController,
-				templateUrl: 'app/purchase-status-table/form-dialog.template.html',
+				template: require('./form-dialog.template.html'),
 				controllerAs: 'vm',
 				targetEvent: ev,
 				parent: angular.element(document.body),
@@ -215,4 +207,6 @@
 			}
 		}
 	}
+
+	export default PurchaseStatusTableController;
 })();

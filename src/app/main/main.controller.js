@@ -1,10 +1,6 @@
 (function() {
 	'use strict';
 
-	angular
-		.module('AccountingFEapp')
-		.controller('MainController', MainController);
-
 	MainController.$inject = ['$location', '$mdSidenav', 'Auth'];
 
 	function MainController($location, $mdSidenav, Auth) {
@@ -131,4 +127,6 @@
 			};
 		}
 	}
+
+	export default MainController;
 })();

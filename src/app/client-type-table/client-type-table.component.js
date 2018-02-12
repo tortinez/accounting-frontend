@@ -1,13 +1,6 @@
 (function() {
 	'use strict';
 
-	// Register the 'clientType' page along with its controller an template
-	angular.module('clientTypeTable').component('clientTypeTable', {
-		templateUrl: 'app/client-type-table/client-type-table.template.html',
-		controller: ClientTypeTableController,
-		controllerAs: 'vm'
-	});
-
 	ClientTypeTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 
 	function ClientTypeTableController($mdDialog, Auth, OtherResource) {
@@ -41,7 +34,7 @@
 			$mdDialog.show({
 				controller: FormDialogController,
 				controllerAs: 'vm',
-				templateUrl: 'app/client-type-table/form-dialog.template.html',
+				template: require('./form-dialog.template.html'),
 				targetEvent: ev,
 				parent: angular.element(document.body),
 				clickOutsideToClose: false,
@@ -173,4 +166,6 @@
 			}
 		}
 	}
+
+	export default ClientTypeTableController;
 })();

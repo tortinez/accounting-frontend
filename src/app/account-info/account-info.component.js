@@ -1,13 +1,6 @@
 (function() {
 	'use strict';
 
-	// Register the 'account-info' page along with its controller an template
-	angular.module('accountInfo').component('accountInfo', {
-		templateUrl: 'app/account-info/account-info.template.html',
-		controller: AccountInfoController,
-		controllerAs: 'vm'
-	});
-
 	AccountInfoController.$inject = ['$location', '$mdToast', 'User'];
 
 	function AccountInfoController($location, $mdToast, User) {
@@ -76,4 +69,6 @@
 			);
 		}
 	}
+
+	export default AccountInfoController;
 })();

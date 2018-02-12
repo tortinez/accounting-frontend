@@ -1,13 +1,6 @@
 (function() {
 	'use strict';
 
-	// Register the 'supplier' page along with its controller an template
-	angular.module('supplierTable').component('supplierTable', {
-		templateUrl: 'app/supplier-table/supplier-table.template.html',
-		controller: SupplierTableController,
-		controllerAs: 'vm'
-	});
-
 	SupplierTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 
 	function SupplierTableController($mdDialog, Auth, OtherResource) {
@@ -41,7 +34,7 @@
 			$mdDialog.show({
 				controller: FormDialogController,
 				controllerAs: 'vm',
-				templateUrl: 'app/supplier-table/form-dialog.template.html',
+				template: require('./form-dialog.template.html'),
 				targetEvent: ev,
 				parent: angular.element(document.body),
 				clickOutsideToClose: false,
@@ -171,4 +164,6 @@
 			}
 		}
 	}
+
+	export default SupplierTableController;
 })();

@@ -1,13 +1,6 @@
 (function() {
 	'use strict';
 
-	// Register the 'projectType' page along with its controller an template
-	angular.module('projectTypeTable').component('projectTypeTable', {
-		templateUrl: 'app/project-type-table/project-type-table.template.html',
-		controller: ProjectTypeTableController,
-		controllerAs: 'vm'
-	});
-
 	ProjectTypeTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 
 	function ProjectTypeTableController($mdDialog, Auth, OtherResource) {
@@ -41,7 +34,7 @@
 			$mdDialog.show({
 				controller: FormDialogController,
 				controllerAs: 'vm',
-				templateUrl: 'app/project-type-table/form-dialog.template.html',
+				template: require('./form-dialog.template.html'),
 				targetEvent: ev,
 				parent: angular.element(document.body),
 				clickOutsideToClose: false,
@@ -173,4 +166,6 @@
 			}
 		}
 	}
+
+	export default ProjectTypeTableController;
 })();

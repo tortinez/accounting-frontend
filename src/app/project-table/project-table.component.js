@@ -1,12 +1,7 @@
+import { defer } from 'q';
+
 (function() {
 	'use strict';
-
-	// Register the 'project' page along with its controller an template
-	angular.module('projectTable').component('projectTable', {
-		templateUrl: 'app/project-table/project-table.template.html',
-		controller: ProjectTableController,
-		controllerAs: 'vm'
-	});
 
 	ProjectTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 
@@ -41,7 +36,7 @@
 			$mdDialog.show({
 				controller: FormDialogController,
 				controllerAs: 'vm',
-				templateUrl: 'app/project-table/form-dialog.template.html',
+				template: require('./form-dialog.template.html'),
 				targetEvent: ev,
 				parent: angular.element(document.body),
 				clickOutsideToClose: false,
@@ -181,4 +176,6 @@
 			}
 		}
 	}
+
+	export default ProjectTableController;
 })();

@@ -1,13 +1,6 @@
 (function() {
 	'use strict';
 
-	// Register the 'user' page along with its controller an template
-	angular.module('userTable').component('userTable', {
-		templateUrl: 'app/user-table/user-table.template.html',
-		controller: UserTableController,
-		controllerAs: 'vm'
-	});
-
 	UserTableController.$inject = ['$mdDialog', 'Auth', 'User', 'OtherResource'];
 
 	function UserTableController($mdDialog, Auth, User, OtherResource) {
@@ -67,7 +60,7 @@
 			$mdDialog.show({
 				controller: FormDialogController,
 				controllerAs: 'vm',
-				templateUrl: 'app/user-table/password-form-dialog.template.html',
+				template: require('./password-form-dialog.template.html'),
 				targetEvent: ev,
 				parent: angular.element(document.body),
 				clickOutsideToClose: false,
@@ -78,7 +71,7 @@
 			$mdDialog.show({
 				controller: FormDialogController,
 				controllerAs: 'vm',
-				templateUrl: 'app/user-table/form-dialog.template.html',
+				template: require('./form-dialog.template.html'),
 				targetEvent: ev,
 				parent: angular.element(document.body),
 				clickOutsideToClose: false,
@@ -225,4 +218,6 @@
 			}
 		}
 	}
+
+	export default UserTableController;
 })();

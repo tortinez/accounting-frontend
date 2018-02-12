@@ -1,12 +1,6 @@
 (function() {
 	'use strict';
 
-	// Register the 'authForm' page along with its controller an template
-	angular.module('authForm').component('authForm', {
-		templateUrl: 'app/auth-form/auth-form.template.html',
-		controller: AuthFormController,
-		controllerAs: 'vm'
-	});
 	AuthFormController.$inject = ['$routeParams', '$location', 'Auth'];
 
 	function AuthFormController($routeParams, $location, Auth) {
@@ -29,4 +23,6 @@
 			});
 		}
 	}
+
+	export default AuthFormController;
 })();

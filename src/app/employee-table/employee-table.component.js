@@ -1,13 +1,6 @@
 (function() {
 	'use strict';
 
-	// Register the 'employee' page along with its controller an template
-	angular.module('employeeTable').component('employeeTable', {
-		templateUrl: 'app/employee-table/employee-table.template.html',
-		controller: EmployeeTableController,
-		controllerAs: 'vm'
-	});
-
 	EmployeeTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 
 	function EmployeeTableController($mdDialog, Auth, OtherResource) {
@@ -41,7 +34,7 @@
 			$mdDialog.show({
 				controller: FormDialogController,
 				controllerAs: 'vm',
-				templateUrl: 'app/employee-table/form-dialog.template.html',
+				template: require('./form-dialog.template.html'),
 				targetEvent: ev,
 				parent: angular.element(document.body),
 				clickOutsideToClose: false,
@@ -171,4 +164,6 @@
 			}
 		}
 	}
+
+	export default EmployeeTableController;
 })();

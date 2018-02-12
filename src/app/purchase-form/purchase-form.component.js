@@ -1,13 +1,6 @@
 (function() {
 	'use strict';
 
-	// Register the 'purchaseForm' page along with its controller an template
-	angular.module('purchaseForm').component('purchaseForm', {
-		templateUrl: 'app/purchase-form/purchase-form.template.html',
-		controller: PurchaseFormController,
-		controllerAs: 'vm'
-	});
-
 	PurchaseFormController.$inject = [
 		'$routeParams',
 		'$location',
@@ -122,7 +115,7 @@
 		function showInvoiceInput(ev) {
 			$mdDialog.show({
 				controller: DialogController,
-				templateUrl: 'app/purchase-form/invoiceDialog.template.html',
+				template: require('./invoiceDialog.template.html'),
 				targetEvent: ev,
 				parent: angular.element(document.body),
 				clickOutsideToClose: true
@@ -195,4 +188,6 @@
 			);
 		}
 	}
+
+	export default PurchaseFormController;
 })();
