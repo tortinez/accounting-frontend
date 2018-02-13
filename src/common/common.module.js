@@ -8,9 +8,9 @@ import commonAutocompletefields from './autocomplete-fields/autocomplete-fields.
 
 // Define the 'common' module
 export default angular.module('common', [
-	'commonPurchase',
-	'commonOtherResource',
-	'commonUser',
-	'commonAuth',
-	'commonAutocompletefields'
+	commonPurchase,
+	commonOtherResource,
+	commonUser,
+	commonAuth,
+	commonAutocompletefields
 ]);

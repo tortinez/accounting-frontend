@@ -9,7 +9,7 @@ import ngMessages from 'npm/angular-messages';
 
 //3rd party module imports
 import 'npm/md-color-menu/md-color-menu';
-import mddatatable from 'npm/angular-material-data-table';
+import 'npm/angular-material-data-table';
 
 //custom module imports
 import accordion from '../common/directives/accordion/accordion.module';
@@ -58,7 +58,7 @@ angular
 
 		//3rd Party modules
 		'mdColorMenu',
-		'mddatatable',
+		'md.data.table',
 
 		//custom modules
 		'accordion',
