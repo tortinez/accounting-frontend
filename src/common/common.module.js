@@ -7,7 +7,7 @@ import commonAuth from './auth/auth.module';
 import commonAutocompletefields from './autocomplete-fields/autocomplete-fields.module';
 
 // Define the 'common' module
-angular.module('common', [
+export default angular.module('common', [
 	'commonPurchase',
 	'commonOtherResource',
 	'commonUser',

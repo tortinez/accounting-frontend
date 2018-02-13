@@ -3,8 +3,6 @@
 import AutocompleteFields from './autocomplete-fields.service';
 
 // Define the 'common.autocomplete-fields' module
-angular
+export default angular
 	.module('common.autocomplete-fields', [])
 	.factory('AutocompleteFields', AutocompleteFields);
-
-export default common.autocomplete - fields;

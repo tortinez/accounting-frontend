@@ -3,8 +3,6 @@
 import OtherResource from './other-resource.service';
 
 // Define the 'common.otherResource' module
-angular
+export default angular
 	.module('common.otherResource', ['ngResource'])
 	.factory('OtherResource', OtherResource);
-
-export default common.otherResource;
