@@ -6,6 +6,7 @@ var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var path = require('path');
 
 /**
  * Env
@@ -60,6 +61,12 @@ module.exports = (function makeWebpackConfig() {
 				chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
 			};
 
+	config.resolve = {
+		alias: {
+			npm: path.resolve(__dirname, './node_modules/')
+		}
+	};
+
 	/**
 	 * Devtool
 	 * Reference: http://webpack.github.io/docs/configuration.html#devtool
@@ -90,7 +97,10 @@ module.exports = (function makeWebpackConfig() {
 				// Compiles ES6 and ES7 into ES5 code
 				test: /\.js$/,
 				loader: 'babel-loader',
-				exclude: /node_modules/
+				exclude: /node_modules/,
+				query: {
+					presets: ['es2015']
+				}
 			},
 			{
 				// CSS LOADER
@@ -229,6 +239,7 @@ module.exports = (function makeWebpackConfig() {
 	 */
 	config.devServer = {
 		contentBase: './src',
+		port: 8000,
 		stats: 'minimal',
 		proxy: {
 			'/api/*': 'http://localhost:8080',
@@ -237,4 +248,4 @@ module.exports = (function makeWebpackConfig() {
 	};
 
 	return config;
-})();
+
