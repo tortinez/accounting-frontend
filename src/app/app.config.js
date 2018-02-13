@@ -1,6 +1,6 @@
 'use strict';
 
-import moment from 'npm/moment/moment';
+import moment from 'moment';
 
 // App Routing
 routingConfig.$inject = ['$locationProvider', '$routeProvider'];

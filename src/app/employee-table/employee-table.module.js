@@ -4,7 +4,7 @@ import EmployeeTableController from './employee-table.component';
 
 // Define the 'employee' module
 export default angular
-	.module('employeeTable', ['common.other-resource'])
+	.module('employeeTable', [])
 	.component('employeeTable', {
 		templateUrl: require('./employee-table.template.html'),
 		controller: EmployeeTableController,

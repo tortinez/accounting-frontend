@@ -248,4 +248,4 @@ module.exports = (function makeWebpackConfig() {
 	};
 
 	return config;
-
+}());
