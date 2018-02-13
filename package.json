@@ -9,9 +9,22 @@
 	},
 	"license": "MIT",
 	"author": "Victor Martinez",
-	"dependencies": {},
+	"dependencies": {
+		"angular": "1.6.8",
+		"angular-animate": "1.6.8",
+		"angular-aria": "^1.6.9",
+		"angular-material": "latest",
+		"angular-material-data-table": "latest",
+		"angular-messages": "^1.6.8",
+		"angular-moment": "^1.2.0",
+		"angular-resource": "1.5.x",
+		"angular-route": "1.5.x",
+		"md-color-menu": "git+https://github.com/ONE-LOGIC/md-color-menu.git"
+	},
+	"resolutions": {
+		"angular": "1.6.8"
+	},
 	"devDependencies": {
-		"bower": "^1.7.7",
 		"angular-mocks": "^1.5.0",
 		"autoprefixer": "^6.0.3",
 		"babel-core": "^6.2.1",
@@ -45,9 +58,8 @@
 		"build": "rimraf dist && webpack --bail --progress --profile",
 		"server": "webpack-dev-server --history-api-fallback --inline --progress --host 0.0.0.0",
 		"start": "npm run server",
-		"prebower-patch": "bower install",
-		"bower-patch": "patch -N ./src/bower_components/md-color-menu/md-color-menu.js < ./md-color-menu.patch.js",
-		"postinstall": "npm run bower-patch",
+		"md-color-menu-patch": "patch -N ./node_modules/md-color-menu/md-color-menu.js < ./md-color-menu.patch.js",
+		"postinstall": "npm run md-color-menu-patch",
 		"pretest": "npm install",
 		"test": "karma start",
 		"test-watch": "karma start --auto-watch --no-single-run",
