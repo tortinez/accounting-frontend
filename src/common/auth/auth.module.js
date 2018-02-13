@@ -1,10 +1,8 @@
-(function() {
-	'use strict';
+'use strict';
 
-	import Auth from './auth.service';
+import Auth from './auth.service';
 
-	// Define the 'common.auth' module
-	angular.module('common.auth', ['ngResource']).factory('Auth', Auth);
+// Define the 'common.auth' module
+angular.module('common.auth', ['ngResource']).factory('Auth', Auth);
 
-	export default Common.auth;
-})();
+export default Common.auth;

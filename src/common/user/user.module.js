@@ -1,10 +1,8 @@
-(function() {
-	'use strict';
+'use strict';
 
-	import User from './user.service';
+import User from './user.service';
 
-	// Define the 'common.user' module
-	angular.module('common.user', ['ngResource']).factory('User', User);
+// Define the 'common.user' module
+angular.module('common.user', ['ngResource']).factory('User', User);
 
-	export default common.user;
-})();
+export default common.user;

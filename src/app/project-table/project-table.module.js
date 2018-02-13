@@ -1,18 +1,16 @@
-(function() {
-	'use strict';
+'use strict';
 
-	import ProjectTableController from './project-table.component';
+import ProjectTableController from './project-table.component';
 
-	// Define the 'project' module
-	angular
-		.module('projectTable', ['common.other-resource'])
+// Define the 'project' module
+angular
+	.module('projectTable', ['common.other-resource'])
 
-		// Register the 'project' page along with its controller an template
-		.component('projectTable', {
-			template: require('./project-table.template.html'),
-			controller: ProjectTableController,
-			controllerAs: 'vm'
-		});
+	// Register the 'project' page along with its controller an template
+	.component('projectTable', {
+		template: require('./project-table.template.html'),
+		controller: ProjectTableController,
+		controllerAs: 'vm'
+	});
 
-	export default ProjectTable;
-})();
+export default ProjectTable;

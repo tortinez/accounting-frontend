@@ -1,94 +1,101 @@
-(function() {
-	'use strict';
+'use strict';
 
-	User.$inject = ['$resource'];
+User.$inject = ['$resource'];
 
-	function User($resource) {
-		return {
-			//api calls using $resource
-			api: api,
-			self: self,
-			//other functions
-			save: save,
-			remove: remove,
-			saveSelfPassword: saveSelfPassword
-		};
+function User($resource) {
+	// var client = $resource(){jjjjjjjj}
 
-		///////////////////////////////////////////////////////////////////////////
-		//Functions________________________________________________________________
-		function self() {
-			return $resource('/api/user/self/:pass', { pass: '' });
-		}
+	// function query() {
 
-		function api() {
-			return $resource(
-				'/api/user/:id/:pass',
-				{ id: '@id', pass: '' },
-				{
-					//Modify some HTTP methods
-					query: {
-						method: 'GET',
-						isArray: true
-					},
-					update: { method: 'PUT' }
-				}
-			);
-		}
+	// }
 
-		//override save and remove $resource methods
-		function save(user) {
-			var vm = this;
-			//convert binded data to id parameters
-			user.employeeId = user.employee.id;
+	// fncion save() {}
 
-			if (user.password) {
-				return user.id
-					? vm.api().save(
-							{
-								id: user.id,
-								pass: 'password',
-								password: user.password
-							},
-							{}
-						).$promise
-					: vm
-							.api()
-							.save(user)
-							.$promise.then(function(res) {
-								var userPassword = user.password;
-								var model = vm; // reassign the api callback functions
+	return {
+		resoure: resource,
+		//api calls using $resource
+		api: api,
+		self: self,
+		//other functions
+		save: save,
+		remove: remove,
+		saveSelfPassword: saveSelfPassword
+	};
 
-								model.api().save(
-									{
-										id: res.id,
-										pass: 'password',
-										password: userPassword
-									},
-									{}
-								).$promise;
-							});
-			} else {
-				return user.id
-					? this.api().update(user).$promise
-					: this.api().save(user).$promise;
-			}
-		}
+	///////////////////////////////////////////////////////////////////////////
+	//Functions________________________________________________________________
+	function self() {
+		return $resource('/api/user/self/:pass', { pass: '' });
+	}
 
-		function remove(user) {
-			return this.api().remove({ id: user.id }).$promise;
-		}
-
-		function saveSelfPassword(user) {
-			var vm = this;
-			return vm.self().save(
-				{
-					pass: 'password',
-					password: user.password
+	function api() {
+		return $resource(
+			'/api/user/:id/:pass',
+			{ id: '@id', pass: '' },
+			{
+				//Modify some HTTP methods
+				query: {
+					method: 'GET',
+					isArray: true
 				},
-				{}
-			).$promise;
+				update: { method: 'PUT' }
+			}
+		);
+	}
+
+	//override save and remove $resource methods
+	function save(user) {
+		var vm = this;
+		//convert binded data to id parameters
+		user.employeeId = user.employee.id;
+
+		if (user.password) {
+			return user.id
+				? vm.api().save(
+						{
+							id: user.id,
+							pass: 'password',
+							password: user.password
+						},
+						{}
+					).$promise
+				: vm
+						.api()
+						.save(user)
+						.$promise.then(function(res) {
+							var userPassword = user.password;
+							var model = vm; // reassign the api callback functions
+
+							model.api().save(
+								{
+									id: res.id,
+									pass: 'password',
+									password: userPassword
+								},
+								{}
+							).$promise;
+						});
+		} else {
+			return user.id
+				? this.api().update(user).$promise
+				: this.api().save(user).$promise;
 		}
 	}
 
-	export default User;
-})();
+	function remove(user) {
+		return this.api().remove({ id: user.id }).$promise;
+	}
+
+	function saveSelfPassword(user) {
+		var vm = this;
+		return vm.self().save(
+			{
+				pass: 'password',
+				password: user.password
+			},
+			{}
+		).$promise;
+	}
+}
+
+export default User;

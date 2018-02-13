@@ -1,15 +1,13 @@
-(function() {
-	'use strict';
+'use strict';
 
-	// Define the 'account-info' module
-	angular
-		.module('accountInfo', ['common.user'])
+// Define the 'account-info' module
+angular
+	.module('accountInfo', ['common.user'])
 
-		.component('accountInfo', {
-			template: require('./account-info.template.html'),
-			controller: AccountInfoController,
-			controllerAs: 'vm'
-		});
+	.component('accountInfo', {
+		template: require('./account-info.template.html'),
+		controller: AccountInfoController,
+		controllerAs: 'vm'
+	});
 
-	export default accountInfo;
-})();
+export default accountInfo;

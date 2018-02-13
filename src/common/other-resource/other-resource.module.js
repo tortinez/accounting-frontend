@@ -1,12 +1,10 @@
-(function() {
-	'use strict';
+'use strict';
 
-	import OtherResource from './other-resource.service';
+import OtherResource from './other-resource.service';
 
-	// Define the 'common.otherResource' module
-	angular
-		.module('common.otherResource', ['ngResource'])
-		.factory('OtherResource', OtherResource);
+// Define the 'common.otherResource' module
+angular
+	.module('common.otherResource', ['ngResource'])
+	.factory('OtherResource', OtherResource);
 
-	export default common.otherResource;
-})();
+export default common.otherResource;

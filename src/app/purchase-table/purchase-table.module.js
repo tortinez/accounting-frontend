@@ -1,17 +1,15 @@
-(function() {
-	'use strict';
+'use strict';
 
-	import PurchaseTableController from './purchase-table.component';
+import PurchaseTableController from './purchase-table.component';
 
-	angular
-		.module('purchaseTable', ['common.purchase'])
+angular
+	.module('purchaseTable', ['common.purchase'])
 
-		// Register the 'purchaseTable' page along with its controller an template
-		.component('purchaseTable', {
-			template: require('./purchase-table.template.html'),
-			controller: PurchaseTableController,
-			controllerAs: 'vm'
-		});
+	// Register the 'purchaseTable' page along with its controller an template
+	.component('purchaseTable', {
+		template: require('./purchase-table.template.html'),
+		controller: PurchaseTableController,
+		controllerAs: 'vm'
+	});
 
-	export default purchaseTable;
-})();
+export default purchaseTable;
