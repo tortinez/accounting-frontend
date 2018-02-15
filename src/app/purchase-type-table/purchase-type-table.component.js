@@ -5,7 +5,7 @@ PurchaseTypeTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 function PurchaseTypeTableController($mdDialog, Auth, OtherResource) {
 	var vm = this;
 	//get the items of the table
-	vm.purchaseTypes = OtherResource.api('purchase-type').query();
+	vm.purchaseTypes = OtherResource.query('purchase-type');
 	vm.user = Auth.user;
 	//variables
 	vm.purchaseType = {};
@@ -55,11 +55,9 @@ function PurchaseTypeTableController($mdDialog, Auth, OtherResource) {
 		vm2.showConfirmDialog = showConfirmDialog;
 		//get the data from the service
 		itemId
-			? OtherResource.api('purchase-type')
-					.get({ id: itemId })
-					.$promise.then(function(res) {
-						vm2.purchaseType = res;
-					})
+			? OtherResource.get('purchase-type', itemId).$promise.then(function(res) {
+					vm2.purchaseType = res;
+				})
 			: (vm2.purchaseType = {});
 
 		vm2.title = title;
@@ -73,12 +71,10 @@ function PurchaseTypeTableController($mdDialog, Auth, OtherResource) {
 		function editPurchaseType() {
 			return OtherResource.save('purchase-type', vm2.purchaseType).then(
 				function(value) {
-					OtherResource.api('purchase-type')
-						.query()
-						.$promise.then(function(res) {
-							vm.purchaseTypes = res;
-							$mdDialog.hide();
-						});
+					OtherResource.query('purchase-type').$promise.then(function(res) {
+						vm.purchaseTypes = res;
+						$mdDialog.hide();
+					});
 					showToast('Succesfully Saved!');
 					console.log('PurchaseType saved: ID=', value.id);
 				},
@@ -97,11 +93,9 @@ function PurchaseTypeTableController($mdDialog, Auth, OtherResource) {
 		function removeItem(purchaseType) {
 			OtherResource.remove('purchase-type', purchaseType).then(
 				function() {
-					OtherResource.api('purchase-type')
-						.query()
-						.$promise.then(function(res) {
-							vm.purchaseTypes = res;
-						});
+					OtherResource.query('purchase-type').$promise.then(function(res) {
+						vm.purchaseTypes = res;
+					});
 					showToast('Purchase Type Deleted!');
 					console.log('Succesfully removed');
 				},

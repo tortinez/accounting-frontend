@@ -14,8 +14,8 @@ function AccountInfoController($location, $mdToast, User) {
 	////////////////////////////////////////////////////////////////////////
 	//variables_____________________________________________________________
 	//get the data from the api
-	User.self()
-		.get()
+	User
+		.getSelf()
 		.$promise.then(function(res) {
 			vm.user = res;
 		});
@@ -64,7 +64,7 @@ function AccountInfoController($location, $mdToast, User) {
 				.simple()
 				.textContent(msg)
 				.position('top right')
-				.hideDelay(3000)
+				.hideDelay(2500)
 		);
 	}
 }

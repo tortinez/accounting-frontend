@@ -5,7 +5,7 @@ EmployeeTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 function EmployeeTableController($mdDialog, Auth, OtherResource) {
 	var vm = this;
 	//get the items of the table
-	vm.employees = OtherResource.api('employee').query();
+	vm.employees = OtherResource.query('employee');
 	vm.user = Auth.user;
 	//variables
 	vm.title = '';
@@ -54,11 +54,9 @@ function EmployeeTableController($mdDialog, Auth, OtherResource) {
 		vm2.showConfirmDialog = showConfirmDialog;
 		//get the data from the service
 		ItemId
-			? OtherResource.api('employee')
-					.get({ id: ItemId })
-					.$promise.then(function(res) {
-						vm2.employee = res;
-					})
+			? OtherResource.get('employee', ItemId).$promise.then(function(res) {
+					vm2.employee = res;
+				})
 			: (vm2.employee = { comments: '' });
 
 		vm2.title = title;
@@ -72,12 +70,10 @@ function EmployeeTableController($mdDialog, Auth, OtherResource) {
 		function editEmployee() {
 			return OtherResource.save('employee', vm2.employee).then(
 				function(value) {
-					OtherResource.api('employee')
-						.query()
-						.$promise.then(function(res) {
-							vm.employees = res;
-							$mdDialog.hide();
-						});
+					OtherResource.query('employee').$promise.then(function(res) {
+						vm.employees = res;
+						$mdDialog.hide();
+					});
 					showToast('Succesfully Saved!');
 					console.log('Employee saved: ID=', value.id);
 				},
@@ -96,11 +92,9 @@ function EmployeeTableController($mdDialog, Auth, OtherResource) {
 		function removeItem(employee) {
 			OtherResource.remove('employee', employee).then(
 				function() {
-					OtherResource.api('employee')
-						.query()
-						.$promise.then(function(res) {
-							vm.employees = res;
-						});
+					OtherResource.query('employee').$promise.then(function(res) {
+						vm.employees = res;
+					});
 					showToast('Person Deleted!');
 					console.log('Succesfully removed');
 				},

@@ -5,7 +5,7 @@ ClientTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 function ClientTableController($mdDialog, Auth, OtherResource) {
 	var vm = this;
 	//get the items of the table
-	vm.clients = OtherResource.api('client').query();
+	vm.clients = OtherResource.query('client');
 	vm.user = Auth.user;
 	//variables
 	vm.client = {};
@@ -57,13 +57,11 @@ function ClientTableController($mdDialog, Auth, OtherResource) {
 		vm2.showConfirmDialog = showConfirmDialog;
 		//get the data from the service
 		itemId
-			? OtherResource.api('client')
-					.get({ id: itemId })
-					.$promise.then(function(res) {
-						vm2.client = res;
-					})
+			? OtherResource.get('client', itemId).$promise.then(function(res) {
+					vm2.client = res;
+				})
 			: (vm2.client = {});
-		vm2.typeList = OtherResource.api('client-type').query();
+		vm2.typeList = OtherResource.query('client-type');
 
 		vm2.title = vm.title;
 
@@ -76,12 +74,10 @@ function ClientTableController($mdDialog, Auth, OtherResource) {
 		function editClient() {
 			return OtherResource.save('client', vm2.client).then(
 				function(value) {
-					OtherResource.api('client')
-						.query()
-						.$promise.then(function(res) {
-							vm.clients = res;
-							$mdDialog.hide();
-						});
+					OtherResource.query('client').$promise.then(function(res) {
+						vm.clients = res;
+						$mdDialog.hide();
+					});
 					showToast('Succesfully Saved!');
 					console.log('Client saved: ID=', value.id);
 				},
@@ -100,11 +96,9 @@ function ClientTableController($mdDialog, Auth, OtherResource) {
 		function removeItem(client) {
 			OtherResource.remove('client', client).then(
 				function() {
-					OtherResource.api('client')
-						.query()
-						.$promise.then(function(res) {
-							vm.clients = res;
-						});
+					OtherResource.query('client').$promise.then(function(res) {
+						vm.clients = res;
+					});
 					showToast('Client Deleted!');
 					console.log('Succesfully removed');
 				},

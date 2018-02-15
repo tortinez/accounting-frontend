@@ -5,7 +5,7 @@ ClientTypeTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 function ClientTypeTableController($mdDialog, Auth, OtherResource) {
 	var vm = this;
 	//get the items of the table
-	vm.clientTypes = OtherResource.api('client-type').query();
+	vm.clientTypes = OtherResource.query('client-type');
 	vm.user = Auth.user;
 	//variables
 	vm.clientType = {};
@@ -54,9 +54,9 @@ function ClientTypeTableController($mdDialog, Auth, OtherResource) {
 		vm2.showConfirmDialog = showConfirmDialog;
 		//get the data from the service
 		itemId
-			? OtherResource.api('client-type')
-					.get({ id: itemId })
-					.$promise.then(res => (vm2.clientType = res))
+			? OtherResource.get('client-type', itemId).$promise.then(
+					res => (vm2.clientType = res)
+				)
 			: (vm2.clientType = {});
 
 		vm2.title = title;
@@ -70,12 +70,10 @@ function ClientTypeTableController($mdDialog, Auth, OtherResource) {
 		function editClientType() {
 			return OtherResource.save('client-type', vm2.clientType).then(
 				function(value) {
-					OtherResource.api('client-type')
-						.query()
-						.$promise.then(function(res) {
-							vm.clientTypes = res;
-							$mdDialog.hide();
-						});
+					OtherResource.query('client-type').$promise.then(function(res) {
+						vm.clientTypes = res;
+						$mdDialog.hide();
+					});
 					showToast('Succesfully Saved!');
 					console.log('ClientType saved: ID=', value.id);
 				},
@@ -94,11 +92,9 @@ function ClientTypeTableController($mdDialog, Auth, OtherResource) {
 		function removeItem(clientType) {
 			OtherResource.remove('client-type', clientType).then(
 				function() {
-					OtherResource.api('client-type')
-						.query()
-						.$promise.then(function(res) {
-							vm.clientTypes = res;
-						});
+					OtherResource.query('client-type').$promise.then(function(res) {
+						vm.clientTypes = res;
+					});
 					showToast('Client Type Deleted!');
 					console.log('Succesfully removed');
 				},

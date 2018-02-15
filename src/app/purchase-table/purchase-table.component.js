@@ -19,17 +19,17 @@ function PurchaseTableController(
 ) {
 	var vm = this;
 	//get the items of the table
-	vm.purchases = Purchase.api().query();
+	vm.purchases = Purchase.query();
 	//set the items for the filtering tab
 	vm.hideFilters = true;
 	vm.date = Purchase.date;
 	vm.sizeOpt = [50, 75, 100];
 	//retrieve the list of projects, status, type and supplier
-	vm.projList = OtherResource.api('project').query();
-	vm.supplierList = OtherResource.api('supplier').query();
-	vm.employeeList = OtherResource.api('employee').query();
-	vm.statusList = OtherResource.api('purchase-state').query();
-	vm.typeList = OtherResource.api('purchase-type').query();
+	vm.projList = OtherResource.query('project');
+	vm.supplierList = OtherResource.query('supplier');
+	vm.employeeList = OtherResource.query('employee');
+	vm.statusList = OtherResource.query('purchase-state');
+	vm.typeList = OtherResource.query('purchase-type');
 	//functions
 	vm.search = search;
 	vm.downloadInvoice = downloadInvoice;

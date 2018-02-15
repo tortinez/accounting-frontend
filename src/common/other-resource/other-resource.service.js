@@ -2,28 +2,40 @@
 
 OtherResource.$inject = ['$resource'];
 function OtherResource($resource) {
+	//$resource Objects________________________________________________________
+	//not returned
+	var resource = $resource(
+		'/api/:entity/:id',
+		{
+			entity: 'undefined',
+			id: '@id'
+		},
+		{
+			//Modify some HTTP methods
+			query: {
+				method: 'GET',
+				isArray: true
+			},
+			update: { method: 'PUT' }
+		}
+	);
+
+	//return statement_________________________________________________________
 	return {
-		api: api,
+		get: get,
+		query: query,
 		save: save,
 		remove: remove
 	};
 
 	//////////////////////////////////////////////////////////////////////
-
 	//Functions___________________________________________________________
-	function api(entity) {
-		return $resource(
-			'/api/' + entity + '/:id',
-			{ id: '@id' },
-			{
-				//Modify some HTTP methods
-				query: {
-					method: 'GET',
-					isArray: true
-				},
-				update: { method: 'PUT' }
-			}
-		);
+	function get(entity, itemId) {
+		return resource.get({ entity: entity, id: itemId });
+	}
+
+	function query(entity) {
+		return resource.query({ entity: entity });
 	}
 
 	//override save and remove $resource methods
@@ -43,12 +55,12 @@ function OtherResource($resource) {
 		}
 
 		return item.id
-			? this.api(entity).update(item).$promise
-			: this.api(entity).save(item).$promise;
+			? resource.update({ entity: entity }, item).$promise
+			: resource.save({ entity: entity }, item).$promise;
 	}
 
 	function remove(entity, item) {
-		return this.api(entity).remove({ id: item.id }).$promise;
+		return resource.remove({ entity: entity, id: item.id }).$promise;
 	}
 }
 

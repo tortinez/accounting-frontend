@@ -3,20 +3,28 @@
 User.$inject = ['$resource'];
 
 function User($resource) {
-	// var client = $resource(){jjjjjjjj}
+	//$resource Objects________________________________________________________
+	//not returned
+	var resource = $resource(
+		'/api/user/:id/:pass',
+		{ id: '@id', pass: '' },
+		{
+			//Modify some HTTP methods
+			query: {
+				method: 'GET',
+				isArray: true
+			},
+			update: { method: 'PUT' }
+		}
+	);
 
-	// function query() {
+	var self = $resource('/api/user/self/:pass', { pass: '' });
 
-	// }
-
-	// fncion save() {}
-
+	//return statement_________________________________________________________
 	return {
-		resoure: resource,
-		//api calls using $resource
-		api: api,
-		self: self,
-		//other functions
+		get: get,
+		query: query,
+		getSelf: getSelf,
 		save: save,
 		remove: remove,
 		saveSelfPassword: saveSelfPassword
@@ -24,34 +32,26 @@ function User($resource) {
 
 	///////////////////////////////////////////////////////////////////////////
 	//Functions________________________________________________________________
-	function self() {
-		return $resource('/api/user/self/:pass', { pass: '' });
-	}
-
-	function api() {
-		return $resource(
-			'/api/user/:id/:pass',
-			{ id: '@id', pass: '' },
-			{
-				//Modify some HTTP methods
-				query: {
-					method: 'GET',
-					isArray: true
-				},
-				update: { method: 'PUT' }
-			}
-		);
-	}
-
 	//override save and remove $resource methods
+	function get(itemId) {
+		return resource.get({id: itemId });
+	}
+
+	function query() {
+		return resource.query();
+	}
+
+	function getSelf() {
+		return self.get();
+	}
+
 	function save(user) {
-		var vm = this;
 		//convert binded data to id parameters
 		user.employeeId = user.employee.id;
 
 		if (user.password) {
 			return user.id
-				? vm.api().save(
+				? resource.save(
 						{
 							id: user.id,
 							pass: 'password',
@@ -59,36 +59,32 @@ function User($resource) {
 						},
 						{}
 					).$promise
-				: vm
-						.api()
-						.save(user)
-						.$promise.then(function(res) {
-							var userPassword = user.password;
-							var model = vm; // reassign the api callback functions
+				: resource.save(user).$promise.then(function(res) {
+						var userPassword = user.password;
 
-							model.api().save(
-								{
-									id: res.id,
-									pass: 'password',
-									password: userPassword
-								},
-								{}
-							).$promise;
-						});
+						resource.save(
+							{
+								id: res.id,
+								pass: 'password',
+								password: userPassword
+							},
+							{}
+						).$promise;
+					});
 		} else {
 			return user.id
-				? this.api().update(user).$promise
-				: this.api().save(user).$promise;
+				? resource.update(user).$promise
+				: resource.save(user).$promise;
 		}
 	}
 
 	function remove(user) {
-		return this.api().remove({ id: user.id }).$promise;
+		return resource.remove({ id: user.id }).$promise;
 	}
 
 	function saveSelfPassword(user) {
 		var vm = this;
-		return vm.self().save(
+		return self.save(
 			{
 				pass: 'password',
 				password: user.password

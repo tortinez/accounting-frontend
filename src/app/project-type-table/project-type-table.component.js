@@ -5,7 +5,7 @@ ProjectTypeTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 function ProjectTypeTableController($mdDialog, Auth, OtherResource) {
 	var vm = this;
 	//get the items of the table
-	vm.projectTypes = OtherResource.api('project-type').query();
+	vm.projectTypes = OtherResource.query('project-type');
 	vm.user = Auth.user;
 	//variables
 	vm.projectType = {};
@@ -54,11 +54,9 @@ function ProjectTypeTableController($mdDialog, Auth, OtherResource) {
 		vm2.showConfirmDialog = showConfirmDialog;
 		//get the data from the service
 		itemId
-			? OtherResource.api('project-type')
-					.get({ id: itemId })
-					.$promise.then(function(res) {
-						vm2.projectType = res;
-					})
+			? OtherResource.get('project-type', itemId).$promise.then(function(res) {
+					vm2.projectType = res;
+				})
 			: (vm2.projectType = {});
 
 		vm2.title = title;
@@ -72,12 +70,10 @@ function ProjectTypeTableController($mdDialog, Auth, OtherResource) {
 		function editProjectType() {
 			return OtherResource.save('project-type', vm2.projectType).then(
 				function(value) {
-					OtherResource.api('project-type')
-						.query()
-						.$promise.then(function(res) {
-							vm.projectTypes = res;
-							$mdDialog.hide();
-						});
+					OtherResource.query('project-type').$promise.then(function(res) {
+						vm.projectTypes = res;
+						$mdDialog.hide();
+					});
 					showToast('Succesfully Saved!');
 					console.log('ProjectType saved: ID=', value.id);
 				},
@@ -96,11 +92,9 @@ function ProjectTypeTableController($mdDialog, Auth, OtherResource) {
 		function removeItem(projectType) {
 			OtherResource.remove('project-type', projectType).then(
 				function() {
-					OtherResource.api('project-type')
-						.query()
-						.$promise.then(function(res) {
-							vm.projectTypes = res;
-						});
+					OtherResource.query('project-type').$promise.then(function(res) {
+						vm.projectTypes = res;
+					});
 					showToast('Project Type Deleted!');
 					console.log('Succesfully removed');
 				},

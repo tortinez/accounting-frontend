@@ -42,12 +42,7 @@ function PurchaseFormController(
 	//variables_____________________________________________________________
 	//get data if exist; if not assign an empty object
 	$routeParams.id
-		? Purchase.api()
-				.get({ id: $routeParams.id })
-				.$promise.then(function(res) {
-					res.date = new Date(res.requestDate);
-					vm.purchase = res;
-				})
+		? Purchase.get($routeParams.id).then(res => (vm.purchase = res))
 		: (vm.purchase = { comments: '', date: new Date() });
 
 	//functions_____________________________________________________________
@@ -140,20 +135,16 @@ function PurchaseFormController(
 				r.onloadend = function(e) {
 					var data = e.target.result;
 					var blob = new Blob([data], { type: 'application/pdf' });
-					return Purchase.invoice()
-						.upload({ id: vm.purchase.id }, blob)
-						.$promise.then(
-							function(res) {
-								showToast('File uploaded succesfully');
-								console.log('File uploaded succesfully');
-								$mdDialog.hide();
-							},
-							function(err) {
-								console.error(
-									'An error ocurred while uploading: ' + err.status
-								);
-							}
-						);
+					return Purchase.uploadInvoice(vm.purchase.id, blob).then(
+						function(res) {
+							showToast('File uploaded succesfully');
+							console.log('File uploaded succesfully');
+							$mdDialog.hide();
+						},
+						function(err) {
+							console.error('An error ocurred while uploading: ' + err.status);
+						}
+					);
 				};
 
 				r.readAsArrayBuffer(f);
@@ -161,18 +152,16 @@ function PurchaseFormController(
 		}
 
 		function deleteFile() {
-			return Purchase.invoice()
-				.delete({ id: vm.purchase.id })
-				.$promise.then(
-					function(res) {
-						showToast('Invoice removed');
-						console.log('Invoice removed');
-						$mdDialog.hide();
-					},
-					function(err) {
-						console.error('An error ocurred while uploading: ' + err.status);
-					}
-				);
+			return Purchase.deleteInvoice(vm.purchase.id).then(
+				function(res) {
+					showToast('Invoice removed');
+					console.log('Invoice removed');
+					$mdDialog.hide();
+				},
+				function(err) {
+					console.error('An error ocurred while uploading: ' + err.status);
+				}
+			);
 		}
 	}
 
@@ -183,7 +172,7 @@ function PurchaseFormController(
 				.simple()
 				.textContent(msg)
 				.position('top right')
-				.hideDelay(3000)
+				.hideDelay(2500)
 		);
 	}
 }

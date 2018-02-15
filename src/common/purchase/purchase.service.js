@@ -3,74 +3,82 @@
 Purchase.$inject = ['$resource'];
 
 function Purchase($resource) {
+	//$resource Objects________________________________________________________
+	//not returned
+	var resource = new $resource(
+		'/api/purchase/:id',
+		{ id: '@id' },
+		{
+			//Modify some HTTP methods
+			query: {
+				method: 'GET',
+				params: { size: '50' }, //set the default page size to 50
+				isArray: true,
+
+				//the data is populated with metadata, parse it
+				transformResponse: function(content) {
+					var wrappedResult = angular.fromJson(content);
+					wrappedResult.content.$metadata = wrappedResult.metadata;
+					return wrappedResult.content;
+				},
+				interceptor: {
+					response: function(response) {
+						response.resource.$metadata = response.data.$metadata;
+						return response.resource;
+					}
+				}
+			},
+			update: { method: 'PUT' }
+		}
+	);
+
+	var invoice = $resource(
+		'/api/purchase/:id/invoice',
+		{ id: '@id' },
+		{
+			//Create upload method
+			upload: {
+				method: 'PUT',
+				transformRequest: FormDataObject,
+				headers: {
+					'Content-Type': undefined,
+					enctype: 'multipart/form-data'
+				}
+			}
+		}
+	);
+
+	//return statement_________________________________________________________
 	return {
-		//api calls using $resource
-		api: api,
-		invoice: invoice,
 		//Date initialization (min date hardcoded)
 		date: { max: new Date(), min: new Date(1512302317224) },
 		//other functions to return
+		get: get,
+		query: query,
 		search: search,
 		save: save,
-		remove: remove
+		remove: remove,
+		uploadInvoice: uploadInvoice,
+		deleteInvoice: deleteInvoice
 	};
 
-	//////////////////////////////////////////////////////////////////////
-
+	///////////////////////////////////////////////////////////////////////////
 	//Functions________________________________________________________________
-	function api() {
-		return $resource(
-			'/api/purchase/:id',
-			{ id: '@id' },
-			{
-				//Modify some HTTP methods
-				query: {
-					method: 'GET',
-					params: { size: '50' }, //set the default page size to 50
-					isArray: true,
-
-					//the data is populated with metadata, parse it
-					transformResponse: function(content) {
-						var wrappedResult = angular.fromJson(content);
-						wrappedResult.content.$metadata = wrappedResult.metadata;
-						return wrappedResult.content;
-					},
-					interceptor: {
-						response: function(response) {
-							response.resource.$metadata = response.data.$metadata;
-							return response.resource;
-						}
-					}
-				},
-				update: { method: 'PUT' }
-			}
-		);
+	function get(itemId) {
+		return resource.get({ id: itemId }).$promise.then(res => {
+			res.date = new Date(res.requestDate);
+			return res;
+		});
 	}
 
-	//invoice files $resource
-	function invoice() {
-		return $resource(
-			'/api/purchase/:id/invoice',
-			{ id: '@id' },
-			{
-				//Create upload method
-				upload: {
-					method: 'PUT',
-					transformRequest: FormDataObject,
-					headers: {
-						'Content-Type': undefined,
-						enctype: 'multipart/form-data'
-					}
-				}
-			}
-		);
+	function query() {
+		return resource.query();
 	}
 
-	//other returned functions
 	function search(query) {
 		//concatenate query
 		var concatQuery = concatenateQuery(query, this.date);
-		return this.api().query({
+		return resource.query({
 			q: concatQuery,
 			size: query.size,
 			page: query.page
@@ -88,12 +96,21 @@ function Purchase($resource) {
 		purchase.supplierId = purchase.supplier.id;
 
 		return purchase.id
-			? this.api().update(purchase).$promise
-			: this.api().save(purchase).$promise;
+			? resource.update(purchase).$promise
+			: resource.save(purchase).$promise;
 	}
 
 	function remove(purchase) {
-		return this.api().remove({ id: purchase.id }).$promise;
+		return resource.remove({ id: purchase.id }).$promise;
+	}
+
+	//create the callable functions to upload and remove the invoice
+	function uploadInvoice(itemId, blob) {
+		return invoice.upload({ id: itemId }, blob).$promise;
+	}
+
+	function deleteInvoice(itemId) {
+		return invoice.delete({ id: itemId }).$promise;
 	}
 
 	//not returned functions

@@ -6,7 +6,7 @@ import EmployeeTableController from './employee-table.component';
 export default angular
 	.module('employeeTable', [])
 	.component('employeeTable', {
-		templateUrl: require('./employee-table.template.html'),
+		template: require('./employee-table.template.html'),
 		controller: EmployeeTableController,
 		controllerAs: 'vm'
 	});

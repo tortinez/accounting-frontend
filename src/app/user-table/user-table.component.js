@@ -5,7 +5,7 @@ UserTableController.$inject = ['$mdDialog', 'Auth', 'User', 'OtherResource'];
 function UserTableController($mdDialog, Auth, User, OtherResource) {
 	var vm = this;
 	//get the items of the table
-	vm.users = User.api().query();
+	vm.users = User.query();
 	vm.user = Auth.user;
 	//variables
 	vm.item = {};
@@ -37,20 +37,11 @@ function UserTableController($mdDialog, Auth, User, OtherResource) {
 
 	function userRole(item) {
 		var role = '';
-		switch (item.roles.length) {
-			case 1:
-				role = 'USER';
-				break;
-			case 2:
-				role = 'MANAGER';
-				break;
-			case 3:
-				role = 'ADMIN';
-				break;
-			default:
-				'';
-				break;
-		}
+		if (item.isAdmin) role = 'ADMIN';
+		else if (item.isManager) role = 'MANAGER';
+		else if (item.isUser) role = 'USER';
+		else role = '';
+
 		return role;
 	}
 
@@ -94,14 +85,12 @@ function UserTableController($mdDialog, Auth, User, OtherResource) {
 		vm2.autocompleteSearch = autocompleteSearch;
 		//get the data from the service
 		itemId
-			? User.api()
-					.get({ id: itemId })
-					.$promise.then(function(res) {
-						vm2.item = res;
-						vm2.role = vm.userRole(vm2.item);
-					})
+			? User.get(itemId).$promise.then(function(res) {
+					vm2.item = res;
+					vm2.role = vm.userRole(vm2.item);
+				})
 			: (vm2.item = {});
-		vm2.employeeList = OtherResource.api('employee').query();
+		vm2.employeeList = OtherResource.query('employee');
 
 		vm2.role = '';
 		vm2.title = title;
@@ -115,12 +104,10 @@ function UserTableController($mdDialog, Auth, User, OtherResource) {
 		function editUser() {
 			return User.save(vm2.item).then(
 				function(value) {
-					User.api()
-						.query()
-						.$promise.then(function(res) {
-							vm.users = res;
-							$mdDialog.hide();
-						});
+					User.query().$promise.then(function(res) {
+						vm.users = res;
+						$mdDialog.hide();
+					});
 					showToast('Succesfully Saved!');
 					console.log('User saved: ID=', value.id);
 				},
@@ -161,11 +148,9 @@ function UserTableController($mdDialog, Auth, User, OtherResource) {
 		function removeItem(user) {
 			User.remove(user).then(
 				function() {
-					User.api()
-						.query()
-						.$promise.then(function(res) {
-							vm.users = res;
-						});
+					User.query().$promise.then(function(res) {
+						vm.users = res;
+					});
 					showToast('User Deleted!');
 					console.log('Succesfully removed');
 				},

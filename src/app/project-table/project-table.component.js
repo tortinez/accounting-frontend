@@ -5,7 +5,7 @@ ProjectTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 function ProjectTableController($mdDialog, Auth, OtherResource) {
 	var vm = this;
 	//get the items of the table
-	vm.projects = OtherResource.api('project').query();
+	vm.projects = OtherResource.query('project');
 	vm.user = Auth.user;
 	//variables
 	vm.project = {};
@@ -56,15 +56,15 @@ function ProjectTableController($mdDialog, Auth, OtherResource) {
 		vm2.autocompleteSearch = autocompleteSearch;
 		//get the data from the service
 		vm.project.id
-			? OtherResource.api('project')
-					.get({ id: vm.project.id })
-					.$promise.then(function(res) {
-						vm2.project = res;
-					})
+			? OtherResource.get('project', vm.project.id).$promise.then(function(
+					res
+				) {
+					vm2.project = res;
+				})
 			: (vm2.project = { description: '' });
-		vm2.clientList = OtherResource.api('client').query();
-		vm2.employeeList = OtherResource.api('employee').query();
-		vm2.typeList = OtherResource.api('project-type').query();
+		vm2.clientList = OtherResource.query('client');
+		vm2.employeeList = OtherResource.query('employee');
+		vm2.typeList = OtherResource.query('project-type');
 
 		vm2.title = title;
 
@@ -77,12 +77,10 @@ function ProjectTableController($mdDialog, Auth, OtherResource) {
 		function editProject() {
 			return OtherResource.save('project', vm2.project).then(
 				function(value) {
-					OtherResource.api('project')
-						.query()
-						.$promise.then(function(res) {
-							vm.projects = res;
-							$mdDialog.hide();
-						});
+					OtherResource.query('project').$promise.then(function(res) {
+						vm.projects = res;
+						$mdDialog.hide();
+					});
 					showToast('Succesfully Saved!');
 					console.log('Project saved: ID=', value.id);
 				},
@@ -101,11 +99,9 @@ function ProjectTableController($mdDialog, Auth, OtherResource) {
 		function removeItem(project) {
 			OtherResource.remove('project', project).then(
 				function() {
-					OtherResource.api('project')
-						.query()
-						.$promise.then(function(res) {
-							vm.projects = res;
-						});
+					OtherResource.query('project').$promise.then(function(res) {
+						vm.projects = res;
+					});
 					showToast('Project Deleted!');
 					console.log('Succesfully removed');
 				},

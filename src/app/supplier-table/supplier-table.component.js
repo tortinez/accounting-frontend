@@ -5,7 +5,7 @@ SupplierTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 function SupplierTableController($mdDialog, Auth, OtherResource) {
 	var vm = this;
 	//get the items of the table
-	vm.suppliers = OtherResource.api('supplier').query();
+	vm.suppliers = OtherResource.query('supplier');
 	vm.user = Auth.user;
 	//variables
 	vm.supplier = {};
@@ -54,11 +54,9 @@ function SupplierTableController($mdDialog, Auth, OtherResource) {
 		vm2.showConfirmDialog = showConfirmDialog;
 		//get the data from the service
 		itemId
-			? OtherResource.api('supplier')
-					.get({ id: itemId })
-					.$promise.then(function(res) {
-						vm2.supplier = res;
-					})
+			? OtherResource.get('supplier', itemId).$promise.then(function(res) {
+					vm2.supplier = res;
+				})
 			: (vm2.supplier = {});
 
 		vm2.title = title;
@@ -72,12 +70,10 @@ function SupplierTableController($mdDialog, Auth, OtherResource) {
 		function editSupplier() {
 			return OtherResource.save('supplier', vm2.supplier).then(
 				function(value) {
-					OtherResource.api('supplier')
-						.query()
-						.$promise.then(function(res) {
-							vm.suppliers = res;
-							$mdDialog.hide();
-						});
+					OtherResource.query('supplier').$promise.then(function(res) {
+						vm.suppliers = res;
+						$mdDialog.hide();
+					});
 					showToast('Succesfully Saved!');
 					console.log('Supplier saved: ID=', value.id);
 				},
@@ -96,11 +92,9 @@ function SupplierTableController($mdDialog, Auth, OtherResource) {
 		function removeItem(supplier) {
 			OtherResource.remove('supplier', supplier).then(
 				function() {
-					OtherResource.api('supplier')
-						.query()
-						.$promise.then(function(res) {
-							vm.suppliers = res;
-						});
+					OtherResource.query('supplier').$promise.then(function(res) {
+						vm.suppliers = res;
+					});
 					showToast('Supplier Deleted!');
 					console.log('Succesfully removed');
 				},

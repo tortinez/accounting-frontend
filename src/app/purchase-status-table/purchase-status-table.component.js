@@ -15,7 +15,7 @@ function PurchaseStatusTableController(
 ) {
 	var vm = this;
 	//get the items of the table
-	vm.purchaseStatuss = OtherResource.api('purchase-state').query();
+	vm.purchaseStatuss = OtherResource.query('purchase-state');
 	vm.user = Auth.user;
 	//variables
 	vm.purchaseStatus = {};
@@ -84,18 +84,18 @@ function PurchaseStatusTableController(
 		vm2.showConfirmDialog = showConfirmDialog;
 		//get the data from the service
 		itemId
-			? OtherResource.api('purchase-state')
-					.get({ id: itemId })
-					.$promise.then(function(res) {
-						vm2.purchaseStatus = res;
-						vm2.color = mdPickerColors.getColor(
-							res.color == 'undefined'
-								? vm2.colorArray[
-										Math.floor(Math.random() * vm2.colorArray.length)
-									]
-								: res.color
-						);
-					})
+			? OtherResource.get('purchase-state', itemId).$promise.then(function(
+					res
+				) {
+					vm2.purchaseStatus = res;
+					vm2.color = mdPickerColors.getColor(
+						res.color == 'undefined'
+							? vm2.colorArray[
+									Math.floor(Math.random() * vm2.colorArray.length)
+								]
+							: res.color
+					);
+				})
 			: (vm2.color = mdPickerColors.getColor(
 					vm2.colorArray[Math.floor(Math.random() * vm2.colorArray.length)]
 				));
@@ -112,12 +112,10 @@ function PurchaseStatusTableController(
 			vm2.purchaseStatus.color = vm2.color.hex;
 			return OtherResource.save('purchase-state', vm2.purchaseStatus).then(
 				function(value) {
-					OtherResource.api('purchase-state')
-						.query()
-						.$promise.then(function(res) {
-							vm.purchaseStatuss = res;
-							$mdDialog.hide();
-						});
+					OtherResource.query('purchase-state').$promise.then(function(res) {
+						vm.purchaseStatuss = res;
+						$mdDialog.hide();
+					});
 					showToast('Succesfully Saved!');
 					console.log('Purchase Status saved: ID=', value.id);
 				},
