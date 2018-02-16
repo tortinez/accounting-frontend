@@ -17,7 +17,7 @@
       <h2 id="toolbar-title">Accounting System</h2>
       <span flex></span>
       <!-- User info & Logout -->
-      <md-menu ng-show="vm.user.isLogged" md-position-mode="target-right target" width="4">
+      <md-menu ng-if="vm.user.isLogged" md-position-mode="target-right target" width="4">
         <md-button ng-click="$mdMenu.open($event)">
           <div layout="row" layout-margin layout-align="center center">
             <span>{{vm.user.name}} ({{vm.userRole()}})</span>

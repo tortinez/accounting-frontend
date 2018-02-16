@@ -25,11 +25,11 @@ function PurchaseFormController(
 	//get the USER information (role)
 	vm.user = Auth.user;
 	//retrieve the list of projects, status, type and supplier
-	vm.projList = OtherResource.api('project').query();
-	vm.supplierList = OtherResource.api('supplier').query();
-	vm.employeeList = OtherResource.api('employee').query();
-	vm.statusList = OtherResource.api('purchase-state').query();
-	vm.typeList = OtherResource.api('purchase-type').query();
+	vm.projList = OtherResource.query('project');
+	vm.supplierList = OtherResource.query('supplier');
+	vm.employeeList = OtherResource.query('employee');
+	vm.statusList = OtherResource.query('purchase-state');
+	vm.typeList = OtherResource.query('purchase-type');
 	//functions
 	vm.editPurchase = editPurchase;
 	vm.removeItem = removeItem;

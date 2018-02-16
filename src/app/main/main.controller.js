@@ -1,21 +1,20 @@
 'use strict';
 
-MainController.$inject = ['$location', '$mdSidenav', 'Auth'];
+MainController.$inject = ['$scope', '$location', '$mdSidenav', 'Auth'];
 
-function MainController($location, $mdSidenav, Auth) {
+function MainController($scope, $location, $mdSidenav, Auth) {
 	var vm = this;
 
 	// execute on init
 	var init = function() {
 		Auth.isAuthenticated().then(res => {
-			if (res) {
-				vm.user = Auth.user;
-				//redirect to the main page
-				if (vm.user.isLogged) $location.path('/purchases');
-			}
+			vm.user = Auth.user;
+			//redirect to the main page
+			if (vm.user.isLogged) $location.path('/purchases');
 		});
 	};
 	init();
+
 	//functions passed out____________
 	vm.showAccountInfo = showAccountInfo;
 	vm.handleLogout = handleLogout;
