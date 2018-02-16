@@ -87,11 +87,11 @@
   <div layout="column" flex>
     <md-input-container>
       <label>Min Date</label>
-      <md-datepicker ng-model="vm.params.dateMin" ng-change="vm.search()" md-min-date="vm.date.min" md-max-date="vm.params.dateMax">
+      <md-datepicker ng-model="vm.params.dateMin" ng-change="vm.search()" md-max-date="vm.params.dateMax">
     </md-input-container>
     <md-input-container>
       <label>Max Date</label>
-      <md-datepicker ng-model="vm.params.dateMax" ng-change="vm.search()" md-min-date="vm.params.dateMin" md-max-date="vm.date.max">
+      <md-datepicker ng-model="vm.params.dateMax" ng-change="vm.search()" md-min-date="vm.params.dateMin">
     </md-input-container>
   </div>
 </md-content>

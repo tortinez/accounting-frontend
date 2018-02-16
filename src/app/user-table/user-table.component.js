@@ -35,9 +35,9 @@ function UserTableController($mdDialog, Auth, User, OtherResource) {
 
 	function userRole(item) {
 		var role = '';
-		if (item.isAdmin) role = 'ADMIN';
-		else if (item.isManager) role = 'MANAGER';
-		else if (item.isUser) role = 'USER';
+		if (item.roles.includes('ADMIN')) role = 'ADMIN';
+		else if (item.roles.includes('MANAGER')) role = 'MANAGER';
+		else if (item.roles.includes('USER')) role = 'USER';
 		else role = '';
 
 		return role;

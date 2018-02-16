@@ -1,6 +1,11 @@
 Purchase.$inject = ['$resource'];
 
 function Purchase($resource) {
+	var date = {
+		max: new Date(new Date().getFullYear() + 1, 0, 1),
+		min: new Date(new Date().getFullYear(), 0, 1)
+	};
+
 	//$resource Objects________________________________________________________
 	//not returned
 	var resource = new $resource(
@@ -10,7 +15,13 @@ function Purchase($resource) {
 			//Modify some HTTP methods
 			query: {
 				method: 'GET',
-				params: { size: '50' }, //set the default page size to 50
+				params: {
+					size: '50',
+					q: [
+						'requestDate<' + date.max.valueOf(),
+						'requestDate>' + date.min.valueOf()
+					]
+				}, //set the default page size to 50 and request a date interval of 1 year
 				isArray: true,
 
 				//the data is populated with metadata, parse it
@@ -49,7 +60,7 @@ function Purchase($resource) {
 	//return statement_________________________________________________________
 	return {
 		//Date initialization (min date hardcoded)
-		date: { max: new Date(), min: new Date(1512302317224) },
+		date: date,
 		//other functions to return
 		get: get,
 		query: query,
@@ -116,8 +127,12 @@ function Purchase($resource) {
 		var q = [];
 		var vm = query;
 
-		if (vm.dateMax !== date.max) q.push('requestDate<' + vm.dateMax.valueOf());
-		if (vm.dateMin !== date.min) q.push('requestDate>' + vm.dateMin.valueOf());
+		vm.dateMax !== null
+			? q.push('requestDate<' + vm.dateMax.valueOf())
+			: q.push('requestDate<' + date.max.valueOf());
+		vm.dateMin !== null
+			? q.push('requestDate>' + vm.dateMin.valueOf())
+			: q.push('requestDate>' + date.min.valueOf());
 		if (vm.amountMax !== null) q.push('amount<' + vm.amountMax);
 		if (vm.amountMin !== null) q.push('amount>' + vm.amountMin);
 		if (vm.codeRP !== '') q.push('codeRP~' + vm.codeRP);

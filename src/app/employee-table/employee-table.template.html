@@ -16,7 +16,7 @@
       <table md-table ng-table="vm.employees" flex layout-fill>
         <thead md-head md-colors="{background: 'primary'}">
           <tr md-row>
-            <th md-column class="md-thead">ID</th>
+            <!-- <th md-column class="md-thead">ID</th> -->
             <th md-column class="md-thead">Full name</th>
             <th md-column class="md-thead">Email</th>
             <th md-column class="md-thead">Comments</th>
@@ -25,7 +25,7 @@
         </thead>
         <tbody md-body>
           <tr md-row ng-repeat="item in vm.employees">
-            <td md-cell>{{item.id}}</td>
+            <!-- <td md-cell>{{item.id}}</td> -->
             <td md-cell>{{item.fullname}}</td>
             <td md-cell>{{item.email}}</td>
             <td md-cell>{{item.comments}}</td>

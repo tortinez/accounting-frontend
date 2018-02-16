@@ -47,7 +47,7 @@
       <table md-table ng-table="vm.purchases" flex layout-fill>
         <thead md-head md-colors="{background: 'primary'}">
           <tr md-row>
-            <th md-column class="md-thead">ID</th>
+            <!-- <th md-column class="md-thead">ID</th> -->
             <th md-column class="md-thead">Expense Date</th>
             <th md-column class="md-thead">Expense type</th>
             <th md-column class="md-thead">Concept</th>
@@ -57,7 +57,7 @@
             <th md-column class="md-thead">Requesting Project</th>
             <th md-column class="md-thead">Code RP</th>
             <th md-column class="md-thead">Code LV</th>
-            <!-- <th md-column class="md-thead">Code</th> -->
+            <th md-column class="md-thead">Code</th>
             <!-- <th md-column class="md-thead">Comments</th> -->
             <th md-column class="md-thead">Status</th>
             <th md-column class="md-thead">Invoice</th>
@@ -66,20 +66,20 @@
         </thead>
         <tbody md-body>
           <tr md-row ng-repeat="purchase in vm.purchases">
-            <td md-cell>{{purchase.id}}</td>
+            <!-- <td md-cell>{{purchase.id}}</td> -->
             <td md-cell>{{purchase.requestDate | date: "dd/MM/yyyy"}}</td>
             <td md-cell>{{purchase.type.name}}</td>
             <td md-cell>{{purchase.item}}</td>
-            <td md-cell>{{purchase.amount | currency : ""}} €</td>
+            <td md-cell>{{purchase.amount | currency : " "}}€</td>
             <td md-cell>{{purchase.supplier.name}}</td>
             <td md-cell>{{purchase.chargingProject.code}} - {{purchase.chargingProject.name}}</td>
             <td md-cell>{{purchase.chargingProject.code}} - {{purchase.requestingProject.name}}</td>
             <td md-cell>{{purchase.codeRP}}</td>
             <td md-cell>{{purchase.codeLV}}</td>
+            <td md-cell>{{purchase.code}}</td>
             <td md-cell>
               <span class="badge" md-colors="{background: vm.badgeColor('{{purchase.state.color}}')}">{{purchase.state.name}}</span>
             </td>
-            <!-- <td md-cell>{{purchase.code}}</td> -->
             <!-- <td md-cell>{{purchase.comments}}</td> -->
             <td md-cell>
               <md-button class="md-icon-button" ng-click="vm.downloadInvoice(purchase)" ng-disabled="vm.availableInvoice(purchase)" aria-label="downloadInvoice">

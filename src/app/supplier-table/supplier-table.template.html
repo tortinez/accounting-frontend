@@ -16,14 +16,14 @@
       <table md-table ng-table="vm.suppliers" flex layout-fill>
         <thead md-head md-colors="{background: 'primary'}">
           <tr md-row>
-            <th md-column class="md-thead">ID</th>
+            <!-- <th md-column class="md-thead">ID</th> -->
             <th md-column class="md-thead">Name</th>
             <th md-column class="md-thead" ng-hide="!vm.user.isAdmin || !vm.user.isManager"></th>
           </tr>
         </thead>
         <tbody md-body>
           <tr md-row ng-repeat="item in vm.suppliers">
-            <td md-cell>{{item.id}}</td>
+            <!-- <td md-cell>{{item.id}}</td> -->
             <td md-cell>{{item.name}}</td>
             <td md-cell ng-hide="!vm.user.isAdmin || !vm.user.isManager">
               <md-button class="md-icon-button" ng-click="vm.editItem(item)">
