@@ -6,7 +6,7 @@
       </div>
     </md-toolbar>
     <md-content flex layout="column" layout-padding layout-align="center center">
-      <form name="authForm">
+      <form name="authForm" ng-submit="vm.login()">
         <div flex>
           <md-input-container>
             <label>Username</label>
@@ -28,7 +28,7 @@
         </div>
 
         <div>
-          <md-button type="submit" class="md-raised md-primary" ng-click="vm.login()">Login</md-button>
+          <md-button type="submit" class="md-raised md-primary">Login</md-button>
         </div>
       </form>
 

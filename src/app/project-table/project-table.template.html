@@ -6,7 +6,7 @@
       <div class="md-toolbar-tools">
         <div>Projects</div>
         <span flex></span>
-        <md-button class="md-raised md-primary" ng-click="vm.addItem()" ng-hide="vm.user.role == 'USER'">Add Project</md-button>
+        <md-button class="md-raised md-primary" ng-click="vm.addItem()" ng-hide="!vm.user.isAdmin || !vm.user.isManager">Add Project</md-button>
       </div>
     </md-toolbar>
 
@@ -24,7 +24,7 @@
             <th md-column class="md-thead">Type</th>
             <th md-column class="md-thead">Description</th>
             <th md-column class="md-thead">Status</th>
-            <th md-column class="md-thead" ng-hide="vm.user.role == 'USER'"></th>
+            <th md-column class="md-thead" ng-hide="!vm.user.isAdmin || !vm.user.isManager"></th>
           </tr>
         </thead>
         <tbody md-body>
@@ -40,7 +40,7 @@
               <span ng-if="!item.finished">Not Finished</span>
               <span ng-if="item.finished">Finished</span>
             </td>
-            <td md-cell ng-hide="vm.user.role == 'USER'">
+            <td md-cell ng-hide="!vm.user.isAdmin || !vm.user.isManager">
               <md-button class="md-icon-button" ng-click="vm.editItem(item)">
                 <md-tooltip md-direction="bottom">Edit Project</md-tooltip>
                 <md-icon class="table-icon" md-svg-icon="assets/icons/edit.svg"></md-icon>

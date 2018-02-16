@@ -1,13 +1,13 @@
 'use strict';
 
-Auth.$inject = ['$resource'];
+Auth.$inject = ['$http'];
 
-function Auth($resource) {
+function Auth($http) {
 	var vm = this;
 	//Variables
 	vm.user = {
 		isLogged: false,
-		role: null
+		roles: {}
 	};
 
 	return {
@@ -18,66 +18,71 @@ function Auth($resource) {
 	};
 
 	//////////////////////////////////////////////////////////////////////
+	//LOGIN FUNCTION
+	function login(credentials) {
+		const config = {};
+		if (credentials && credentials.user && credentials.password) {
+			config.headers = {};
+			config.headers.authorization =
+				'Basic ' + btoa(credentials.user + ':' + credentials.password);
+		}
+		return $http.get('/api/user/self', config).then(
+			res => {
+				vm.user.isLogged = !!res;
+				if (vm.user.isLogged) {
+					vm.user.name = res.data.employee.fullname;
+					vm.user.roles = res.data.roles;
 
-	//Functions ($resource)________________________________________________________________
-	function resource(credentials) {
-		return $resource(
-			'/api/user/self',
-			{},
-			{
-				//create login method
-				login: {
-					method: 'GET',
-					headers: {
-						Authorization:
-							'Basic ' + btoa(credentials.user + ':' + credentials.password),
-						withCredentials: true
-					}
+					vm.user.isAdmin = vm.user.roles.includes('ADMIN');
+					vm.user.isManager = vm.user.roles.includes('MANAGER');
+					vm.user.isUser = vm.user.roles.includes('USER');
+					console.log('Login success');
+				} else {
+					console.log('Login failed');
 				}
+
+				return vm.user.isLogged;
+			},
+			err => {
+				console.log('Login Failed');
+				return false;
 			}
 		);
 	}
 
-	function logoutResource() {
-		return $resource('/logout', {}, {});
-	}
-
-	//LOGIN FUNCTION
-	function login(credentials) {
-		return resource(credentials)
-			.login()
-			.$promise.then(getAuthSuccess)
-			.catch(getAuthFailed);
-	}
-
 	//LOGOUT FUNCTION
 	function logout() {
-		return logoutResource().get().$promise;
+		return $http.get('/logout').then(
+			res => {
+				console.log('Logout failed');
+				return vm.user.isLogged;
+			},
+			err => {
+				console.log('Logout success');
+				vm.user.isLogged = false;
+				return vm.user.isLogged;
+			}
+		);
 	}
 
 	//Check if user was already logged in a previous session
 	function isAuthenticated() {
-		var credentials = {};
-		return resource(credentials)
-			.get()
-			.$promise.then(getAuthSuccess)
-			.catch(getAuthFailed);
-	}
+		return $http.get('/api/user/self').then(
+			res => {
+				vm.user.isLogged = !!res;
+				vm.user.name = res.data.employee.fullname;
+				vm.user.roles = res.data.roles;
 
-	//then & catch
-	function getAuthSuccess(response) {
-		vm.user.isLogged = !!response;
-		vm.user.name = response.employee.fullname;
-		if (response.roles.length == 1) vm.user.role = 'USER';
-		if (response.roles.length == 2) vm.user.role = 'MANAGER';
-		if (response.roles.length == 3) vm.user.role = 'ADMIN';
-		console.log('Login success');
-		return vm.user.isLogged;
-	}
+				vm.user.isAdmin = vm.user.roles.includes('ADMIN');
+				vm.user.isManager = vm.user.roles.includes('MANAGER');
+				vm.user.isUser = vm.user.roles.includes('USER');
 
-	function getAuthFailed(error) {
-		console.log('Login failed');
-		return false;
+				return vm.user.isLogged;
+			},
+			err => {
+				return false;
+			}
+		);
 	}
 }
 

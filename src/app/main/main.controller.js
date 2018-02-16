@@ -7,15 +7,19 @@ function MainController($location, $mdSidenav, Auth) {
 
 	// execute on init
 	var init = function() {
-		Auth.isAuthenticated().then(function() {
-			vm.user = Auth.user;
-			if (vm.user.isLogged) $location.path('/purchases');
+		Auth.isAuthenticated().then(res => {
+			if (res) {
+				vm.user = Auth.user;
+				//redirect to the main page
+				if (vm.user.isLogged) $location.path('/purchases');
+			}
 		});
 	};
 	init();
 	//functions passed out____________
 	vm.showAccountInfo = showAccountInfo;
 	vm.handleLogout = handleLogout;
+	vm.userRole = userRole;
 	//Related to the sidenav
 	vm.toggleNavBar = buildToggler('left');
 	vm.sidemenuSections = []; //array of the page sections
@@ -110,20 +114,23 @@ function MainController($location, $mdSidenav, Auth) {
 	}
 
 	function handleLogout() {
-		Auth.logout().then(
-			function(res) {},
-			function(err) {
-				console.log('Logout performed succesfully');
-				Auth.user.isLogged = false;
-				$location.path('/login');
-			}
-		);
+		Auth.logout().then(res => $location.path('/login'));
 	}
 
 	function buildToggler(componentId) {
 		return function() {
 			$mdSidenav(componentId).toggle();
 		};
+	}
+
+	function userRole() {
+		var role = '';
+		if (vm.user.isAdmin) role = 'ADMIN';
+		else if (vm.user.isManager) role = 'MANAGER';
+		else if (vm.user.isUser) role = 'USER';
+		else role = '';
+
+		return role;
 	}
 }
 

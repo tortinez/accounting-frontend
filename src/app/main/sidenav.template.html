@@ -45,7 +45,7 @@
                     <md-icon class="fl" md-svg-src="{{vm.sidemenuSections[4].icon}}"></md-icon>
                     <md-icon class="fr" md-svg-src=""></md-icon>{{vm.sidemenuSections[4].header}}</md-button>
             </li>
-            <li ng-show="vm.user.role=='ADMIN'">
+            <li ng-show="vm.user.isAdmin">
                 <md-button ng-href="{{vm.sidemenuSections[5].linkTo}}">
                     <md-icon class="fl" md-svg-src="{{vm.sidemenuSections[5].icon}}"></md-icon>
                     <md-icon class="fr" md-svg-src=""></md-icon>{{vm.sidemenuSections[5].header}}</md-button>

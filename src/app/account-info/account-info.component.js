@@ -40,20 +40,11 @@ function AccountInfoController($location, $mdToast, User) {
 
 	function userRole() {
 		var role = '';
-		switch (vm.user.roles.length) {
-			case 1:
-				role = 'USER';
-				break;
-			case 2:
-				role = 'MANAGER';
-				break;
-			case 3:
-				role = 'ADMIN';
-				break;
-			default:
-				'';
-				break;
-		}
+		if (vm.user.isAdmin) role = 'ADMIN'
+		else if (vm.user.isManager) role = 'MANAGER';
+		else if (vm.user.isUser) role = 'USER';
+		else role = '';
+
 		return role;
 	}
 
