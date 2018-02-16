@@ -1,5 +1,3 @@
-'use strict';
-
 function AutocompleteFields() {
 	return { search: search };
 

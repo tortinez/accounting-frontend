@@ -1,5 +1,3 @@
-'use strict';
-
 import ProjectTypeTableController from './project-type-table.component';
 
 // Define the 'project-type' module

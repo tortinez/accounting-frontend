@@ -1,5 +1,3 @@
-'use strict';
-
 PurchaseStatusTableController.$inject = [
 	'$mdDialog',
 	'mdPickerColors',

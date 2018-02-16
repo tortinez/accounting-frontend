@@ -1,5 +1,3 @@
-'use strict';
-
 Purchase.$inject = ['$resource'];
 
 function Purchase($resource) {

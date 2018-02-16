@@ -1,5 +1,3 @@
-'use strict';
-
 import ClientTypeTableController from './client-type-table.component';
 
 // Define the 'client-type' module

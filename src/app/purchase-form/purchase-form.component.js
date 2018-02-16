@@ -1,5 +1,3 @@
-'use strict';
-
 PurchaseFormController.$inject = [
 	'$routeParams',
 	'$location',

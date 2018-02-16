@@ -1,5 +1,3 @@
-'use strict';
-
 import slideToggle from './slide-toggle.directive';
 import slideable from './slideable.directive';
 

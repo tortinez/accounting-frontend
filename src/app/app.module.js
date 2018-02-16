@@ -1,12 +1,10 @@
-'use strict';
-
 //vendor module imports
 import angular from 'angular';
 import ngAnimate from 'angular-animate';
 import ngMaterial from 'angular-material';
 import ngRoute from 'angular-route';
 import ngMessages from 'angular-messages';
-import angularMoment from 'angular-moment'
+import angularMoment from 'angular-moment';
 
 //3rd party module imports
 import 'npm/md-color-menu/md-color-menu';

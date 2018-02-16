@@ -1,5 +1,3 @@
-'use strict';
-
 import PurchaseTypeTableController from './purchase-type-table.component';
 
 // Define the 'purchase-type' module

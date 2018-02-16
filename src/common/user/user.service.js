@@ -1,5 +1,3 @@
-'use strict';
-
 User.$inject = ['$resource'];
 
 function User($resource) {
@@ -34,7 +32,7 @@ function User($resource) {
 	//Functions________________________________________________________________
 	//override save and remove $resource methods
 	function get(itemId) {
-		return resource.get({id: itemId });
+		return resource.get({ id: itemId });
 	}
 
 	function query() {

@@ -1,5 +1,3 @@
-'use strict';
-
 AccountInfoController.$inject = ['$location', '$mdToast', 'User'];
 
 function AccountInfoController($location, $mdToast, User) {
@@ -14,11 +12,9 @@ function AccountInfoController($location, $mdToast, User) {
 	////////////////////////////////////////////////////////////////////////
 	//variables_____________________________________________________________
 	//get the data from the api
-	User
-		.getSelf()
-		.$promise.then(function(res) {
-			vm.user = res;
-		});
+	User.getSelf().$promise.then(function(res) {
+		vm.user = res;
+	});
 
 	//functions_____________________________________________________________
 	function editPassword() {
@@ -40,7 +36,7 @@ function AccountInfoController($location, $mdToast, User) {
 
 	function userRole() {
 		var role = '';
-		if (vm.user.isAdmin) role = 'ADMIN'
+		if (vm.user.isAdmin) role = 'ADMIN';
 		else if (vm.user.isManager) role = 'MANAGER';
 		else if (vm.user.isUser) role = 'USER';
 		else role = '';

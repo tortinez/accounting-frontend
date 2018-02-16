@@ -1,5 +1,3 @@
-'use strict';
-
 OtherResource.$inject = ['$resource'];
 function OtherResource($resource) {
 	//$resource Objects________________________________________________________

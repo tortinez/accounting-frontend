@@ -1,5 +1,3 @@
-'use strict';
-
 AuthFormController.$inject = ['$routeParams', '$location', 'Auth'];
 
 function AuthFormController($routeParams, $location, Auth) {

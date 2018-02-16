@@ -1,5 +1,3 @@
-'use strict';
-
 MainController.$inject = ['$scope', '$location', '$mdSidenav', 'Auth'];
 
 function MainController($scope, $location, $mdSidenav, Auth) {

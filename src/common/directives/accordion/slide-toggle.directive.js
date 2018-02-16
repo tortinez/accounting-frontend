@@ -1,4 +1,3 @@
-'use strict';
 // 'accordion' module, extracted from https://codepen.io/anayarojo/pen/JRmvAW
 
 function slideToggle() {

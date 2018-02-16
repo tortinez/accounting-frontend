@@ -1,5 +1,3 @@
-'use strict';
-
 import PurchaseStatusTableController from './purchase-status-table.component';
 
 // Define the 'purchase-status' module

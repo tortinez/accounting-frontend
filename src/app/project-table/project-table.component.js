@@ -1,5 +1,3 @@
-'use strict';
-
 ProjectTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 
 function ProjectTableController($mdDialog, Auth, OtherResource) {

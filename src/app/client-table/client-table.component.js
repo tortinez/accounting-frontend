@@ -1,5 +1,3 @@
-'use strict';
-
 ClientTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 
 function ClientTableController($mdDialog, Auth, OtherResource) {

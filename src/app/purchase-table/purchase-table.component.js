@@ -1,5 +1,3 @@
-'use strict';
-
 PurchaseTableController.$inject = [
 	'$location',
 	'mdPickerColors',

@@ -1,5 +1,3 @@
-'use strict';
-
 EmployeeTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 
 function EmployeeTableController($mdDialog, Auth, OtherResource) {

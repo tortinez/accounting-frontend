@@ -1,5 +1,3 @@
-'use strict';
-
 SupplierTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 
 function SupplierTableController($mdDialog, Auth, OtherResource) {

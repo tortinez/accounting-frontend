@@ -1,5 +1,3 @@
-'use strict';
-
 PurchaseTypeTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 
 function PurchaseTypeTableController($mdDialog, Auth, OtherResource) {

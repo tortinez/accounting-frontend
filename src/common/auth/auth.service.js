@@ -1,5 +1,3 @@
-'use strict';
-
 Auth.$inject = ['$http'];
 
 function Auth($http) {

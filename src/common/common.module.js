@@ -1,5 +1,3 @@
-'use strict';
-
 import commonPurchase from './purchase/purchase.module';
 import commonOtherResource from './other-resource/other-resource.module';
 import commonUser from './user/user.module';
