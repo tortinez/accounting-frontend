@@ -12,19 +12,17 @@ function AccountInfoController($location, $mdToast, User) {
 	////////////////////////////////////////////////////////////////////////
 	//variables_____________________________________________________________
 	//get the data from the api
-	User.getSelf().$promise.then(function(res) {
-		vm.user = res;
-	});
+	User.getSelf().$promise.then(res => (vm.user = res));
 
 	//functions_____________________________________________________________
 	function editPassword() {
 		return User.saveSelfPassword(vm.user).then(
-			function(value) {
+			() => {
 				console.log('Password changed');
 				showToast('Password Changed');
 				$location.path('/purchases');
 			},
-			function(err) {
+			err => {
 				console.error(
 					'The password cannot be modified',
 					err.status,

@@ -57,7 +57,7 @@ function User($resource) {
 						},
 						{}
 					).$promise
-				: resource.save(user).$promise.then(function(res) {
+				: resource.save(user).$promise.then(res => {
 						var userPassword = user.password;
 
 						resource.save(

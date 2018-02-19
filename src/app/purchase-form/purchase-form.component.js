@@ -46,12 +46,12 @@ function PurchaseFormController(
 	//functions_____________________________________________________________
 	function editPurchase() {
 		return Purchase.save(vm.purchase).then(
-			function(value) {
+			() => {
 				showToast('Purchase succesfully saved!');
 				console.log('Purchase saved: ID=', value.id);
 				$location.path('/purchases');
 			},
-			function(err) {
+			err => {
 				showToast('An error occured');
 				console.error(
 					'The purchase cannot be modified',
@@ -64,12 +64,12 @@ function PurchaseFormController(
 
 	function removeItem(purchase) {
 		Purchase.remove(purchase).then(
-			function() {
+			() => {
 				showToast('Purchase succesfully removed!');
 				console.log('Succesfully removed');
 				$location.path('/purchases');
 			},
-			function(err) {
+			err => {
 				console.error(
 					'The item could not be deleted:',
 					err.status,
@@ -94,14 +94,12 @@ function PurchaseFormController(
 			.ok('Delete')
 			.cancel('Cancel');
 
-		$mdDialog.show(confirm).then(
-			function() {
-				vm.removeItem(vm.purchase);
-			},
-			function() {
-				console.log('Delete purchase cancelled');
-			}
-		);
+		$mdDialog
+			.show(confirm)
+			.then(
+				() => vm.removeItem(vm.purchase),
+				() => console.log('Delete purchase cancelled')
+			);
 	}
 
 	function showInvoiceInput(ev) {
@@ -134,14 +132,13 @@ function PurchaseFormController(
 					var data = e.target.result;
 					var blob = new Blob([data], { type: 'application/pdf' });
 					return Purchase.uploadInvoice(vm.purchase.id, blob).then(
-						function(res) {
+						res => {
 							showToast('File uploaded succesfully');
 							console.log('File uploaded succesfully');
 							$mdDialog.hide();
 						},
-						function(err) {
-							console.error('An error ocurred while uploading: ' + err.status);
-						}
+						err =>
+							console.error('An error ocurred while uploading: ' + err.status)
 					);
 				};
 
@@ -151,14 +148,12 @@ function PurchaseFormController(
 
 		function deleteFile() {
 			return Purchase.deleteInvoice(vm.purchase.id).then(
-				function(res) {
+				() => {
 					showToast('Invoice removed');
 					console.log('Invoice removed');
 					$mdDialog.hide();
 				},
-				function(err) {
-					console.error('An error ocurred while uploading: ' + err.status);
-				}
+				err => console.error('An error ocurred while uploading: ' + err.status)
 			);
 		}
 	}

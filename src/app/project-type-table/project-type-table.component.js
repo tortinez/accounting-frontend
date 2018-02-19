@@ -52,9 +52,9 @@ function ProjectTypeTableController($mdDialog, Auth, OtherResource) {
 		vm2.showConfirmDialog = showConfirmDialog;
 		//get the data from the service
 		itemId
-			? OtherResource.get('project-type', itemId).$promise.then(function(res) {
-					vm2.projectType = res;
-				})
+			? OtherResource.get('project-type', itemId).$promise.then(
+					res => (vm2.projectType = res)
+				)
 			: (vm2.projectType = {});
 
 		vm2.title = title;
@@ -67,15 +67,15 @@ function ProjectTypeTableController($mdDialog, Auth, OtherResource) {
 
 		function editProjectType() {
 			return OtherResource.save('project-type', vm2.projectType).then(
-				function(value) {
-					OtherResource.query('project-type').$promise.then(function(res) {
+				() => {
+					OtherResource.query('project-type').$promise.then(res => {
 						vm.projectTypes = res;
 						$mdDialog.hide();
 					});
 					showToast('Succesfully Saved!');
 					console.log('ProjectType saved: ID=', value.id);
 				},
-				function(err) {
+				err => {
 					$mdDialog.hide();
 					showToast('An error occured');
 					console.error(
@@ -89,14 +89,14 @@ function ProjectTypeTableController($mdDialog, Auth, OtherResource) {
 
 		function removeItem(projectType) {
 			OtherResource.remove('project-type', projectType).then(
-				function() {
-					OtherResource.query('project-type').$promise.then(function(res) {
-						vm.projectTypes = res;
-					});
+				() => {
+					OtherResource.query('project-type').$promise.then(
+						res => (vm.projectTypes = res)
+					);
 					showToast('Project Type Deleted!');
 					console.log('Succesfully removed');
 				},
-				function(err) {
+				err => {
 					if (err.status == 409) showErrorDialog();
 					console.error(
 						'The item could not be deleted:',
@@ -128,16 +128,15 @@ function ProjectTypeTableController($mdDialog, Auth, OtherResource) {
 				.ok('Delete')
 				.cancel('Cancel');
 
-			$mdDialog.show(confirm).then(
-				function() {
-					removeItem(vm2.projectType).then(
-						console.log('Project Type Deleted!')
-					);
-				},
-				function() {
-					console.log('Delete project type cancelled');
-				}
-			);
+			$mdDialog
+				.show(confirm)
+				.then(
+					() =>
+						removeItem(vm2.projectType).then(
+							console.log('Project Type Deleted!')
+						),
+					() => console.log('Delete project type cancelled')
+				);
 		}
 
 		function showErrorDialog(ev) {

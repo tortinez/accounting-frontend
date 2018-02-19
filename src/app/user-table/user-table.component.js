@@ -83,7 +83,7 @@ function UserTableController($mdDialog, Auth, User, OtherResource) {
 		vm2.autocompleteSearch = autocompleteSearch;
 		//get the data from the service
 		itemId
-			? User.get(itemId).$promise.then(function(res) {
+			? User.get(itemId).$promise.then(res => {
 					vm2.item = res;
 					vm2.role = vm.userRole(vm2.item);
 				})
@@ -101,15 +101,15 @@ function UserTableController($mdDialog, Auth, User, OtherResource) {
 
 		function editUser() {
 			return User.save(vm2.item).then(
-				function(value) {
-					User.query().$promise.then(function(res) {
+				() => {
+					User.query().$promise.then(res => {
 						vm.users = res;
 						$mdDialog.hide();
 					});
 					showToast('Succesfully Saved!');
 					console.log('User saved: ID=', value.id);
 				},
-				function(err) {
+				err => {
 					if (err.status == 409) {
 						showToast('This username is already in use');
 					} else {
@@ -145,14 +145,12 @@ function UserTableController($mdDialog, Auth, User, OtherResource) {
 
 		function removeItem(user) {
 			User.remove(user).then(
-				function() {
-					User.query().$promise.then(function(res) {
-						vm.users = res;
-					});
+				() => {
+					User.query().$promise.then(res => (vm.users = res));
 					showToast('User Deleted!');
 					console.log('Succesfully removed');
 				},
-				function(err) {
+				err => {
 					showToast('An error occured');
 					console.error(
 						'The item could not be deleted:',
@@ -189,14 +187,12 @@ function UserTableController($mdDialog, Auth, User, OtherResource) {
 				.ok('Delete')
 				.cancel('Cancel');
 
-			$mdDialog.show(confirm).then(
-				function() {
-					removeItem(vm2.item).then(console.log('User Deleted!'));
-				},
-				function() {
-					console.log('Delete user cancelled');
-				}
-			);
+			$mdDialog
+				.show(confirm)
+				.then(
+					() => removeItem(vm2.item).then(console.log('User Deleted!')),
+					() => console.log('Delete user cancelled')
+				);
 		}
 	}
 }

@@ -67,15 +67,15 @@ function ClientTypeTableController($mdDialog, Auth, OtherResource) {
 
 		function editClientType() {
 			return OtherResource.save('client-type', vm2.clientType).then(
-				function(value) {
-					OtherResource.query('client-type').$promise.then(function(res) {
+				() => {
+					OtherResource.query('client-type').$promise.then(res => {
 						vm.clientTypes = res;
 						$mdDialog.hide();
 					});
 					showToast('Succesfully Saved!');
 					console.log('ClientType saved: ID=', value.id);
 				},
-				function(err) {
+				err => {
 					$mdDialog.hide();
 					showToast('An error occured');
 					console.error(
@@ -89,14 +89,14 @@ function ClientTypeTableController($mdDialog, Auth, OtherResource) {
 
 		function removeItem(clientType) {
 			OtherResource.remove('client-type', clientType).then(
-				function() {
-					OtherResource.query('client-type').$promise.then(function(res) {
-						vm.clientTypes = res;
-					});
+				() => {
+					OtherResource.query('client-type').$promise.then(
+						res => (vm.clientTypes = res)
+					);
 					showToast('Client Type Deleted!');
 					console.log('Succesfully removed');
 				},
-				function(err) {
+				err => {
 					if (err.status == 409) showErrorDialog();
 					console.error(
 						'The item could not be deleted:',
@@ -128,14 +128,15 @@ function ClientTypeTableController($mdDialog, Auth, OtherResource) {
 				.ok('Delete')
 				.cancel('Cancel');
 
-			$mdDialog.show(confirm).then(
-				function() {
-					removeItem(vm2.clientType).then(console.log('Client Type Deleted!'));
-				},
-				function() {
-					console.log('Delete client type cancelled');
-				}
-			);
+			$mdDialog
+				.show(confirm)
+				.then(
+					() =>
+						removeItem(vm2.clientType).then(
+							console.log('Client Type Deleted!')
+						),
+					() => console.log('Delete client type cancelled')
+				);
 		}
 
 		function showErrorDialog(ev) {

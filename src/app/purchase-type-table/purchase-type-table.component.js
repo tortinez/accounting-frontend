@@ -53,9 +53,9 @@ function PurchaseTypeTableController($mdDialog, Auth, OtherResource) {
 		vm2.showConfirmDialog = showConfirmDialog;
 		//get the data from the service
 		itemId
-			? OtherResource.get('purchase-type', itemId).$promise.then(function(res) {
-					vm2.purchaseType = res;
-				})
+			? OtherResource.get('purchase-type', itemId).$promise.then(
+					res => (vm2.purchaseType = res)
+				)
 			: (vm2.purchaseType = {});
 
 		vm2.title = title;
@@ -68,15 +68,15 @@ function PurchaseTypeTableController($mdDialog, Auth, OtherResource) {
 
 		function editPurchaseType() {
 			return OtherResource.save('purchase-type', vm2.purchaseType).then(
-				function(value) {
-					OtherResource.query('purchase-type').$promise.then(function(res) {
+				() => {
+					OtherResource.query('purchase-type').$promise.then(res => {
 						vm.purchaseTypes = res;
 						$mdDialog.hide();
 					});
 					showToast('Succesfully Saved!');
 					console.log('PurchaseType saved: ID=', value.id);
 				},
-				function(err) {
+				err => {
 					$mdDialog.hide();
 					showToast('An error occured');
 					console.error(
@@ -90,14 +90,14 @@ function PurchaseTypeTableController($mdDialog, Auth, OtherResource) {
 
 		function removeItem(purchaseType) {
 			OtherResource.remove('purchase-type', purchaseType).then(
-				function() {
-					OtherResource.query('purchase-type').$promise.then(function(res) {
-						vm.purchaseTypes = res;
-					});
+				() => {
+					OtherResource.query('purchase-type').$promise.then(
+						res => (vm.purchaseTypes = res)
+					);
 					showToast('Purchase Type Deleted!');
 					console.log('Succesfully removed');
 				},
-				function(err) {
+				err => {
 					if (err.status == 409) showErrorDialog();
 					console.error(
 						'The item could not be deleted:',
@@ -129,16 +129,15 @@ function PurchaseTypeTableController($mdDialog, Auth, OtherResource) {
 				.ok('Delete')
 				.cancel('Cancel');
 
-			$mdDialog.show(confirm).then(
-				function() {
-					removeItem(vm2.purchaseType).then(
-						console.log('Purchase Type Deleted!')
-					);
-				},
-				function() {
-					console.log('Delete purchase type cancelled');
-				}
-			);
+			$mdDialog
+				.show(confirm)
+				.then(
+					() =>
+						removeItem(vm2.purchaseType).then(
+							console.log('Purchase Type Deleted!')
+						),
+					() => console.log('Delete purchase type cancelled')
+				);
 		}
 
 		function showErrorDialog(ev) {

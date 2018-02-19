@@ -10,7 +10,7 @@ function AuthFormController($routeParams, $location, Auth) {
 	///////////////////////////////////////////////////////////////////////
 	//functions_____________________________________________________________
 	function login() {
-		return Auth.login(vm.credentials).then(function(status) {
+		return Auth.login(vm.credentials).then(status => {
 			if (!status) {
 				vm.LoginStatus = 'The username or password entered is incorrect';
 			}

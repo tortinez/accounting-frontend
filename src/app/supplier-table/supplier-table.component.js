@@ -52,7 +52,7 @@ function SupplierTableController($mdDialog, Auth, OtherResource) {
 		vm2.showConfirmDialog = showConfirmDialog;
 		//get the data from the service
 		itemId
-			? OtherResource.get('supplier', itemId).$promise.then(function(res) {
+			? OtherResource.get('supplier', itemId).$promise.then(res => {
 					vm2.supplier = res;
 				})
 			: (vm2.supplier = {});
@@ -67,15 +67,15 @@ function SupplierTableController($mdDialog, Auth, OtherResource) {
 
 		function editSupplier() {
 			return OtherResource.save('supplier', vm2.supplier).then(
-				function(value) {
-					OtherResource.query('supplier').$promise.then(function(res) {
+				() => {
+					OtherResource.query('supplier').$promise.then(res => {
 						vm.suppliers = res;
 						$mdDialog.hide();
 					});
 					showToast('Succesfully Saved!');
 					console.log('Supplier saved: ID=', value.id);
 				},
-				function(err) {
+				err => {
 					$mdDialog.hide();
 					showToast('An error occured');
 					console.error(
@@ -89,14 +89,14 @@ function SupplierTableController($mdDialog, Auth, OtherResource) {
 
 		function removeItem(supplier) {
 			OtherResource.remove('supplier', supplier).then(
-				function() {
-					OtherResource.query('supplier').$promise.then(function(res) {
+				() => {
+					OtherResource.query('supplier').$promise.then(res => {
 						vm.suppliers = res;
 					});
 					showToast('Supplier Deleted!');
 					console.log('Succesfully removed');
 				},
-				function(err) {
+				err => {
 					if (err.status == 409) showErrorDialog();
 					console.error(
 						'The item could not be deleted:',
@@ -128,14 +128,12 @@ function SupplierTableController($mdDialog, Auth, OtherResource) {
 				.ok('Delete')
 				.cancel('Cancel');
 
-			$mdDialog.show(confirm).then(
-				function() {
-					removeItem(vm2.supplier).then(console.log('Supplier Deleted!'));
-				},
-				function() {
-					console.log('Delete supplier cancelled');
-				}
-			);
+			$mdDialog
+				.show(confirm)
+				.then(
+					() => removeItem(vm2.supplier).then(console.log('Supplier Deleted!')),
+					() => console.log('Delete supplier cancelled')
+				);
 		}
 
 		function showErrorDialog(ev) {

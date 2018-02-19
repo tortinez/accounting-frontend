@@ -82,9 +82,7 @@ function PurchaseStatusTableController(
 		vm2.showConfirmDialog = showConfirmDialog;
 		//get the data from the service
 		itemId
-			? OtherResource.get('purchase-state', itemId).$promise.then(function(
-					res
-				) {
+			? OtherResource.get('purchase-state', itemId).$promise.then(res => {
 					vm2.purchaseStatus = res;
 					vm2.color = mdPickerColors.getColor(
 						res.color == 'undefined'
@@ -109,15 +107,15 @@ function PurchaseStatusTableController(
 		function editPurchaseStatus() {
 			vm2.purchaseStatus.color = vm2.color.hex;
 			return OtherResource.save('purchase-state', vm2.purchaseStatus).then(
-				function(value) {
-					OtherResource.query('purchase-state').$promise.then(function(res) {
+				() => {
+					OtherResource.query('purchase-state').$promise.then(res => {
 						vm.purchaseStatuss = res;
 						$mdDialog.hide();
 					});
 					showToast('Succesfully Saved!');
 					console.log('Purchase Status saved: ID=', value.id);
 				},
-				function(err) {
+				err => {
 					$mdDialog.hide();
 					showToast('An error occured');
 					console.error(
@@ -131,17 +129,17 @@ function PurchaseStatusTableController(
 
 		function removeItem(purchaseStatus) {
 			OtherResource.remove('purchase-state', purchaseStatus).then(
-				function() {
+				() => {
 					OtherResource.api('purchase-state')
 						.query()
-						.$promise.then(function(res) {
+						.$promise.then(res => {
 							vm.purchaseStatuss = res;
 							$mdDialog.hide();
 						});
 					showToast('Purchase Status Deleted!');
 					console.log('Succesfully removed');
 				},
-				function(err) {
+				err => {
 					if (err.status == 409) showErrorDialog();
 					console.error(
 						'The item could not be deleted:',
@@ -173,16 +171,15 @@ function PurchaseStatusTableController(
 				.ok('Delete')
 				.cancel('Cancel');
 
-			$mdDialog.show(confirm).then(
-				function() {
-					removeItem(vm2.purchaseStatus).then(
-						console.log('Purchase Status Deleted!')
-					);
-				},
-				function() {
-					console.log('Delete purchase status cancelled');
-				}
-			);
+			$mdDialog
+				.show(confirm)
+				.then(
+					() =>
+						removeItem(vm2.purchaseStatus).then(
+							console.log('Purchase Status Deleted!')
+						),
+					() => console.log('Delete purchase status cancelled')
+				);
 		}
 
 		function showErrorDialog(ev) {

@@ -52,9 +52,9 @@ function EmployeeTableController($mdDialog, Auth, OtherResource) {
 		vm2.showConfirmDialog = showConfirmDialog;
 		//get the data from the service
 		ItemId
-			? OtherResource.get('employee', ItemId).$promise.then(function(res) {
-					vm2.employee = res;
-				})
+			? OtherResource.get('employee', ItemId).$promise.then(
+					res => (vm2.employee = res)
+				)
 			: (vm2.employee = { comments: '' });
 
 		vm2.title = title;
@@ -67,8 +67,8 @@ function EmployeeTableController($mdDialog, Auth, OtherResource) {
 
 		function editEmployee() {
 			return OtherResource.save('employee', vm2.employee).then(
-				function(value) {
-					OtherResource.query('employee').$promise.then(function(res) {
+				() => {
+					OtherResource.query('employee').$promise.then(res => {
 						vm.employees = res;
 						$mdDialog.hide();
 					});
@@ -89,14 +89,14 @@ function EmployeeTableController($mdDialog, Auth, OtherResource) {
 
 		function removeItem(employee) {
 			OtherResource.remove('employee', employee).then(
-				function() {
-					OtherResource.query('employee').$promise.then(function(res) {
-						vm.employees = res;
-					});
+				() => {
+					OtherResource.query('employee').$promise.then(
+						res => (vm.employees = res)
+					);
 					showToast('Person Deleted!');
 					console.log('Succesfully removed');
 				},
-				function(err) {
+				err => {
 					if (err.status == 409) showErrorDialog();
 					console.error(
 						'The item could not be deleted:',
@@ -128,14 +128,12 @@ function EmployeeTableController($mdDialog, Auth, OtherResource) {
 				.ok('Delete')
 				.cancel('Cancel');
 
-			$mdDialog.show(confirm).then(
-				function() {
-					removeItem(vm2.employee).then(console.log('Employee Deleted!'));
-				},
-				function() {
-					console.log('Delete employee cancelled');
-				}
-			);
+			$mdDialog
+				.show(confirm)
+				.then(
+					() => removeItem(vm2.employee).then(console.log('Employee Deleted!')),
+					() => console.log('Delete employee cancelled')
+				);
 		}
 
 		function showErrorDialog(ev) {

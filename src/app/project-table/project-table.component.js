@@ -54,11 +54,9 @@ function ProjectTableController($mdDialog, Auth, OtherResource) {
 		vm2.autocompleteSearch = autocompleteSearch;
 		//get the data from the service
 		vm.project.id
-			? OtherResource.get('project', vm.project.id).$promise.then(function(
-					res
-				) {
-					vm2.project = res;
-				})
+			? OtherResource.get('project', vm.project.id).$promise.then(
+					res => (vm2.project = res)
+				)
 			: (vm2.project = { description: '' });
 		vm2.clientList = OtherResource.query('client');
 		vm2.employeeList = OtherResource.query('employee');
@@ -74,15 +72,15 @@ function ProjectTableController($mdDialog, Auth, OtherResource) {
 
 		function editProject() {
 			return OtherResource.save('project', vm2.project).then(
-				function(value) {
-					OtherResource.query('project').$promise.then(function(res) {
+				() => {
+					OtherResource.query('project').$promise.then(res => {
 						vm.projects = res;
 						$mdDialog.hide();
 					});
 					showToast('Succesfully Saved!');
 					console.log('Project saved: ID=', value.id);
 				},
-				function(err) {
+				err => {
 					$mdDialog.hide();
 					showToast('An error occured');
 					console.error(
@@ -96,14 +94,14 @@ function ProjectTableController($mdDialog, Auth, OtherResource) {
 
 		function removeItem(project) {
 			OtherResource.remove('project', project).then(
-				function() {
-					OtherResource.query('project').$promise.then(function(res) {
-						vm.projects = res;
-					});
+				() => {
+					OtherResource.query('project').$promise.then(
+						res => (vm.projects = res)
+					);
 					showToast('Project Deleted!');
 					console.log('Succesfully removed');
 				},
-				function(err) {
+				err => {
 					if (err.status == 409) showErrorDialog();
 					console.error(
 						'The item could not be deleted:',
@@ -140,14 +138,12 @@ function ProjectTableController($mdDialog, Auth, OtherResource) {
 				.ok('Delete')
 				.cancel('Cancel');
 
-			$mdDialog.show(confirm).then(
-				function() {
-					removeItem(vm2.project).then(console.log('Project Deleted!'));
-				},
-				function() {
-					console.log('Delete project cancelled');
-				}
-			);
+			$mdDialog
+				.show(confirm)
+				.then(
+					() => removeItem(vm2.project).then(console.log('Project Deleted!')),
+					() => console.log('Delete project cancelled')
+				);
 		}
 
 		function showErrorDialog(ev) {

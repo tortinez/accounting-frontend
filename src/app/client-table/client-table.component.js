@@ -55,9 +55,9 @@ function ClientTableController($mdDialog, Auth, OtherResource) {
 		vm2.showConfirmDialog = showConfirmDialog;
 		//get the data from the service
 		itemId
-			? OtherResource.get('client', itemId).$promise.then(function(res) {
-					vm2.client = res;
-				})
+			? OtherResource.get('client', itemId).$promise.then(
+					res => (vm2.client = res)
+				)
 			: (vm2.client = {});
 		vm2.typeList = OtherResource.query('client-type');
 
@@ -71,15 +71,15 @@ function ClientTableController($mdDialog, Auth, OtherResource) {
 
 		function editClient() {
 			return OtherResource.save('client', vm2.client).then(
-				function(value) {
-					OtherResource.query('client').$promise.then(function(res) {
+				() => {
+					OtherResource.query('client').$promise.then(res => {
 						vm.clients = res;
 						$mdDialog.hide();
 					});
 					showToast('Succesfully Saved!');
 					console.log('Client saved: ID=', value.id);
 				},
-				function(err) {
+				err => {
 					$mdDialog.hide();
 					showToast('An error occured');
 					console.error(
@@ -93,14 +93,14 @@ function ClientTableController($mdDialog, Auth, OtherResource) {
 
 		function removeItem(client) {
 			OtherResource.remove('client', client).then(
-				function() {
-					OtherResource.query('client').$promise.then(function(res) {
-						vm.clients = res;
-					});
+				() => {
+					OtherResource.query('client').$promise.then(
+						res => (vm.clients = res)
+					);
 					showToast('Client Deleted!');
 					console.log('Succesfully removed');
 				},
-				function(err) {
+				err => {
 					if (err.status == 409) showErrorDialog();
 					console.error(
 						'The item could not be deleted:',
@@ -137,14 +137,12 @@ function ClientTableController($mdDialog, Auth, OtherResource) {
 				.ok('Delete')
 				.cancel('Cancel');
 
-			$mdDialog.show(confirm).then(
-				function() {
-					removeItem(vm2.client).then(console.log('Client Deleted!'));
-				},
-				function() {
-					console.log('Delete client cancelled');
-				}
-			);
+			$mdDialog
+				.show(confirm)
+				.then(
+					() => removeItem(vm2.client).then(console.log('Client Deleted!')),
+					() => console.log('Delete client cancelled')
+				);
 		}
 
 		function showErrorDialog(ev) {
