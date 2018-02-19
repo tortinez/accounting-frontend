@@ -135,6 +135,8 @@ function Purchase($resource) {
 			: q.push('requestDate>' + date.min.valueOf());
 		if (vm.amountMax !== null) q.push('amount<' + vm.amountMax);
 		if (vm.amountMin !== null) q.push('amount>' + vm.amountMin);
+		if (vm.item !== '') q.push('item~' + vm.item);
+		if (vm.code !== '') q.push('code~' + vm.code);
 		if (vm.codeRP !== '') q.push('codeRP~' + vm.codeRP);
 		if (vm.codeLV !== '') q.push('codeLV~' + vm.codeLV);
 		if (vm.chProj !== null) q.push('chargingProject.name~' + vm.chProj);

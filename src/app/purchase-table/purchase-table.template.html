@@ -9,12 +9,27 @@
       <div class="md-toolbar-tools">
         <div>Purchases</div>
         <span flex></span>
-        <md-button class="md-raised md-primary" ng-click="vm.toggleFilters()">Filter</md-button>
+        <div class="table-filters">
+          <md-input-container>
+            <label>Purchase Concept</label>
+            <input ng-model="vm.params.item" ng-change="vm.search()">
+          </md-input-container>
+          <md-input-container>
+            <label>Purchase Code</label>
+            <input ng-model="vm.params.code" ng-change="vm.search()">
+          </md-input-container>
+        </div>
+        <md-button class="md-raised md-primary" ng-click="vm.toggleFilters()">More Filters</md-button>
         <md-button class="md-raised md-primary" ng-href="#!/purchaseform">Add Purchase</md-button>
       </div>
 
-
-      <div class="table-pagination md-primary" md-colors="{background: 'primary-800'}">
+      <div class="table-pagination" md-colors="{background: 'primary-800'}">
+        <div layout-wrap flex="45">Applied filters:
+          <div ng-repeat="item in vm.appliedFilters()">
+            <span class="badge" md-colors="{background: 'accent'}">{{item}}</span>
+          </div>
+        </div>
+        <span flex></span>
         <div>Page:
           <md-select ng-model="vm.params.page" ng-change="vm.search()" aria-label="selPage">
             <md-option ng-repeat="n in [].constructor(vm.purchases.$metadata.totalPages) track by $index" ng-value="{{$index}}">{{$index+1}}</md-option>
@@ -77,10 +92,10 @@
             <td md-cell>{{purchase.codeRP}}</td>
             <td md-cell>{{purchase.codeLV}}</td>
             <td md-cell>{{purchase.code}}</td>
+            <!-- <td md-cell>{{purchase.comments}}</td> -->
             <td md-cell>
               <span class="badge" md-colors="{background: vm.badgeColor('{{purchase.state.color}}')}">{{purchase.state.name}}</span>
             </td>
-            <!-- <td md-cell>{{purchase.comments}}</td> -->
             <td md-cell>
               <md-button class="md-icon-button" ng-click="vm.downloadInvoice(purchase)" ng-disabled="vm.availableInvoice(purchase)" aria-label="downloadInvoice">
                 <md-tooltip md-direction="bottom">Download Invoice</md-tooltip>

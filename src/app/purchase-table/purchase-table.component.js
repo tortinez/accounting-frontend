@@ -38,16 +38,18 @@ function PurchaseTableController(
 	vm.autocompleteSearch = autocompleteSearch;
 	vm.autocompleteItemChange = autocompleteItemChange;
 	vm.toggleFilters = toggleFilters;
+	vm.appliedFilters = appliedFilters;
 	vm.badgeColor = badgeColor;
 
 	///////////////////////////////////////////////////////////////////////
 	//variables____________________________________________________________
 	vm.params = {
-		amountMax: 10000,
-		amountMin: 0,
+		amountMax: null,
+		amountMin: null,
 		dateMax: Purchase.date.max,
 		dateMin: Purchase.date.min,
 		item: '',
+		code: '',
 		codeRP: '',
 		codeLV: '',
 		chProj: null,
@@ -119,6 +121,27 @@ function PurchaseTableController(
 	//other___
 	function toggleFilters() {
 		vm.hideFilters = !vm.hideFilters;
+	}
+
+	function appliedFilters() {
+		var filters = [];
+
+		if (vm.params.amountMax != null || vm.params.amountMin != null)
+			filters.push('amount');
+		if (vm.params.dateMax != null || vm.params.dateMin != null)
+			filters.push('date');
+		if (vm.params.item != '') filters.push('concept');
+		if (vm.params.code != '') filters.push('code');
+		if (vm.params.codeLV != '') filters.push('codeLV');
+		if (vm.params.codeRP != '') filters.push('codeRP');
+		if (vm.params.chProj != null) filters.push('ch. project');
+		if (vm.params.reqProj != null) filters.push('req. project');
+		if (vm.params.status != null) filters.push('status');
+		if (vm.params.supplier != null) filters.push('supplier');
+		if (vm.params.type != null) filters.push('type');
+		if (vm.params.employee != null) filters.push('req. person');
+
+		return filters;
 	}
 
 	function badgeColor(hex) {

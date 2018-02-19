@@ -2,20 +2,13 @@
   layout-padding layout-wrap md-whiteframe="5">
   <div layout="column" flex>
     <md-input-container>
-      <label>Concept</label>
-      <input ng-model="vm.params.item" ng-change="vm.search()">
+      <label>Min Amount (€)</label>
+      <input ng-model="vm.params.amountMin" ng-change="vm.search()" type="number" step="10">
     </md-input-container>
-
-    <div layout="" layout-align="center center">
-      <md-input-container>
-        <label>Min Amount (€)</label>
-        <input ng-model="vm.params.amountMin" ng-change="vm.search()" type="number" step="10">
-      </md-input-container>
-      <md-input-container>
-        <label>Max Amount (€)</label>
-        <input ng-model="vm.params.amountMax" ng-change="vm.search()" type="number" step="10">
-      </md-input-container>
-    </div>
+    <md-input-container>
+      <label>Max Amount (€)</label>
+      <input ng-model="vm.params.amountMax" ng-change="vm.search()" type="number" step="10">
+    </md-input-container>
   </div>
 
   <div layout="column" flex>
