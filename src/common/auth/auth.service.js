@@ -39,11 +39,12 @@ function Auth($http) {
 					console.log('Login failed');
 				}
 
-				return vm.user.isLogged;
+				return {status: vm.user.isLogged};
 			},
 			err => {
-				console.log('Login Failed');
-				return false;
+				console.log('Login Failed. ' + err.data.message);
+
+				return {status: false, message: err.data.message};
 			}
 		);
 	}

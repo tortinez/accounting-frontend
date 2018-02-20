@@ -66,7 +66,7 @@
 
         <md-input-container flex>
           <label>Account Role:</label>
-          <md-select required ng-model="vm.role" ng-change="vm.assignRoles(role)">
+          <md-select required ng-model="vm.role" ng-change="vm.assignRoles(vm.role)">
             <md-option value="USER">User</md-option>
             <md-option value="MANAGER">Manager</md-option>
             <md-option value="ADMIN">Admin</md-option>
