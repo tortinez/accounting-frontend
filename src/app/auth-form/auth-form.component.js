@@ -10,11 +10,13 @@ function AuthFormController($routeParams, $location, Auth) {
 	///////////////////////////////////////////////////////////////////////
 	//functions_____________________________________________________________
 	function login() {
-		return Auth.login(vm.credentials).then(status => {
-			if (!status) {
-				vm.LoginStatus = 'The username or password entered is incorrect';
+		return Auth.login(vm.credentials).then(res => {
+			if (!res.status) {
+				if (res.message == 'Bad credentials')
+					vm.LoginStatus = 'The username or password entered is incorrect';
+				else vm.LoginStatus = res.message;
 			}
-			if (status) {
+			if (res.status) {
 				$location.path('/purchases');
 			}
 		});
