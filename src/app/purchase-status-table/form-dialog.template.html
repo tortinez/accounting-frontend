@@ -5,7 +5,7 @@
         <h2>{{vm.title}}</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="vm.cancel()">
-          <md-icon md-svg-src="assets/icons/close.svg" aria-label="Close dialog"></md-icon>
+          <md-icon icon svg-icon="#close" aria-label="Close dialog"></md-icon>
         </md-button>
       </div>
     </md-toolbar>
@@ -25,7 +25,7 @@
         Status color:
         <md-color-menu color="vm.color" style="padding: 0 0 0 20px">
           <md-button class="md-icon-button" ng-style="vm.color.style">
-            <md-icon md-svg-src="assets/icons/palette.svg" ng-style="vm.color.style"></md-icon>
+            <md-icon icon svg-icon="#palette" ng-style="vm.color.style"></md-icon>
           </md-button>
         </md-color-menu>
       </div>
@@ -35,7 +35,7 @@
       <md-button type="submit" class="md-raised md-primary">Save</md-button>
       <span flex></span>
       <md-button class="md-raised md-warn" ng-click="vm.showConfirmDialog($event)" ng-hide="!vm.purchaseStatus.id">
-        <md-icon md-svg-src="/assets/icons/delete.svg"></md-icon>Delete Purchase Status
+        <md-icon icon svg-icon="#delete"></md-icon>Delete Purchase Status
       </md-button>
     </md-dialog-actions>
   </form>

@@ -12,7 +12,9 @@
     <div class="md-toolbar-tools" flex layout="row">
       <!-- Title and logo -->
       <div>
-        <img src="/assets/icons/MCIA_logo.svg" id="toolbar-logo" />
+        <svg id="toolbar-logo">
+          <use xlink:href="#MCIA_logo" class="sprite-symbol-usage"></use>
+        </svg>
       </div>
       <h2 id="toolbar-title">Accounting System</h2>
       <span flex></span>
@@ -21,19 +23,19 @@
         <md-button ng-click="$mdMenu.open($event)">
           <div layout="row" layout-margin layout-align="center center">
             <span>{{vm.user.name}} ({{vm.userRole()}})</span>
-            <md-icon md-menu-origin md-svg-src="/assets/icons/settings.svg" style="width: '32px'; height: '32px'"></md-icon>
+            <md-icon md-menu-origin icon svg-icon="#settings" style="width: '32px'; height: '32px'"></md-icon>
           </div>
         </md-button>
         <md-menu-content>
           <md-menu-item>
             <md-button ng-click="vm.showAccountInfo()">
-              <md-icon md-svg-src="/assets/icons/account.svg"></md-icon>
+              <md-icon icon svg-icon="#account"></md-icon>
               Account Info
             </md-button>
           </md-menu-item>
           <md-menu-item>
             <md-button ng-click="vm.handleLogout()">
-              <md-icon md-svg-src="/assets/icons/logout.svg"></md-icon>
+              <md-icon icon svg-icon="#logout"></md-icon>
               Logout
             </md-button>
           </md-menu-item>

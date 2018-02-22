@@ -99,7 +99,7 @@ function dateConfig($mdDateLocaleProvider, moment) {
 	};
 }
 
-//authentication redirectioning
+// Authentication redirectioning
 onChangeRun.$inject = ['$rootScope', '$location', 'Auth'];
 
 function onChangeRun($rootScope, $location, Auth) {
