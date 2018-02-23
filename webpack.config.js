@@ -232,11 +232,11 @@ module.exports = (function makeWebpackConfig() {
 
 			// Copy assets from the assets folder
 			// Reference: https://github.com/kevlened/copy-webpack-plugin
-			new CopyWebpackPlugin([
-				{
-					from: __dirname + '/src/assets'
-				}
-			])
+			// new CopyWebpackPlugin([
+			// 	{
+			// 		from: __dirname + '/src/assets'
+			// 	}
+			// ])
 		);
 	}
 
