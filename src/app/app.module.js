@@ -38,6 +38,9 @@ import {
 	onChangeRun
 } from './app.config';
 
+//directive import
+import icon from '../common/directives/icon/icon.directive';
+
 //css imports
 import 'npm/angular-material/angular-material.css';
 import 'npm/angular-material-data-table/dist/md-data-table.css';
@@ -45,6 +48,29 @@ import 'npm/md-color-menu/md-color-menu.css';
 import '../style/accordion.css';
 import '../style/app.animations.css';
 import '../style/app.css';
+
+//SVG imports (for svg-sprite-loader)
+import accountKeyIcon from '../assets/icons/account-key.svg';
+import accountMultIcon from '../assets/icons/account-multiple.svg';
+import accountSettIcon from '../assets/icons/account-settings.svg';
+import accountIcon from '../assets/icons/account.svg';
+import alertCircleIcon from '../assets/icons/alert-circle.svg';
+import attachIcon from '../assets/icons/attach.svg';
+import boxIcon from '../assets/icons/box.svg';
+import clipboardAccIcon from '../assets/icons/clipboard-account.svg';
+import closeIcon from '../assets/icons/close.svg';
+import deleteIcon from '../assets/icons/delete.svg';
+import downArrowIcon from '../assets/icons/downArrow.svg';
+import editIcon from '../assets/icons/edit.svg';
+import filePdfIcon from '../assets/icons/file-pdf.svg';
+import folderIcon from '../assets/icons/folder.svg';
+import logoutIcon from '../assets/icons/logout.svg';
+import mciaLogoIcon from '../assets/icons/MCIA_logo.svg';
+import navNextIcon from '../assets/icons/navNext.svg';
+import navPrevIcon from '../assets/icons/navPrev.svg';
+import paletteIcon from '../assets/icons/palette.svg';
+import settingsIcon from '../assets/icons/settings.svg';
+import shoppingCartIcon from '../assets/icons/shopping-cart.svg';
 
 // Define the 'AccountingFEapp' module
 angular
@@ -83,4 +109,6 @@ angular
 	.config(dateConfig)
 	.run(onChangeRun)
 
-	.controller('MainController', MainController);
+	.controller('MainController', MainController)
+
+	.directive('icon', icon);

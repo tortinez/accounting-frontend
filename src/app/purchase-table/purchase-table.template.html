@@ -50,11 +50,11 @@
         <div>
           <md-button class="md-icon-button" ng-click="vm.prevPage()" ng-disabled="vm.purchases.$metadata.page==0" aria-label="prevPage">
             <md-tooltip md-direction="bottom">Previous page</md-tooltip>
-            <md-icon md-svg-icon="assets/icons/navPrev.svg"></md-icon>
+            <md-icon icon svg-icon="#navPrev"></md-icon>
           </md-button>
           <md-button class="md-icon-button" ng-click="vm.nextPage()" ng-disabled="vm.purchases.$metadata.last" aria-label="nextPage">
             <md-tooltip md-direction="bottom">Next page</md-tooltip>
-            <md-icon md-svg-icon="assets/icons/navNext.svg"></md-icon>
+            <md-icon icon svg-icon="#navNext"></md-icon>
           </md-button>
         </div>
       </div>
@@ -103,13 +103,13 @@
             <td md-cell>
               <md-button class="md-icon-button" ng-click="vm.downloadInvoice(purchase)" ng-disabled="vm.availableInvoice(purchase)" aria-label="downloadInvoice">
                 <md-tooltip md-direction="bottom">Download Invoice</md-tooltip>
-                <md-icon class="table-icon" md-svg-icon="assets/icons/attach.svg"></md-icon>
+                <md-icon class="table-icon" icon svg-icon="#attach"></md-icon>
               </md-button>
             </td>
             <td md-cell>
               <md-button class="md-icon-button" ng-click="vm.editItem(purchase)">
                 <md-tooltip md-direction="bottom">Edit Purchase</md-tooltip>
-                <md-icon class="table-icon" md-svg-icon="assets/icons/edit.svg"></md-icon>
+                <md-icon class="table-icon" icon svg-icon="#edit"></md-icon>
               </md-button>
             </td>
           </tr>

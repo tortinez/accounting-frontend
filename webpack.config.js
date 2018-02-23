@@ -133,8 +133,16 @@ module.exports = (function makeWebpackConfig() {
 				// Rename the file using the asset hash
 				// Pass along the updated reference to your code
 				// You can add here any file extension you want to get copied to your output
-				test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
+				test: /\.(png|jpg|jpeg|gif|woff|woff2|ttf|eot)$/,
 				loader: 'file-loader'
+			},
+			{
+				//SVG LOADER
+				//Reference: https://github.com/kisenka/svg-sprite-loader
+				//Like style-loader but for SVG: it creates a single SVG sprite from a set
+				//of images, appends it to DOM and returns relative symbol url to be used with svg's <use>.
+				test: /\.svg$/,
+				use: ['svg-sprite-loader', 'svgo-loader']
 			},
 			{
 				// HTML LOADER
@@ -224,11 +232,11 @@ module.exports = (function makeWebpackConfig() {
 
 			// Copy assets from the assets folder
 			// Reference: https://github.com/kevlened/copy-webpack-plugin
-			new CopyWebpackPlugin([
-				{
-					from: __dirname + '/src/assets'
-				}
-			])
+			// new CopyWebpackPlugin([
+			// 	{
+			// 		from: __dirname + '/src/assets'
+			// 	}
+			// ])
 		);
 	}
 
@@ -248,4 +256,4 @@ module.exports = (function makeWebpackConfig() {
 	};
 
 	return config;
-}());
+})();

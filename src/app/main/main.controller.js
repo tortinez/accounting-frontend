@@ -28,7 +28,7 @@ function MainController($scope, $location, $mdSidenav, Auth) {
 		{
 			header: 'Purchases',
 			type: 'toogle',
-			icon: 'assets/icons/shopping-cart.svg',
+			icon: '#shopping-cart',
 			pages: [
 				{
 					title: 'Purchases Table',
@@ -50,7 +50,7 @@ function MainController($scope, $location, $mdSidenav, Auth) {
 		{
 			header: 'Projects',
 			type: 'toogle',
-			icon: 'assets/icons/folder.svg',
+			icon: '#folder',
 			pages: [
 				{
 					title: 'Projects Table',
@@ -67,7 +67,7 @@ function MainController($scope, $location, $mdSidenav, Auth) {
 		{
 			header: 'Clients',
 			type: 'toogle',
-			icon: 'assets/icons/clipboard-account.svg',
+			icon: '#clipboard-account',
 			pages: [
 				{
 					title: 'Clients Table',
@@ -85,21 +85,21 @@ function MainController($scope, $location, $mdSidenav, Auth) {
 			header: 'Supplier',
 			type: 'link',
 			linkTo: '#!/suppliers',
-			icon: 'assets/icons/box.svg',
+			icon: '#box',
 			pages: []
 		},
 		{
 			header: 'Staff',
 			type: 'link',
 			linkTo: '#!/employees',
-			icon: 'assets/icons/account-multiple.svg',
+			icon: '#account-multiple',
 			pages: []
 		},
 		{
 			header: 'Users',
 			type: 'link',
 			linkTo: '#!/users',
-			icon: 'assets/icons/account-settings.svg',
+			icon: '#account-settings',
 			pages: []
 		}
 	];
