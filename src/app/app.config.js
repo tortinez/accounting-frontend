@@ -90,7 +90,7 @@ dateConfig.$inject = ['$mdDateLocaleProvider', 'moment'];
 
 function dateConfig($mdDateLocaleProvider, moment) {
 	$mdDateLocaleProvider.formatDate = function(date) {
-		return moment(date).format('DD/MM/YYYY');
+		return date == null ? null : moment(date).format('DD/MM/YYYY');
 	};
 
 	$mdDateLocaleProvider.parseDate = function(dateString) {

@@ -39,6 +39,7 @@ function PurchaseTableController(
 	vm.autocompleteItemChange = autocompleteItemChange;
 	vm.toggleFilters = toggleFilters;
 	vm.appliedFilters = appliedFilters;
+	vm.chipRemoveFilter = chipRemoveFilter;
 	vm.badgeColor = badgeColor;
 
 	///////////////////////////////////////////////////////////////////////
@@ -142,6 +143,59 @@ function PurchaseTableController(
 		if (vm.params.employee != null) filters.push('req. person');
 
 		return filters;
+	}
+
+	function chipRemoveFilter(item) {
+		switch (item) {
+			case 'amount':
+				vm.params.amountMax = null;
+				vm.params.amountMin = null;
+				break;
+			case 'date':
+				vm.params.dateMax = null;
+				vm.params.dateMin = null;
+				break;
+			case 'concept':
+				vm.params.item = '';
+				break;
+			case 'code':
+				vm.params.code = '';
+				break;
+			case 'codeRP':
+				vm.params.codeRP = '';
+				break;
+			case 'codeLV':
+				vm.params.codeLV = '';
+				break;
+			case 'ch. project':
+				vm.params.chProj = null;
+				vm.autocompleteObj.chProj = null;
+				break;
+			case 'req. project':
+				vm.params.reqProj = null;
+				vm.autocompleteObj.reqProj = null;
+				break;
+			case 'status':
+				vm.params.status = null;
+				vm.autocompleteObj.status=null;
+				break;
+			case 'supplier':
+				vm.params.supplier = null;
+				vm.autocompleteObj.supplier = null;
+				break;
+			case 'type':
+				vm.params.type = null;
+				vm.autocompleteObj.type = null;
+				break;
+			case 'req. person':
+				vm.params.employee = null;
+				vm.autocompleteObj.employee = null;
+				break;
+			default:
+				console.log('An error occured when removing a filter');
+				break;
+		}
+		search();
 	}
 
 	function badgeColor(hex) {

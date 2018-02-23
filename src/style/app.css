@@ -23,8 +23,7 @@
 	width: 48px;
 }
 
-/* Filters bar */
-md-content.filters-toolbar {
+Filters bar md-content.filters-toolbar {
 	width: 100%;
 }
 
@@ -67,7 +66,36 @@ table.md-table > tbody > tr.md-row:hover {
 	text-align: center;
 	white-space: nowrap;
 	vertical-align: middle;
-	border-radius: 10px;
+	border-radius: 32px;
+}
+
+/* chip-remove */
+#chip-remove {
+	display: inline-block;
+	width: auto;
+	height: 20px;
+	min-height: unset;
+	min-width: unset;
+	padding: 0 6px;
+	margin: unset;
+	line-height: unset;
+	font-size: 100%;
+	font-weight: normal;
+	text-transform: capitalize;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	border-radius: 32px;
+}
+#chip-remove md-icon {
+	width: 16px;
+	height: 16px;
+	min-width: unset;
+	min-height: unset;
+}
+#chip-remove md-icon > svg {
+	width: inherit;
+	height: inherit;
 }
 
 /* Pagination toolbar*/
@@ -122,13 +150,16 @@ div.table-pagination > div > * {
 
 /* Basic filtering toolbar*/
 .table-filters {
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: normal;
 	height: 65px;
 	padding: 0 15px 0 0;
 }
 .table-filters > * {
-	margin-left: 10px;
+	margin-right: 100px;
+}
+.table-filters > md-input-container > input {
+	width: 130%;
 }
 
 /* Sidenav and general layout*/

@@ -26,7 +26,11 @@
       <div class="table-pagination" md-colors="{background: 'primary-800'}">
         <div layout-wrap flex="45">Applied filters:
           <div ng-repeat="item in vm.appliedFilters()">
-            <span class="badge" md-colors="{background: 'accent'}">{{item}}</span>
+            <md-button class="md-raised md-accent" ng-click="vm.chipRemoveFilter(item)" id="chip-remove">
+              {{item}}
+              <!-- <icon svg-icon="#close"></icon> -->
+              <md-icon md-svg-src="assets/icons/close.svg"></md-icon>
+            </md-button>
           </div>
         </div>
         <span flex></span>
