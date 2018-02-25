@@ -123,7 +123,7 @@ div.table-pagination > * {
 	align-items: center;
 	height: 74px;
 }
-div.table-pagination div {
+div.table-pagination > div {
 	padding: 20px 20px 20px 10px;
 }
 div.table-pagination > div > * {
@@ -133,11 +133,15 @@ div.table-pagination > div > * {
 	-webkit-justify-content: flex-end;
 	-ms-flex-pack: end;
 	justify-content: flex-end;
-	min-width: 60px;
+	min-width: 50px;
 }
 .table-pagination md-select .md-select-value {
 	border-bottom: 0 !important;
-	margin-bottom: -5px !important;
+	padding: 7px 0 0;
+	min-width: unset;
+}
+.table-pagination md-select .md-select-value > span > div {
+	padding-left: 6px;
 }
 .table-pagination md-select .md-select-value span.md-select-icon {
 	-webkit-justify-content: center;
