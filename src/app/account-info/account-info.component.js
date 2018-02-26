@@ -34,6 +34,10 @@ function AccountInfoController($location, $mdToast, User) {
 
 	function userRole() {
 		var role = '';
+		vm.user.isAdmin = vm.user.roles.includes('ADMIN');
+		vm.user.isManager = vm.user.roles.includes('MANAGER');
+		vm.user.isUser = vm.user.roles.includes('USER');
+
 		if (vm.user.isAdmin) role = 'ADMIN';
 		else if (vm.user.isManager) role = 'MANAGER';
 		else if (vm.user.isUser) role = 'USER';
