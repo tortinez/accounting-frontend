@@ -1,4 +1,4 @@
-25c25
+27c27
 <         var name = swatchName + ' ' + colorName;
 ---
 >         var name = swatchName + '-' + colorName;

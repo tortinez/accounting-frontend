@@ -46,7 +46,7 @@ function PurchaseFormController(
 	//functions_____________________________________________________________
 	function editPurchase() {
 		return Purchase.save(vm.purchase).then(
-			() => {
+			value => {
 				showToast('Purchase succesfully saved!');
 				console.log('Purchase saved: ID=', value.id);
 				$location.path('/purchases');
@@ -111,6 +111,7 @@ function PurchaseFormController(
 			clickOutsideToClose: true
 		});
 	}
+	DialogController.$inject = ['$scope', '$mdDialog', 'Purchase'];
 	function DialogController($scope, $mdDialog, Purchase) {
 		$scope.cancel = cancel;
 		$scope.uploadFile = uploadFile;

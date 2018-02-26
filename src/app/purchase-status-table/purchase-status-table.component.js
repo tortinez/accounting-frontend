@@ -54,6 +54,7 @@ function PurchaseStatusTableController(
 			locals: { title: vm.title, itemId: vm.purchaseStatus.id }
 		});
 	}
+	FormDialogController.$inject = ['$mdDialog', '$mdToast', 'mdPickerColors', 'OtherResource', 'title', 'itemId'];
 	function FormDialogController(
 		$mdDialog,
 		$mdToast,

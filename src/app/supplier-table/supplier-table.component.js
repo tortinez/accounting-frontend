@@ -38,6 +38,7 @@ function SupplierTableController($mdDialog, Auth, OtherResource) {
 			locals: { title: vm.title, itemId: vm.supplier.id }
 		});
 	}
+	FormDialogController.$inject = ['$mdDialog', '$mdToast', 'OtherResource', 'title', 'itemId'];
 	function FormDialogController(
 		$mdDialog,
 		$mdToast,

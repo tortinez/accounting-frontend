@@ -39,6 +39,7 @@ function ClientTableController($mdDialog, Auth, OtherResource) {
 			locals: { title: vm.title, itemId: vm.client.id }
 		});
 	}
+	FormDialogController.$inject = ['$mdDialog', '$mdToast', 'AutocompleteFields', 'OtherResource', 'title', 'itemId'];
 	function FormDialogController(
 		$mdDialog,
 		$mdToast,

@@ -38,6 +38,7 @@ function ProjectTableController($mdDialog, Auth, OtherResource) {
 			locals: { title: vm.title, itemId: vm.project.id }
 		});
 	}
+	FormDialogController.$inject = ['$mdDialog', '$mdToast', 'AutocompleteFields', 'OtherResource', 'title', 'itemId'];
 	function FormDialogController(
 		$mdDialog,
 		$mdToast,
