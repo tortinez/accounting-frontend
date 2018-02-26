@@ -66,6 +66,7 @@ function UserTableController($mdDialog, Auth, User, OtherResource) {
 			locals: { title: vm.title, itemId: vm.item.id }
 		});
 	}
+	FormDialogController.$inject = ['$mdDialog', '$mdToast', 'AutocompleteFields', 'OtherResource', 'title', 'itemId'];
 	function FormDialogController(
 		$mdDialog,
 		$mdToast,

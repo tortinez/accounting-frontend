@@ -38,6 +38,7 @@ function ClientTypeTableController($mdDialog, Auth, OtherResource) {
 			locals: { title: vm.title, itemId: vm.clientType.id }
 		});
 	}
+	FormDialogController.$inject = ['$mdDialog', '$mdToast', 'OtherResource', 'title', 'itemId'];
 	function FormDialogController(
 		$mdDialog,
 		$mdToast,

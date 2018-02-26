@@ -35,15 +35,16 @@ function EmployeeTableController($mdDialog, Auth, OtherResource) {
 			targetEvent: ev,
 			parent: angular.element(document.body),
 			clickOutsideToClose: false,
-			locals: { title: vm.title, ItemId: vm.employee.id }
+			locals: { title: vm.title, itemId: vm.employee.id }
 		});
 	}
+	FormDialogController.$inject = ['$mdDialog', '$mdToast', 'OtherResource', 'title', 'itemId'];
 	function FormDialogController(
 		$mdDialog,
 		$mdToast,
 		OtherResource,
 		title,
-		ItemId
+		itemId
 	) {
 		var vm2 = this;
 		//functions callable from the html
@@ -51,8 +52,8 @@ function EmployeeTableController($mdDialog, Auth, OtherResource) {
 		vm2.editEmployee = editEmployee;
 		vm2.showConfirmDialog = showConfirmDialog;
 		//get the data from the service
-		ItemId
-			? OtherResource.get('employee', ItemId).$promise.then(
+		itemId
+			? OtherResource.get('employee', itemId).$promise.then(
 					res => (vm2.employee = res)
 				)
 			: (vm2.employee = { comments: '' });

@@ -61,7 +61,7 @@
 		"build": "rimraf dist && webpack --bail --progress --profile",
 		"server": "webpack-dev-server --history-api-fallback --inline --progress --host 0.0.0.0",
 		"start": "npm run server",
-		"md-color-menu-patch": "patch -N ./node_modules/md-color-menu/md-color-menu.js < ./md-color-menu.patch.js",
+		"md-color-menu-patch": "patch -N ./node_modules/md-color-menu/md-color-menu.js < ./md-color-menu.patch",
 		"postinstall": "npm run md-color-menu-patch",
 		"pretest": "npm install",
 		"test": "karma start",

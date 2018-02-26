@@ -38,10 +38,10 @@ function PurchaseTypeTableController($mdDialog, Auth, OtherResource) {
 			locals: { title: vm.title, itemId: vm.purchaseType.id }
 		});
 	}
+	FormDialogController.$inject = ['$mdDialog', '$mdToast', 'OtherResource', 'title', 'itemId'];
 	function FormDialogController(
 		$mdDialog,
 		$mdToast,
-		AutocompleteFields,
 		OtherResource,
 		title,
 		itemId
