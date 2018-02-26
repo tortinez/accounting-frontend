@@ -111,4 +111,10 @@ angular
 
 	.controller('MainController', MainController)
 
+	.component('sidenav', {
+		template: require('./main/sidenav.template.html'),
+		controller: MainController,
+		controllerAs: 'vm'
+	})
+
 	.directive('icon', icon);
