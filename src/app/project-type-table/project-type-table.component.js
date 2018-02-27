@@ -68,7 +68,7 @@ function ProjectTypeTableController($mdDialog, Auth, OtherResource) {
 
 		function editProjectType() {
 			return OtherResource.save('project-type', vm2.projectType).then(
-				() => {
+				value => {
 					OtherResource.query('project-type').$promise.then(res => {
 						vm.projectTypes = res;
 						$mdDialog.hide();

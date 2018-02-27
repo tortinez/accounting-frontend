@@ -72,7 +72,7 @@ function ClientTableController($mdDialog, Auth, OtherResource) {
 
 		function editClient() {
 			return OtherResource.save('client', vm2.client).then(
-				() => {
+				value => {
 					OtherResource.query('client').$promise.then(res => {
 						vm.clients = res;
 						$mdDialog.hide();

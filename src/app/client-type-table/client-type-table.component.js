@@ -68,7 +68,7 @@ function ClientTypeTableController($mdDialog, Auth, OtherResource) {
 
 		function editClientType() {
 			return OtherResource.save('client-type', vm2.clientType).then(
-				() => {
+				value => {
 					OtherResource.query('client-type').$promise.then(res => {
 						vm.clientTypes = res;
 						$mdDialog.hide();

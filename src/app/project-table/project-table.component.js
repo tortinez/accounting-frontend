@@ -73,7 +73,7 @@ function ProjectTableController($mdDialog, Auth, OtherResource) {
 
 		function editProject() {
 			return OtherResource.save('project', vm2.project).then(
-				() => {
+				value => {
 					OtherResource.query('project').$promise.then(res => {
 						vm.projects = res;
 						$mdDialog.hide();

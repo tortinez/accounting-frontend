@@ -66,7 +66,14 @@ function UserTableController($mdDialog, Auth, User, OtherResource) {
 			locals: { title: vm.title, itemId: vm.item.id }
 		});
 	}
-	FormDialogController.$inject = ['$mdDialog', '$mdToast', 'AutocompleteFields', 'OtherResource', 'title', 'itemId'];
+	FormDialogController.$inject = [
+		'$mdDialog',
+		'$mdToast',
+		'AutocompleteFields',
+		'OtherResource',
+		'title',
+		'itemId'
+	];
 	function FormDialogController(
 		$mdDialog,
 		$mdToast,
@@ -102,7 +109,7 @@ function UserTableController($mdDialog, Auth, User, OtherResource) {
 
 		function editUser() {
 			return User.save(vm2.item).then(
-				() => {
+				value => {
 					User.query().$promise.then(res => {
 						vm.users = res;
 						$mdDialog.hide();

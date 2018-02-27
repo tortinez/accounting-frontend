@@ -41,7 +41,11 @@ function PurchaseFormController(
 	//get data if exist; if not assign an empty object
 	$routeParams.id
 		? Purchase.get($routeParams.id).then(res => (vm.purchase = res))
-		: (vm.purchase = { comments: '', date: new Date() });
+		: (vm.purchase = {
+				comments: '',
+				date: new Date(),
+				code: 'MCIA-' + date.getFullYear
+			});
 
 	//functions_____________________________________________________________
 	function editPurchase() {
