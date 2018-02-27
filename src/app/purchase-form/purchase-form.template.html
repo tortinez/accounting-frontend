@@ -144,7 +144,7 @@
           <md-button type="submit" class="md-raised md-primary">Save</md-button>
         </div>
         <div>
-          <md-button class="md-raised md-warn" ng-click="vm.showConfirm($event)" ng-hide="!vm.user.isAdmin && !vm.user.isManager && !vm.purchase.id">
+          <md-button class="md-raised md-warn" ng-click="vm.showConfirm($event)" ng-hide="(!vm.user.isAdmin && !vm.user.isManager) || !vm.purchase.id">
             <md-icon icon svg-icon="#delete"></md-icon>Delete Purchase
           </md-button>
         </div>

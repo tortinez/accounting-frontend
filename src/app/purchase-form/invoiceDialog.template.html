@@ -16,15 +16,18 @@
         <p>
           <input required class="md-primary" accept="application/pdf" type="file" id="file" name="file"></input>
         </p>
-        <p ng-if="hasInvoice" id="invoiceMsg">This purchase already
+        <p ng-if="hasInvoice && (vm.user.isAdmin || vm.user.isManager)" id="invoiceMsg">This purchase already
           <b>has</b> an invoice uploaded. You can upload a pdf to replace the current file or remove the current pdf.</p>
+        <p ng-if="hasInvoice && !(vm.user.isAdmin || vm.user.isManager)" id="invoiceMsg">This purchase already
+          <b>has</b> an invoice uploaded. You can upload a pdf to replace the current file.</p>
       </div>
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
       <md-button type="submit" class="md-raised md-primary">Upload</md-button>
       <span flex></span>
-      <md-button ng-disabled="!hasInvoice" class="md-raised md-warn" ng-click="deleteFile()">Remove Invoice</md-button>
+      <md-button ng-disabled="!hasInvoice && (vm.user.isAdmin || vm.user.isManager)" ng-hide="!(vm.user.isAdmin || vm.user.isManager)"
+        class="md-raised md-warn" ng-click="deleteFile()">Remove Invoice</md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>
