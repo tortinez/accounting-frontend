@@ -6,7 +6,7 @@
       <div class="md-toolbar-tools">
         <div>Project Types</div>
         <span flex></span>
-        <md-button class="md-raised md-primary" ng-click="vm.addItem()" ng-hide="!vm.user.isAdmin || !vm.user.isManager">Add Project Type</md-button>
+        <md-button class="md-raised md-primary" ng-click="vm.addItem()" ng-hide="!vm.user.isAdmin && !vm.user.isManager">Add Project Type</md-button>
       </div>
     </md-toolbar>
 
@@ -18,14 +18,14 @@
           <tr md-row>
             <!-- <th md-column class="md-thead">ID</th> -->
             <th md-column class="md-thead">Name</th>
-            <th md-column class="md-thead" ng-hide="!vm.user.isAdmin || !vm.user.isManager"></th>
+            <th md-column class="md-thead" ng-hide="!vm.user.isAdmin && !vm.user.isManager"></th>
           </tr>
         </thead>
         <tbody md-body>
           <tr md-row ng-repeat="item in vm.projectTypes">
             <!-- <td md-cell>{{item.id}}</td> -->
             <td md-cell>{{item.name}}</td>
-            <td md-cell ng-hide="!vm.user.isAdmin || !vm.user.isManager">
+            <td md-cell ng-hide="!vm.user.isAdmin && !vm.user.isManager">
               <md-button class="md-icon-button" ng-click="vm.editItem(item)">
                 <md-tooltip md-direction="bottom">Edit Project Type</md-tooltip>
                 <md-icon class="table-icon" icon svg-icon="#edit"></md-icon>

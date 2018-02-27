@@ -68,7 +68,7 @@ function SupplierTableController($mdDialog, Auth, OtherResource) {
 
 		function editSupplier() {
 			return OtherResource.save('supplier', vm2.supplier).then(
-				() => {
+				value => {
 					OtherResource.query('supplier').$promise.then(res => {
 						vm.suppliers = res;
 						$mdDialog.hide();

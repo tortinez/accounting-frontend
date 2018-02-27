@@ -127,9 +127,9 @@ function PurchaseTableController(
 	function appliedFilters() {
 		var filters = [];
 
-		if (vm.params.amountMax != null || vm.params.amountMin != null)
+		if (vm.params.amountMax != null && vm.params.amountMin != null)
 			filters.push('amount');
-		if (vm.params.dateMax != null || vm.params.dateMin != null)
+		if (vm.params.dateMax != null && vm.params.dateMin != null)
 			filters.push('date');
 		if (vm.params.item != '') filters.push('concept');
 		if (vm.params.code != '') filters.push('code');

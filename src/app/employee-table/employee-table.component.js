@@ -68,7 +68,7 @@ function EmployeeTableController($mdDialog, Auth, OtherResource) {
 
 		function editEmployee() {
 			return OtherResource.save('employee', vm2.employee).then(
-				() => {
+				value => {
 					OtherResource.query('employee').$promise.then(res => {
 						vm.employees = res;
 						$mdDialog.hide();

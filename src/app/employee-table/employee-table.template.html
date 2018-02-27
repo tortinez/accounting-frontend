@@ -6,7 +6,7 @@
       <div class="md-toolbar-tools">
         <div>MCIA Staff</div>
         <span flex></span>
-        <md-button class="md-raised md-primary" ng-click="vm.addItem()" ng-hide="!vm.user.isAdmin || !vm.user.isManager">Add Person</md-button>
+        <md-button class="md-raised md-primary" ng-click="vm.addItem()" ng-hide="!vm.user.isAdmin && !vm.user.isManager">Add Person</md-button>
       </div>
     </md-toolbar>
 
@@ -20,7 +20,7 @@
             <th md-column class="md-thead">Full name</th>
             <th md-column class="md-thead">Email</th>
             <th md-column class="md-thead">Comments</th>
-            <th md-column class="md-thead" ng-hide="!vm.user.isAdmin || !vm.user.isManager"></th>
+            <th md-column class="md-thead" ng-hide="!vm.user.isAdmin && !vm.user.isManager"></th>
           </tr>
         </thead>
         <tbody md-body>
@@ -29,7 +29,7 @@
             <td md-cell>{{item.fullname}}</td>
             <td md-cell>{{item.email}}</td>
             <td md-cell>{{item.comments}}</td>
-            <td md-cell ng-hide="!vm.user.isAdmin || !vm.user.isManager">
+            <td md-cell ng-hide="!vm.user.isAdmin && !vm.user.isManager">
               <md-button class="md-icon-button" ng-click="vm.editItem(item)">
                 <md-tooltip md-direction="bottom">Edit Person</md-tooltip>
                 <md-icon class="table-icon" icon svg-icon="#edit"></md-icon>

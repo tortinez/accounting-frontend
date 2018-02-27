@@ -108,8 +108,9 @@ function PurchaseStatusTableController(
 		function editPurchaseStatus() {
 			vm2.purchaseStatus.color = vm2.color.hex;
 			return OtherResource.save('purchase-state', vm2.purchaseStatus).then(
-				() => {
-					OtherResource.query('purchase-state').$promise.then(res => {
+				value => {
+					OtherResource.query('purchase-state').$promise
+					.then(res => {
 						vm.purchaseStatuss = res;
 						$mdDialog.hide();
 					});
@@ -131,9 +132,7 @@ function PurchaseStatusTableController(
 		function removeItem(purchaseStatus) {
 			OtherResource.remove('purchase-state', purchaseStatus).then(
 				() => {
-					OtherResource.api('purchase-state')
-						.query()
-						.$promise.then(res => {
+					OtherResource.query('purchase-state').$promise.then(res => {
 							vm.purchaseStatuss = res;
 							$mdDialog.hide();
 						});

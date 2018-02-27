@@ -68,7 +68,7 @@ function PurchaseTypeTableController($mdDialog, Auth, OtherResource) {
 
 		function editPurchaseType() {
 			return OtherResource.save('purchase-type', vm2.purchaseType).then(
-				() => {
+				value => {
 					OtherResource.query('purchase-type').$promise.then(res => {
 						vm.purchaseTypes = res;
 						$mdDialog.hide();
