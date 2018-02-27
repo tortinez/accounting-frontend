@@ -1,8 +1,11 @@
+import moment from 'moment';
+
 PurchaseFormController.$inject = [
 	'$routeParams',
 	'$location',
 	'$mdDialog',
 	'$mdToast',
+	'moment',
 	'Purchase',
 	'OtherResource',
 	'Auth',
@@ -13,6 +16,7 @@ function PurchaseFormController(
 	$location,
 	$mdDialog,
 	$mdToast,
+	moment,
 	Purchase,
 	OtherResource,
 	Auth,
@@ -20,6 +24,7 @@ function PurchaseFormController(
 ) {
 	var vm = this;
 	vm.purchase = [];
+	vm.hasInvoice = false;
 	//get the USER information (role)
 	vm.user = Auth.user;
 	//retrieve the list of projects, status, type and supplier
@@ -39,12 +44,16 @@ function PurchaseFormController(
 	////////////////////////////////////////////////////////////////////////
 	//variables_____________________________________________________________
 	//get data if exist; if not assign an empty object
+	var d = null;
 	$routeParams.id
-		? Purchase.get($routeParams.id).then(res => (vm.purchase = res))
+		? Purchase.get($routeParams.id).then(res => {
+				vm.purchase = res;
+				vm.hasInvoice = vm.purchase.invoicePath ? true : false;
+			})
 		: (vm.purchase = {
 				comments: '',
 				date: new Date(),
-				code: 'MCIA-' + date.getFullYear
+				code: 'MCIA-' + moment(new Date()).format('YYYYMMDD')
 			});
 
 	//functions_____________________________________________________________
@@ -112,16 +121,16 @@ function PurchaseFormController(
 			template: require('./invoiceDialog.template.html'),
 			targetEvent: ev,
 			parent: angular.element(document.body),
-			clickOutsideToClose: true
+			clickOutsideToClose: true,
+			locals: { hasInvoice: vm.hasInvoice }
 		});
 	}
-	DialogController.$inject = ['$scope', '$mdDialog', 'Purchase'];
-	function DialogController($scope, $mdDialog, Purchase) {
+	DialogController.$inject = ['$scope', '$mdDialog', 'Purchase', 'hasInvoice'];
+	function DialogController($scope, $mdDialog, Purchase, hasInvoice) {
 		$scope.cancel = cancel;
 		$scope.uploadFile = uploadFile;
 		$scope.deleteFile = deleteFile;
-
-		$scope.hasInvoice = vm.purchase.invoicePath ? true : false;
+		$scope.hasInvoice = hasInvoice;
 
 		//////////////////////////////////////////////
 		function cancel() {
@@ -140,6 +149,8 @@ function PurchaseFormController(
 						res => {
 							showToast('File uploaded succesfully');
 							console.log('File uploaded succesfully');
+							vm.hasInvoice = true;
+							console.log(vm.hasInvoice);
 							$mdDialog.hide();
 						},
 						err =>
