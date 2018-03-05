@@ -35,7 +35,7 @@
 
         <md-input-container>
           <label>Requesting Date</label>
-          <md-datepicker required name="date" ng-model="vm.purchase.date" ng-change="vm.purchase.requestDate=vm.purchase.date.getTime()"></md-datepicker>
+          <md-datepicker required name="date" ng-model="vm.purchase.requestDate"></md-datepicker>
           <div class="hint">dd/mm/yyyy</div>
           <div ng-messages="purchaseForm.date.$error">
             <div ng-message="required">The requesting date is required.</div>
@@ -83,9 +83,11 @@
 
         <md-input-container>
           <label>Code</label>
-          <input required name="code" ng-model="vm.purchase.code">
+          <input required name="code" ng-model="vm.purchase.code" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}"
+            check-availability="code" self-id="vm.purchase.id">
           <div ng-messages="purchaseForm.code.$error">
             <div ng-message="required">The code field is required.</div>
+            <div ng-message="notAvailable">Code not available.</div>
           </div>
         </md-input-container>
 

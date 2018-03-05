@@ -106,9 +106,12 @@ function onChangeRun($rootScope, $location, Auth) {
 	$rootScope.$on('$routeChangeStart', function(event, next, current) {
 		if (next && next.$$route && next.$$route.secure) {
 			if (!Auth.user.isLogged) {
-				console.log('User not Authenticated!');
 				$rootScope.$evalAsync(function() {
-					$location.path('/login');
+					Auth.isAuthenticated().then(res => {
+						!res
+							? (console.log('User not Authenticated!'), $location.path('/'))
+							: (console.log('Redirecting...'), $location.path('/'));
+					});
 				});
 				event.preventDefault();
 			}

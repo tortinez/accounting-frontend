@@ -44,17 +44,18 @@ function PurchaseFormController(
 	////////////////////////////////////////////////////////////////////////
 	//variables_____________________________________________________________
 	//get data if exist; if not assign an empty object
-	var d = null;
 	$routeParams.id
 		? Purchase.get($routeParams.id).then(res => {
 				vm.purchase = res;
 				vm.hasInvoice = vm.purchase.invoicePath ? true : false;
-			})
+		  })
 		: (vm.purchase = {
 				comments: '',
-				date: new Date(),
-				code: 'MCIA-' + moment(new Date()).format('YYYYMMDD')
-			});
+				codeLV: '',
+				codeRP: '',
+				requestDate: new Date(),
+				code: 'MCIA-' + moment(new Date()).format('YYYYMMDD-HHmm')
+		  });
 
 	//functions_____________________________________________________________
 	function editPurchase() {

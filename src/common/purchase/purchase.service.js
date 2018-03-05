@@ -6,6 +6,25 @@ function Purchase($resource) {
 		min: new Date(new Date().getFullYear(), 0, 1)
 	};
 
+	var params = {
+		amountMax: null,
+		amountMin: null,
+		dateMax: date.max,
+		dateMin: date.min,
+		item: '',
+		code: '',
+		codeRP: '',
+		codeLV: '',
+		chProj: null,
+		reqProj: null,
+		status: null,
+		supplier: null,
+		type: null,
+		employee: null,
+		page: 0,
+		size: 50
+	};
+
 	//$resource Objects________________________________________________________
 	//not returned
 	var resource = new $resource(
@@ -59,7 +78,9 @@ function Purchase($resource) {
 
 	//return statement_________________________________________________________
 	return {
-		//Date initialization (min date hardcoded)
+		//filtering & pagination params
+		params: params,
+		//Date initialization (values are hardcoded)
 		date: date,
 		//other functions to return
 		get: get,
@@ -75,7 +96,7 @@ function Purchase($resource) {
 	//Functions________________________________________________________________
 	function get(itemId) {
 		return resource.get({ id: itemId }).$promise.then(res => {
-			res.date = new Date(res.requestDate);
+			res.requestDate = new Date(res.requestDate);
 			return res;
 		});
 	}
@@ -85,28 +106,49 @@ function Purchase($resource) {
 	}
 
 	function search(query) {
-		//concatenate query
-		var concatQuery = concatenateQuery(query, this.date);
-		return resource.query({
-			q: concatQuery,
-			size: query.size,
-			page: query.page
+		var params = {};
+		var concatQuery = [];
+
+		Array.isArray(query)
+			? (params = { q: query })
+			: ((concatQuery = concatenateQuery(query)),
+			  (params = { q: concatQuery, size: query.size, page: query.page }));
+
+		return resource.query(params).$promise.then(res => {
+			angular.forEach(res, function(item) {
+				item.requestingProject.fullname =
+					'(' +
+					item.requestingProject.code +
+					') ' +
+					item.requestingProject.name;
+				item.chargingProject.fullname =
+					'(' + item.chargingProject.code + ') ' + item.chargingProject.name;
+			});
+			return res;
 		});
 	}
 
 	//override save and remove $resource methods
 	function save(purchase) {
-		//convert binded data to id parameters
-		purchase.requestingEmployeeId = purchase.requestingEmployee.id;
-		purchase.requestingProjectId = purchase.requestingProject.id;
-		purchase.chargingProjectId = purchase.chargingProject.id;
-		purchase.stateId = purchase.state.id;
-		purchase.typeId = purchase.type.id;
-		purchase.supplierId = purchase.supplier.id;
+		var item = {};
 
-		return purchase.id
-			? resource.update(purchase).$promise
-			: resource.save(purchase).$promise;
+		//convert the Date to the desired format
+		item.requestDate = purchase.requestDate.getTime();
+
+		//clone the purchase item converting binded data to id parameters
+		Object.keys(purchase).forEach(key => {
+			if (
+				typeof purchase[key] == 'object' &&
+				key != 'invoicePath' &&
+				key[0] != '$'
+			) {
+				item[key + 'Id'] = purchase[key].id;
+			} else if (key[0] != '$') item[key] = purchase[key];
+		});
+
+		return item.id
+			? resource.update(item).$promise
+			: resource.save(item).$promise;
 	}
 
 	function remove(purchase) {
@@ -123,16 +165,12 @@ function Purchase($resource) {
 	}
 
 	//not returned functions
-	function concatenateQuery(query, date) {
+	function concatenateQuery(query) {
 		var q = [];
 		var vm = query;
 
-		vm.dateMax !== null
-			? q.push('requestDate<' + vm.dateMax.valueOf())
-			: q.push('requestDate<' + date.max.valueOf());
-		vm.dateMin !== null
-			? q.push('requestDate>' + vm.dateMin.valueOf())
-			: q.push('requestDate>' + date.min.valueOf());
+		if (vm.dateMax !== null) q.push('requestDate<' + vm.dateMax.valueOf());
+		if (vm.dateMin !== null) q.push('requestDate>' + vm.dateMin.valueOf());
 		if (vm.amountMax !== null) q.push('amount<' + vm.amountMax);
 		if (vm.amountMin !== null) q.push('amount>' + vm.amountMin);
 		if (vm.codeRP !== '') q.push('codeRP~' + vm.codeRP);
