@@ -7,6 +7,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var path = require('path');
+var basePath = '/compras';
 
 /**
  * Env
@@ -34,7 +35,7 @@ module.exports = (function makeWebpackConfig() {
 		? void 0
 		: {
 				app: './src/app/app.module.js'
-			};
+		  };
 
 	/**
 	 * Output
@@ -50,7 +51,7 @@ module.exports = (function makeWebpackConfig() {
 
 				// Output path from the view of the page
 				// Uses webpack-dev-server in development
-				publicPath: isProd ? '/' : 'http://localhost:8000/',
+				publicPath: isProd ? basePath : 'http://localhost:8000' + basePath,
 
 				// Filename for entry points
 				// Only adds hash in build mode
@@ -59,7 +60,7 @@ module.exports = (function makeWebpackConfig() {
 				// Filename for non-entry points
 				// Only adds hash in build mode
 				chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
-			};
+		  };
 
 	config.resolve = {
 		alias: {
@@ -124,7 +125,7 @@ module.exports = (function makeWebpackConfig() {
 								{ loader: 'css-loader', query: { sourceMap: true } },
 								{ loader: 'postcss-loader' }
 							]
-						})
+					  })
 			},
 			{
 				// ASSET LOADER

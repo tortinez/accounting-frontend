@@ -24,7 +24,7 @@ function Auth($http) {
 			config.headers.authorization =
 				'Basic ' + btoa(credentials.user + ':' + credentials.password);
 		}
-		return $http.get('/api/user/self', config).then(
+		return $http.get('./api/user/self', config).then(
 			res => {
 				vm.user.isLogged = !!res;
 				if (vm.user.isLogged) {
@@ -51,7 +51,7 @@ function Auth($http) {
 
 	//LOGOUT FUNCTION
 	function logout() {
-		return $http.get('/logout').then(
+		return $http.get('./logout').then(
 			res => {
 				console.log('Logout failed');
 				return vm.user.isLogged;
@@ -66,7 +66,7 @@ function Auth($http) {
 
 	//Check if user was already logged in a previous session
 	function isAuthenticated() {
-		return $http.get('/api/user/self').then(
+		return $http.get('./api/user/self').then(
 			res => {
 				vm.user.isLogged = !!res;
 				vm.user.name = res.data.employee.fullname;

@@ -4,7 +4,7 @@ function User($resource) {
 	//$resource Objects________________________________________________________
 	//not returned
 	var resource = $resource(
-		'/api/user/:id/:pass',
+		'./api/user/:id/:pass',
 		{ id: '@id', pass: '' },
 		{
 			//Modify some HTTP methods
@@ -16,7 +16,7 @@ function User($resource) {
 		}
 	);
 
-	var self = $resource('/api/user/self/:pass', { pass: '' });
+	var self = $resource('./api/user/self/:pass', { pass: '' });
 
 	//return statement_________________________________________________________
 	return {
@@ -56,7 +56,7 @@ function User($resource) {
 							password: user.password
 						},
 						{}
-					).$promise
+				  ).$promise
 				: resource.save(user).$promise.then(res => {
 						var userPassword = user.password;
 
@@ -68,7 +68,7 @@ function User($resource) {
 							},
 							{}
 						).$promise;
-					});
+				  });
 		} else {
 			return user.id
 				? resource.update(user).$promise

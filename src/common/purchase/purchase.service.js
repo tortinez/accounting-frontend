@@ -28,7 +28,7 @@ function Purchase($resource) {
 	//$resource Objects________________________________________________________
 	//not returned
 	var resource = new $resource(
-		'/api/purchase/:id',
+		'./api/purchase/:id',
 		{ id: '@id' },
 		{
 			//Modify some HTTP methods
@@ -61,7 +61,7 @@ function Purchase($resource) {
 	);
 
 	var invoice = $resource(
-		'/api/purchase/:id/invoice',
+		'./api/purchase/:id/invoice',
 		{ id: '@id' },
 		{
 			//Create upload method

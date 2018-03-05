@@ -3,7 +3,7 @@ function OtherResource($resource) {
 	//$resource Objects________________________________________________________
 	//not returned
 	var resource = $resource(
-		'/api/:entity/:id',
+		'./api/:entity/:id',
 		{
 			entity: 'undefined',
 			id: '@id'
