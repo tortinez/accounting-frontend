@@ -22,16 +22,6 @@ function PurchaseTableController(
 	vm.params = Purchase.params;
 	//get the items of the table
 	Purchase.search(vm.params).then(res => (vm.purchases = res));
-	console.log(vm.purchases);
-	// Purchase.search(vm.params).$promise.then(res => {
-	// 	angular.forEach(res, function(item) {
-	// 		item.requestingProject.fullname =
-	// 			'(' + item.requestingProject.code + ') ' + item.requestingProject.name;
-	// 		item.chargingProject.fullname =
-	// 			'(' + item.chargingProject.code + ') ' + item.chargingProject.name;
-	// 	});
-	// 	vm.purchases = res;
-	// });
 	//set the items for the filtering tab
 	vm.hideFilters = true;
 	vm.date = Purchase.date;
