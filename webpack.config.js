@@ -208,7 +208,7 @@ module.exports = (function makeWebpackConfig() {
 			// Extract css files
 			// Disabled when in test mode or not in build mode
 			new ExtractTextPlugin({
-				filename: 'css/[name].css',
+				filename: '[name].[hash].css',
 				disable: !isProd,
 				allChunks: true
 			})
@@ -228,7 +228,7 @@ module.exports = (function makeWebpackConfig() {
 
 			// Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
 			// Minify all javascript, switch loaders to minimizing mode
-			new webpack.optimize.UglifyJsPlugin(),
+			new webpack.optimize.UglifyJsPlugin()
 
 			// Copy assets from the assets folder
 			// Reference: https://github.com/kevlened/copy-webpack-plugin

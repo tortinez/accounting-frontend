@@ -5,13 +5,15 @@ function MainController($scope, $location, $mdSidenav, Auth) {
 
 	// execute on init
 	var init = function() {
-		Auth.isAuthenticated().then(res => {
-			vm.user = Auth.user;
-			//redirect to the main page
-			if (vm.user.isLogged) $location.path('/purchases');
-		});
+		// Auth.isAuthenticated().then(res => {
+		// 	vm.user = Auth.user;
+		// 	//redirect to the main page
+		// 	if (vm.user.isLogged) $location.path('/purchases');
+		// });
+		$location.path('/purchases');
 	};
 	init();
+	vm.user = Auth.user;
 
 	//functions passed out____________
 	vm.showAccountInfo = showAccountInfo;

@@ -1,3 +1,12 @@
+/* General view */
+body {
+	overflow-y: scroll;
+}
+
+/* body > div {
+	overflow-y: scroll;
+} */
+
 /* Toolbar */
 #toolbar-logo {
 	width: 70px;
@@ -168,7 +177,7 @@ div.table-pagination > div > * {
 
 /* Sidenav and general layout*/
 #hoveringToggleLeft {
-	width: 1.5%;
+	width: 0.5%;
 	height: 100%;
 	position: absolute;
 	top: 0;

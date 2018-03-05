@@ -4,19 +4,23 @@
 <head>
   <meta charset="utf-8">
   <title>MCIA Accounting System</title>
+  <link rel="icon" type="image/png" href="/assets/mcia_logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<body ng-controller="MainController as vm" layout="column">
+<body ng-controller="MainController as vm">
   <!-- Toolbar -->
-  <md-toolbar layout="row">
+  <md-toolbar layout="row" ng-cloak="">
     <div class="md-toolbar-tools" flex layout="row">
       <!-- Title and logo -->
-      <div>
-        <svg id="toolbar-logo">
-          <use xlink:href="#MCIA_logo" class="sprite-symbol-usage"></use>
-        </svg>
-      </div>
-      <h2 id="toolbar-title">Accounting System</h2>
+      <a layout="" aria-label="home" ng-href="#!/purchases">
+        <div>
+          <svg id="toolbar-logo">
+            <use xlink:href="#MCIA_logo" class="sprite-symbol-usage"></use>
+          </svg>
+        </div>
+        <h2 id="toolbar-title">Accounting System</h2>
+      </a>
       <span flex></span>
       <!-- User info & Logout -->
       <md-menu ng-if="vm.user.isLogged" md-position-mode="target-right target" width="4">
@@ -44,12 +48,10 @@
     </div>
   </md-toolbar>
 
-  <div>
-    <div id="hoveringToggleLeft" ng-mouseover="vm.toggleNavBar()" ng-show="vm.user.isLogged"></div>
+  <div layout="column" layout-align="center">
+    <div id="hoveringToggleLeft" flex ng-mouseover="vm.toggleNavBar()" ng-show="vm.user.isLogged"></div>
     <!-- Content Cointainer -->
-    <div class="view-container" layout="column" layout-align="center">
-      <div ng-view flex layout="column" layout-align="center"></div>
-    </div>
+    <div ng-view ng-cloak layout="column" layout-fill layout-align="center"></div>
   </div>
 
   <!-- Sidenav -->

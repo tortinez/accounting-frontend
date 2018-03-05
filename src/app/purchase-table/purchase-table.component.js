@@ -1,4 +1,5 @@
 PurchaseTableController.$inject = [
+	'$scope',
 	'$location',
 	'mdPickerColors',
 	'Purchase',
@@ -8,6 +9,7 @@ PurchaseTableController.$inject = [
 ];
 
 function PurchaseTableController(
+	$scope,
 	$location,
 	mdPickerColors,
 	Purchase,
@@ -16,14 +18,31 @@ function PurchaseTableController(
 	AutocompleteFields
 ) {
 	var vm = this;
+	//retrieve the filtering & pagination params state
+	vm.params = Purchase.params;
 	//get the items of the table
-	vm.purchases = Purchase.query();
+	Purchase.search(vm.params).then(res => (vm.purchases = res));
+	console.log(vm.purchases);
+	// Purchase.search(vm.params).$promise.then(res => {
+	// 	angular.forEach(res, function(item) {
+	// 		item.requestingProject.fullname =
+	// 			'(' + item.requestingProject.code + ') ' + item.requestingProject.name;
+	// 		item.chargingProject.fullname =
+	// 			'(' + item.chargingProject.code + ') ' + item.chargingProject.name;
+	// 	});
+	// 	vm.purchases = res;
+	// });
 	//set the items for the filtering tab
 	vm.hideFilters = true;
 	vm.date = Purchase.date;
 	vm.sizeOpt = [50, 75, 100];
 	//retrieve the list of projects, status, type and supplier
-	vm.projList = OtherResource.query('project');
+	OtherResource.query('project').$promise.then(res => {
+		angular.forEach(res, function(item) {
+			item.fullname = '(' + item.code + ') ' + item.name;
+		});
+		vm.projList = res;
+	});
 	vm.supplierList = OtherResource.query('supplier');
 	vm.employeeList = OtherResource.query('employee');
 	vm.statusList = OtherResource.query('purchase-state');
@@ -44,24 +63,6 @@ function PurchaseTableController(
 
 	///////////////////////////////////////////////////////////////////////
 	//variables____________________________________________________________
-	vm.params = {
-		amountMax: null,
-		amountMin: null,
-		dateMax: Purchase.date.max,
-		dateMin: Purchase.date.min,
-		item: '',
-		code: '',
-		codeRP: '',
-		codeLV: '',
-		chProj: null,
-		reqProj: null,
-		status: null,
-		supplier: null,
-		type: null,
-		employee: null,
-		page: 0,
-		size: 50
-	};
 
 	vm.autocompleteObj = {
 		chProj: null,
@@ -74,7 +75,7 @@ function PurchaseTableController(
 
 	//functions____________________________________________________________
 	function search() {
-		return (vm.purchases = Purchase.search(vm.params));
+		return Purchase.search(vm.params).then(res => (vm.purchases = res));
 	}
 
 	function downloadInvoice(purchase) {
@@ -109,8 +110,8 @@ function PurchaseTableController(
 
 	function autocompleteItemChange() {
 		var item = vm.autocompleteObj;
-		vm.params.chProj = item.chProj ? item.chProj.name : null;
-		vm.params.reqProj = item.reqProj ? item.reqProj.name : null;
+		vm.params.chProj = item.chProj ? item.chProj.fullname : null;
+		vm.params.reqProj = item.reqProj ? item.reqProj.fullname : null;
 		vm.params.status = item.status ? item.status.name : null;
 		vm.params.supplier = item.supplier ? item.supplier.name : null;
 		vm.params.type = item.type ? item.type.name : null;
@@ -118,6 +119,11 @@ function PurchaseTableController(
 
 		return vm.search();
 	}
+
+	//Save filters on exit
+	$scope.$on('$locationChangeStart', function(event) {
+		Purchase.params = vm.params;
+	});
 
 	//other___
 	function toggleFilters() {
@@ -177,7 +183,7 @@ function PurchaseTableController(
 				break;
 			case 'status':
 				vm.params.status = null;
-				vm.autocompleteObj.status=null;
+				vm.autocompleteObj.status = null;
 				break;
 			case 'supplier':
 				vm.params.supplier = null;

@@ -6,11 +6,11 @@ function AutocompleteFields() {
 			? items
 			: items.filter(function(item) {
 					var lowerCaseItem = angular.lowercase(
-						item.name ? item.name : item.fullname
+						item.fullname ? item.fullname : item.name
 					);
 					var lowercaseQuery = angular.lowercase(query);
-					return lowerCaseItem.indexOf(lowercaseQuery) === 0;
-				});
+					return lowerCaseItem.indexOf(lowercaseQuery) >= 0;
+			  });
 	}
 }
 

@@ -38,23 +38,17 @@ function OtherResource($resource) {
 
 	//override save and remove $resource methods
 	function save(entity, item) {
-		//convert binded data to id parameters
-		switch (entity) {
-			case 'project':
-				item.managerId = item.manager.id;
-				item.clientId = item.client.id;
-				item.typeId = item.type.id;
-				break;
-			case 'client':
-				item.typeId = item.type.id;
-				break;
-			default:
-				break;
-		}
+		var obj = {};
+		//clone the item converting binded data to id parameters
+		Object.keys(item).forEach(key => {
+			if (typeof item[key] == 'object' && key[0] != '$') {
+				obj[key + 'Id'] = item[key].id;
+			} else if (key[0] != '$') obj[key] = item[key];
+		});
 
 		return item.id
-			? resource.update({ entity: entity }, item).$promise
-			: resource.save({ entity: entity }, item).$promise;
+			? resource.update({ entity: entity }, obj).$promise
+			: resource.save({ entity: entity }, obj).$promise;
 	}
 
 	function remove(entity, item) {
