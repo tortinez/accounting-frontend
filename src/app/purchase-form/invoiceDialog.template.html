@@ -11,14 +11,17 @@
     </md-toolbar>
 
     <md-dialog-content>
-      <div class="md-dialog-content">
-        <h2>Upload a pdf file for the invoice</h2>
+      <div class="md-dialog-content" style="text-align: center">
+        <p style="font-size: 120%; font-weight: bold">
+          <md-icon icon svg-icon="#cloud-upload" style="padding: 0 12px 0 0"></md-icon>Select a PDF from your PC</label>
+        </p>
         <p>
           <input required class="md-primary" accept="application/pdf" type="file" id="file" name="file"></input>
         </p>
-        <p ng-if="hasInvoice && (vm.user.isAdmin || vm.user.isManager)" id="invoiceMsg">This purchase already
+        <p style="font-size: 70%">(The maximum file size is 1MB)</p>
+        <p ng-if="hasInvoice && (user.isAdmin || user.isManager)" id="invoiceMsg">This purchase already
           <b>has</b> an invoice uploaded. You can upload a pdf to replace the current file or remove the current pdf.</p>
-        <p ng-if="hasInvoice && !(vm.user.isAdmin || vm.user.isManager)" id="invoiceMsg">This purchase already
+        <p ng-if="hasInvoice && !(user.isAdmin || user.isManager)" id="invoiceMsg">This purchase already
           <b>has</b> an invoice uploaded. You can upload a pdf to replace the current file.</p>
       </div>
     </md-dialog-content>
@@ -26,8 +29,8 @@
     <md-dialog-actions layout="row">
       <md-button type="submit" class="md-raised md-primary">Upload</md-button>
       <span flex></span>
-      <md-button ng-disabled="!hasInvoice && (vm.user.isAdmin || vm.user.isManager)" ng-hide="!(vm.user.isAdmin || vm.user.isManager)"
-        class="md-raised md-warn" ng-click="deleteFile()">Remove Invoice</md-button>
+      <md-button ng-disabled="!hasInvoice && (user.isAdmin || user.isManager)" ng-hide="!(user.isAdmin || user.isManager)" class="md-raised md-warn"
+        ng-click="deleteFile()">Remove Invoice</md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>

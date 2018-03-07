@@ -5,23 +5,23 @@
     <div layout="column" flex>
       <md-input-container>
         <label>Min Amount (€)</label>
-        <input ng-model="vm.params.amountMin" ng-change="vm.search()" type="number" step="10">
+        <input ng-model="vm.params.amountMin" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="vm.search()" type="number" step="10">
       </md-input-container>
       <md-input-container>
         <label>Max Amount (€)</label>
-        <input ng-model="vm.params.amountMax" ng-change="vm.search()" type="number" step="10">
+        <input ng-model="vm.params.amountMax" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="vm.search()" type="number" step="10">
       </md-input-container>
     </div>
 
     <div layout="column" flex>
       <md-input-container>
         <label>Code RP</label>
-        <input ng-model="vm.params.codeRP" ng-change="vm.search()">
+        <input ng-model="vm.params.codeRP" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="vm.search()">
       </md-input-container>
 
       <md-input-container>
         <label>Code LV</label>
-        <input ng-model="vm.params.codeLV" ng-change="vm.search()">
+        <input ng-model="vm.params.codeLV" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="vm.search()">
       </md-input-container>
     </div>
 
@@ -101,11 +101,11 @@
         <div class="table-filters">
           <md-input-container>
             <label>Purchase Concept</label>
-            <input ng-model="vm.params.item" ng-change="vm.search()">
+            <input ng-model="vm.params.item" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="vm.search()">
           </md-input-container>
           <md-input-container>
             <label>Purchase Code</label>
-            <input ng-model="vm.params.code" ng-change="vm.search()">
+            <input ng-model="vm.params.code" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="vm.search()">
           </md-input-container>
         </div>
         <md-button class="md-raised md-primary" ng-click="vm.toggleFilters()">More Filters</md-button>

@@ -11,7 +11,7 @@
 					<md-icon class="fr" icon svg-icon="#downArrow"></md-icon>{{vm.sidemenuSections[0].header}}</md-button>
 				<ul id="side1" class="slideable">
 					<li ng-repeat="page in vm.sidemenuSections[0].pages">
-						<md-button ng-href="{{page.linkTo}}">{{page.title}}</md-button>
+						<md-button ng-click="vm.toggleNavBar()" ng-href="{{page.linkTo}}">{{page.title}}</md-button>
 					</li>
 				</ul>
 			</li>
@@ -21,7 +21,7 @@
 					<md-icon class="fr" icon svg-icon="#downArrow"></md-icon>{{vm.sidemenuSections[1].header}}</md-button>
 				<ul id="side2" class="slideable">
 					<li ng-repeat="page in vm.sidemenuSections[1].pages">
-						<md-button ng-href="{{page.linkTo}}">{{page.title}}</md-button>
+						<md-button ng-click="vm.toggleNavBar()" ng-href="{{page.linkTo}}">{{page.title}}</md-button>
 					</li>
 				</ul>
 			</li>
@@ -31,22 +31,22 @@
 					<md-icon class="fr" icon svg-icon="#downArrow"></md-icon>{{vm.sidemenuSections[2].header}}</md-button>
 				<ul id="side3" class="slideable">
 					<li ng-repeat="page in vm.sidemenuSections[2].pages">
-						<md-button ng-href="{{page.linkTo}}">{{page.title}}</md-button>
+						<md-button ng-click="vm.toggleNavBar()" ng-href="{{page.linkTo}}">{{page.title}}</md-button>
 					</li>
 				</ul>
 			</li>
 			<li>
-				<md-button ng-href="{{vm.sidemenuSections[3].linkTo}}">
+				<md-button ng-click="vm.toggleNavBar()" ng-href="{{vm.sidemenuSections[3].linkTo}}">
 					<md-icon class="fl" icon svg-icon="{{vm.sidemenuSections[3].icon}}"></md-icon>
 					<md-icon class="fr" icon svg-icon=""></md-icon>{{vm.sidemenuSections[3].header}}</md-button>
 			</li>
 			<li>
-				<md-button ng-href="{{vm.sidemenuSections[4].linkTo}}">
+				<md-button ng-click="vm.toggleNavBar()" ng-href="{{vm.sidemenuSections[4].linkTo}}">
 					<md-icon class="fl" icon svg-icon="{{vm.sidemenuSections[4].icon}}"></md-icon>
 					<md-icon class="fr" icon svg-icon=""></md-icon>{{vm.sidemenuSections[4].header}}</md-button>
 			</li>
 			<li ng-show="vm.user.isAdmin">
-				<md-button ng-href="{{vm.sidemenuSections[5].linkTo}}">
+				<md-button ng-click="vm.toggleNavBar()" ng-href="{{vm.sidemenuSections[5].linkTo}}">
 					<md-icon class="fl" icon svg-icon="{{vm.sidemenuSections[5].icon}}"></md-icon>
 					<md-icon class="fr" icon svg-icon=""></md-icon>{{vm.sidemenuSections[5].header}}</md-button>
 			</li>

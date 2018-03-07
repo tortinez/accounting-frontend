@@ -8,13 +8,13 @@ function checkAvailability($q, Purchase) {
 		link: function(scope, element, attr, ngModel) {
 			var entity = attr.checkAvailability;
 
-			ngModel.$asyncValidators.notAvailable = function(viewValue) {
+			ngModel.$asyncValidators.notAvailable = function(viewValue, modelValue) {
 				var deferred = $q.defer();
 				var q = scope.selfId
 					? [entity + ':' + viewValue, 'id!' + scope.selfId]
 					: [entity + ':' + viewValue];
 
-				Purchase.search(q).$promise.then(res => {
+				Purchase.search(q).then(res => {
 					if (res.$metadata.totalElements == 1) {
 						deferred.reject();
 					} else {

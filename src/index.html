@@ -5,11 +5,10 @@
   <meta charset="utf-8">
   <title>MCIA Accounting System</title>
   <base href="/compras/"/>
-  <link rel="icon" type="image/png" href="/assets/mcia_logo.png">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<body ng-controller="MainController as vm">
+<body ng-controller="MainController as vm" layout="column" layout-align="center">
   <!-- Toolbar -->
   <md-toolbar layout="row" ng-cloak="">
     <div class="md-toolbar-tools" flex layout="row">
@@ -49,10 +48,10 @@
     </div>
   </md-toolbar>
 
-  <div layout="column" layout-align="center">
+  <div flex layout="column" layout-align="center">
     <div id="hoveringToggleLeft" flex ng-mouseover="vm.toggleNavBar()" ng-show="vm.user.isLogged"></div>
     <!-- Content Cointainer -->
-    <div ng-view ng-cloak layout="column" layout-fill layout-align="center"></div>
+    <div id="view-container" ng-view ng-cloak layout="column" layout-fill layout-align="center"></div>
   </div>
 
   <!-- Sidenav -->

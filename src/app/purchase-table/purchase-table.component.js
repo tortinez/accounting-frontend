@@ -69,7 +69,7 @@ function PurchaseTableController(
 	}
 
 	function downloadInvoice(purchase) {
-		return window.open(['/api/purchase/' + purchase.id + '/invoice']);
+		return window.open(['./api/purchase/' + purchase.id + '/invoice']);
 	}
 
 	function availableInvoice(purchase) {
@@ -100,8 +100,8 @@ function PurchaseTableController(
 
 	function autocompleteItemChange() {
 		var item = vm.autocompleteObj;
-		vm.params.chProj = item.chProj ? item.chProj.fullname : null;
-		vm.params.reqProj = item.reqProj ? item.reqProj.fullname : null;
+		vm.params.chProj = item.chProj ? item.chProj.name : null;
+		vm.params.reqProj = item.reqProj ? item.reqProj.name : null;
 		vm.params.status = item.status ? item.status.name : null;
 		vm.params.supplier = item.supplier ? item.supplier.name : null;
 		vm.params.type = item.type ? item.type.name : null;
@@ -123,7 +123,7 @@ function PurchaseTableController(
 	function appliedFilters() {
 		var filters = [];
 
-		if (vm.params.amountMax != null && vm.params.amountMin != null)
+		if (vm.params.amountMax != null || vm.params.amountMin != null)
 			filters.push('amount');
 		if (vm.params.dateMax != null && vm.params.dateMin != null)
 			filters.push('date');

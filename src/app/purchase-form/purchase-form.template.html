@@ -2,7 +2,7 @@
   <form name="purchaseForm" ng-submit="vm.editPurchase()" layout="row" flex layout-padding layout-fill id="purchaseForm" layout-align="center">
     <div flex>
       <h1>General Information</h1>
-      <md-card layout="row" layout-sm="column" layout-align="space-around center" layout-padding layout-fill layout-wrap>
+      <md-card layout="row" layout-sm="column" layout-align="space-around center" layout-padding layout-wrap>
         <md-input-container>
           <label>Concept</label>
           <input required name="item" ng-model="vm.purchase.item">
@@ -11,18 +11,15 @@
           </div>
         </md-input-container>
 
-        <md-autocomplete required md-require-match md-input-name="supplier" md-no-cache="false" md-selected-item="vm.purchase.supplier"
-          md-search-text="searchTextSupplier" md-items="item in vm.autocompleteSearch(searchTextSupplier, vm.supplierList)"
-          md-item-text="item.name" md-min-length="0" md-floating-label="Supplier" md-clear-button="true">
-          <md-item-template>
-            <span md-highlight-text="searchTextSupplier" md-highlight-flags="^i">{{item.name}}</span>
-          </md-item-template>
-          <div ng-messages="purchaseForm.supplier.$error">
-            <div ng-message="required">You
-              <b>must</b> select a supplier.</div>
-            <div ng-message="md-require-match">Please select an existing supplier.</div>
+        <md-input-container>
+          <label>Code</label>
+          <input required name="code" ng-model="vm.purchase.code" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}"
+            check-availability="code" self-id="vm.purchase.id">
+          <div ng-messages="purchaseForm.code.$error">
+            <div ng-message="required">The code field is required.</div>
+            <div ng-message="notAvailable">Code not available.</div>
           </div>
-        </md-autocomplete>
+        </md-input-container>
 
         <md-input-container>
           <label>Amount (€)</label>
@@ -41,6 +38,19 @@
             <div ng-message="required">The requesting date is required.</div>
           </div>
         </md-input-container>
+
+        <md-autocomplete required md-require-match md-input-name="supplier" md-no-cache="false" md-selected-item="vm.purchase.supplier"
+          md-search-text="searchTextSupplier" md-items="item in vm.autocompleteSearch(searchTextSupplier, vm.supplierList)"
+          md-item-text="item.name" md-min-length="0" md-floating-label="Supplier" md-clear-button="true">
+          <md-item-template>
+            <span md-highlight-text="searchTextSupplier" md-highlight-flags="^i">{{item.name}}</span>
+          </md-item-template>
+          <div ng-messages="purchaseForm.supplier.$error">
+            <div ng-message="required">You
+              <b>must</b> select a supplier.</div>
+            <div ng-message="md-require-match">Please select an existing supplier.</div>
+          </div>
+        </md-autocomplete>
 
         <md-autocomplete required md-require-match md-input-name="type" md-no-cache="false" md-selected-item="vm.purchase.type" md-search-text="searchTextType"
           md-items="item in vm.autocompleteSearch(searchTextType, vm.typeList)" md-item-text="item.name" md-min-length="0"
@@ -80,16 +90,6 @@
             <div ng-message="md-require-match">Please select an existing person.</div>
           </div>
         </md-autocomplete>
-
-        <md-input-container>
-          <label>Code</label>
-          <input required name="code" ng-model="vm.purchase.code" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}"
-            check-availability="code" self-id="vm.purchase.id">
-          <div ng-messages="purchaseForm.code.$error">
-            <div ng-message="required">The code field is required.</div>
-            <div ng-message="notAvailable">Code not available.</div>
-          </div>
-        </md-input-container>
 
         <md-input-container>
           <label>Code RP</label>
@@ -143,7 +143,7 @@
       <div layout="row" layout-align="space-between center">
         <div>
           <md-button class="md-raised" ng-href="#!/purchases">Cancel</md-button>
-          <md-button type="submit" class="md-raised md-primary">Save</md-button>
+          <md-button type="submit" ng-disabled="purchaseForm.$invalid" class="md-raised md-primary">Save</md-button>
         </div>
         <div>
           <md-button class="md-raised md-warn" ng-click="vm.showConfirm($event)" ng-hide="(!vm.user.isAdmin && !vm.user.isManager) || !vm.purchase.id">
