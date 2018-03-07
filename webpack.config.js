@@ -34,7 +34,7 @@ module.exports = (function makeWebpackConfig() {
 		? void 0
 		: {
 				app: './src/app/app.module.js'
-			};
+		  };
 
 	/**
 	 * Output
@@ -59,7 +59,7 @@ module.exports = (function makeWebpackConfig() {
 				// Filename for non-entry points
 				// Only adds hash in build mode
 				chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
-			};
+		  };
 
 	config.resolve = {
 		alias: {
@@ -124,7 +124,7 @@ module.exports = (function makeWebpackConfig() {
 								{ loader: 'css-loader', query: { sourceMap: true } },
 								{ loader: 'postcss-loader' }
 							]
-						})
+					  })
 			},
 			{
 				// ASSET LOADER
@@ -134,7 +134,7 @@ module.exports = (function makeWebpackConfig() {
 				// Pass along the updated reference to your code
 				// You can add here any file extension you want to get copied to your output
 				test: /\.(png|jpg|jpeg|gif|woff|woff2|ttf|eot)$/,
-				loader: 'file-loader'
+				loader: 'file-loader?name=[name].[ext]'
 			},
 			{
 				//SVG LOADER
@@ -201,7 +201,8 @@ module.exports = (function makeWebpackConfig() {
 		config.plugins.push(
 			new HtmlWebpackPlugin({
 				template: './src/index.html',
-				inject: 'body'
+				inject: 'body',
+				favicon: 'src/assets/images/mcia_logo.png'
 			}),
 
 			// Reference: https://github.com/webpack/extract-text-webpack-plugin
@@ -234,7 +235,7 @@ module.exports = (function makeWebpackConfig() {
 			// Reference: https://github.com/kevlened/copy-webpack-plugin
 			// new CopyWebpackPlugin([
 			// 	{
-			// 		from: __dirname + '/src/assets'
+			// 		from: __dirname + '/src/assets/images'
 			// 	}
 			// ])
 		);

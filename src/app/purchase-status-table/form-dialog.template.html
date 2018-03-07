@@ -32,7 +32,7 @@
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
-      <md-button type="submit" class="md-raised md-primary">Save</md-button>
+      <md-button type="submit" ng-disabled="purchaseStatusForm.$invalid" class="md-raised md-primary">Save</md-button>
       <span flex></span>
       <md-button class="md-raised md-warn" ng-click="vm.showConfirmDialog($event)" ng-hide="!vm.purchaseStatus.id">
         <md-icon icon svg-icon="#delete"></md-icon>Delete Purchase Status

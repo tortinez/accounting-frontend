@@ -15,7 +15,7 @@
           <h3>Role: </h3> {{vm.userRole()}}</p>
       </div>
       <div>
-        <h2>Change Password</h2>
+        <h3>Change Password</h3>
         <form name="passwordForm" ng-submit="vm.editPassword()">
           <div layout="row" layout-padding layout-align="space-around start">
             <md-input-container>
@@ -33,12 +33,12 @@
               <div ng-messages="passwordForm.confirmPassword.$error">
                 <div ng-message="required">You
                   <b>must</b> fill this field.</div>
-                <div ng-message="compareTo">The passwords entered do not match.</div>
+                <div ng-message="compareTo">Passwords entered don't match.</div>
               </div>
             </md-input-container>
           </div>
           <div>
-            <md-button type="submit" class="md-raised md-primary">Change Password</md-button>
+            <md-button type="submit" ng-disabled="passwordForm.$invalid" class="md-raised md-primary">Change Password</md-button>
           </div>
       </div>
       </form>

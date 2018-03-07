@@ -59,6 +59,7 @@ import attachIcon from '../assets/icons/attach.svg';
 import boxIcon from '../assets/icons/box.svg';
 import clipboardAccIcon from '../assets/icons/clipboard-account.svg';
 import closeIcon from '../assets/icons/close.svg';
+import cloudUpload from '../assets/icons/cloud-upload.svg';
 import deleteIcon from '../assets/icons/delete.svg';
 import downArrowIcon from '../assets/icons/downArrow.svg';
 import editIcon from '../assets/icons/edit.svg';
@@ -71,6 +72,9 @@ import navPrevIcon from '../assets/icons/navPrev.svg';
 import paletteIcon from '../assets/icons/palette.svg';
 import settingsIcon from '../assets/icons/settings.svg';
 import shoppingCartIcon from '../assets/icons/shopping-cart.svg';
+
+//favicon import
+require('../assets/images/mcia_logo.png');
 
 // Define the 'AccountingFEapp' module
 angular

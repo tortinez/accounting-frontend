@@ -26,7 +26,7 @@
           <input required name="acronym" ng-model="vm.client.acronym">
           <div ng-messages="clientForm.acronym.$error">
             <div ng-message="required">You
-              <b>must</b> provide an acronym for the client.</div>
+              <b>must</b> provide an acronym.</div>
           </div>
         </md-input-container>
       </div>
@@ -45,7 +45,7 @@
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
-      <md-button type="submit" class="md-raised md-primary">Save</md-button>
+      <md-button type="submit" ng-disabled="clientForm.$invalid" class="md-raised md-primary">Save</md-button>
       <span flex></span>
       <md-button class="md-raised md-warn" ng-click="vm.showConfirmDialog($event)" ng-hide="!vm.client.id">
         <md-icon icon svg-icon="#delete"></md-icon>Delete Client

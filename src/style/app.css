@@ -1,11 +1,14 @@
 /* General view */
 body {
-	overflow-y: scroll;
+	overflow: auto;
 }
-
-/* body > div {
+body > md-toolbar {
+	display: block;
+}
+#view-container {
 	overflow-y: scroll;
-} */
+	display: block;
+}
 
 /* Toolbar */
 #toolbar-logo {

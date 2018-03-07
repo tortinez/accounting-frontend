@@ -123,15 +123,22 @@ function PurchaseFormController(
 			targetEvent: ev,
 			parent: angular.element(document.body),
 			clickOutsideToClose: true,
-			locals: { hasInvoice: vm.hasInvoice }
+			locals: { hasInvoice: vm.hasInvoice, user: vm.user }
 		});
 	}
-	DialogController.$inject = ['$scope', '$mdDialog', 'Purchase', 'hasInvoice'];
-	function DialogController($scope, $mdDialog, Purchase, hasInvoice) {
+	DialogController.$inject = [
+		'$scope',
+		'$mdDialog',
+		'Purchase',
+		'hasInvoice',
+		'user'
+	];
+	function DialogController($scope, $mdDialog, Purchase, hasInvoice, user) {
 		$scope.cancel = cancel;
 		$scope.uploadFile = uploadFile;
 		$scope.deleteFile = deleteFile;
 		$scope.hasInvoice = hasInvoice;
+		$scope.user = user;
 
 		//////////////////////////////////////////////
 		function cancel() {
@@ -154,8 +161,10 @@ function PurchaseFormController(
 							console.log(vm.hasInvoice);
 							$mdDialog.hide();
 						},
-						err =>
-							console.error('An error ocurred while uploading: ' + err.status)
+						err => {
+							showToast('Maximum file size exceeded!');
+							console.error('An error ocurred while uploading: ' + err.status);
+						}
 					);
 				};
 
