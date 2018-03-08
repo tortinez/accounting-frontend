@@ -18,11 +18,9 @@
         <p>
           <input required class="md-primary" accept="application/pdf" type="file" id="file" name="file"></input>
         </p>
-        <p style="font-size: 70%">(The maximum file size is 1MB)</p>
-        <p ng-if="hasInvoice && (user.isAdmin || user.isManager)" id="invoiceMsg">This purchase already
-          <b>has</b> an invoice uploaded. You can upload a pdf to replace the current file or remove the current pdf.</p>
-        <p ng-if="hasInvoice && !(user.isAdmin || user.isManager)" id="invoiceMsg">This purchase already
-          <b>has</b> an invoice uploaded. You can upload a pdf to replace the current file.</p>
+        <p style="font-size: 70%">(The maximum file size is 10MB)</p>
+        <p ng-If="hasInvoice" id="invoiceMsg">The invoice will be
+          <b>replaced</b>.</p>
       </div>
     </md-dialog-content>
 

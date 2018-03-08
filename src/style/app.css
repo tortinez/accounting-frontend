@@ -181,7 +181,7 @@ div.table-pagination > div > * {
 /* Sidenav and general layout*/
 #hoveringToggleLeft {
 	width: 0.5%;
-	height: 100%;
+	height: 150px;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -189,11 +189,8 @@ div.table-pagination > div > * {
 }
 
 /* Forms */
-#purchaseForm > div {
-	max-width: 700px;
-}
-#purchaseForm md-input-container .md-datepicker-input {
-	min-width: 180px;
+#purchaseForm md-input-container .md-datepicker-input-container {
+	width: 100%;
 }
 md-input-container .hint {
 	/* Position the hint */
@@ -206,6 +203,34 @@ md-input-container .hint {
 	line-height: 14px;
 	/* Set our own color */
 	color: grey;
+}
+#purchaseForm
+	div
+	> md-input-container
+	label:not(.md-no-float):not(.md-container-ignore),
+#purchaseForm div > md-input-container .md-placeholder {
+	padding-left: 9px;
+}
+#purchaseForm
+	md-card
+	> md-input-container
+	label:not(.md-no-float):not(.md-container-ignore) {
+	padding-left: 20px;
+}
+
+#purchaseForm div > md-input-container.md-input-focused label:not(.md-no-float),
+#purchaseForm
+	div
+	> md-input-container.md-input-has-placeholder
+	label:not(.md-no-float),
+#purchaseForm
+	div
+	> md-input-container.md-input-has-value
+	label:not(.md-no-float) {
+	transform: translate3d(0, 3px, 0) scale(0.75);
+	transition: transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s,
+		width cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s;
+	padding-left: 12px;
 }
 
 /* Login */
