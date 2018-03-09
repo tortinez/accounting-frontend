@@ -5,11 +5,13 @@
     <div layout="column" flex>
       <md-input-container>
         <label>Min Amount (€)</label>
-        <input ng-model="vm.params.amountMin" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="vm.search()" type="number" step="10">
+        <input ng-model="vm.params.amountMin" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="vm.search()"
+          type="number" step="10">
       </md-input-container>
       <md-input-container>
         <label>Max Amount (€)</label>
-        <input ng-model="vm.params.amountMax" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="vm.search()" type="number" step="10">
+        <input ng-model="vm.params.amountMax" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="vm.search()"
+          type="number" step="10">
       </md-input-container>
     </div>
 
@@ -162,8 +164,8 @@
             <th md-column class="md-thead">Supplier</th>
             <th md-column class="md-thead">Charging Project</th>
             <th md-column class="md-thead">Requesting Project</th>
-            <th md-column class="md-thead">Code RP</th>
-            <th md-column class="md-thead">Code LV</th>
+            <!-- <th md-column class="md-thead">Code RP</th>
+            <th md-column class="md-thead">Code LV</th> -->
             <th md-column class="md-thead">Status</th>
             <th md-column class="md-thead">Invoice</th>
             <th md-column class="md-thead"></th>
@@ -179,8 +181,8 @@
             <td md-cell>{{purchase.supplier.name}}</td>
             <td md-cell>{{purchase.chargingProject.fullname}}</td>
             <td md-cell>{{purchase.requestingProject.fullname}}</td>
-            <td md-cell>{{purchase.codeRP}}</td>
-            <td md-cell>{{purchase.codeLV}}</td>
+            <!-- <td md-cell>{{purchase.codeRP}}</td>
+            <td md-cell>{{purchase.codeLV}}</td> -->
             <td md-cell>
               <span class="badge" md-colors="{background: vm.badgeColor('{{purchase.state.color}}')}">{{purchase.state.name}}</span>
             </td>
@@ -191,6 +193,10 @@
               </md-button>
             </td>
             <td md-cell>
+              <md-button class="md-icon-button" ng-click="vm.viewItem(purchase)">
+                <md-tooltip md-direction="bottom">More details</md-tooltip>
+                <md-icon class="table-icon" icon svg-icon="#information"></md-icon>
+              </md-button>
               <md-button class="md-icon-button" ng-click="vm.editItem(purchase)">
                 <md-tooltip md-direction="bottom">Edit Purchase</md-tooltip>
                 <md-icon class="table-icon" icon svg-icon="#edit"></md-icon>

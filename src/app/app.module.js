@@ -65,6 +65,7 @@ import downArrowIcon from '../assets/icons/downArrow.svg';
 import editIcon from '../assets/icons/edit.svg';
 import filePdfIcon from '../assets/icons/file-pdf.svg';
 import folderIcon from '../assets/icons/folder.svg';
+import information from '../assets/icons/information.svg';
 import logoutIcon from '../assets/icons/logout.svg';
 import mciaLogoIcon from '../assets/icons/MCIA_logo.svg';
 import navNextIcon from '../assets/icons/navNext.svg';
