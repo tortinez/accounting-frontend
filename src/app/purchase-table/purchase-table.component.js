@@ -1,6 +1,7 @@
 PurchaseTableController.$inject = [
 	'$scope',
 	'$location',
+	'$mdDialog',
 	'mdPickerColors',
 	'Purchase',
 	'OtherResource',
@@ -11,6 +12,7 @@ PurchaseTableController.$inject = [
 function PurchaseTableController(
 	$scope,
 	$location,
+	$mdDialog,
 	mdPickerColors,
 	Purchase,
 	OtherResource,
@@ -41,6 +43,7 @@ function PurchaseTableController(
 	vm.search = search;
 	vm.downloadInvoice = downloadInvoice;
 	vm.availableInvoice = availableInvoice;
+	vm.viewItem = viewItem;
 	vm.editItem = editItem;
 	vm.prevPage = prevPage;
 	vm.nextPage = nextPage;
@@ -79,6 +82,11 @@ function PurchaseTableController(
 	function editItem(purchase) {
 		Purchase.cachePurchase = purchase;
 		return $location.path('/purchaseform/' + purchase.id);
+	}
+
+	function viewItem(purchase) {
+		vm.detailsPurchase = purchase;
+		showDetailsDialog();
 	}
 
 	//Related to the pagination bar buttons
@@ -197,6 +205,30 @@ function PurchaseTableController(
 	function badgeColor(hex) {
 		var color = mdPickerColors.getColor(hex);
 		return color.name;
+	}
+
+	//Dialog________________________________________________________________
+	function showDetailsDialog(ev) {
+		$mdDialog.show({
+			controller: DetailsDialogController,
+			controllerAs: 'vm',
+			template: require('./details-dialog.template.html'),
+			targetEvent: ev,
+			parent: angular.element(document.body),
+			clickOutsideToClose: true,
+			locals: { purchase: vm.detailsPurchase }
+		});
+	}
+	DetailsDialogController.$inject = ['$mdDialog', 'purchase'];
+	function DetailsDialogController($mdDialog, purchase) {
+		var dialogVm = this;
+		dialogVm.purchase = purchase;
+		dialogVm.close = close;
+
+		//////////////////////////
+		function close() {
+			$mdDialog.hide();
+		}
 	}
 }
 

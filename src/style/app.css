@@ -51,12 +51,12 @@ table.md-table:not(.md-row-select)
 table.md-table:not(.md-row-select)
 	th.md-column:nth-child(n + 2):nth-last-child(n + 2) {
 	width: fit-content;
-	font-size: 85%;
+	font-size: 95%;
 	padding: 0 10px 0 10px !important;
 }
 table.md-table:not(.md-row-select) td.md-cell,
 table.md-table:not(.md-row-select) th.md-column {
-	font-size: 85%;
+	font-size: 95%;
 }
 /* only heads of to the columns 1 to n*/
 tr > th.md-column {
@@ -68,6 +68,22 @@ tr > th.md-column {
 
 table.md-table > tbody > tr.md-row:hover {
 	background-color: #eeeeee;
+}
+
+/* Details Table */
+#details-table .empty {
+	color: dimgray;
+	font-style: italic;
+}
+#details-table .blank-row {
+	height: 20px;
+}
+#details-table th,
+#details-table tr {
+	text-align: start;
+	vertical-align: top;
+	font-size: 100%;
+	padding: 5px 5px;
 }
 
 /* badges (from Bootstrap) */

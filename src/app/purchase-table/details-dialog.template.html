@@ -1,0 +1,77 @@
+<md-dialog>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Purchase Details</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="vm.close()">
+        <md-icon icon svg-icon="#close" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content layout="column" layout-padding>
+    <h3>{{vm.purchase.item}}</h3>
+    <table id="details-table">
+      <tr>
+        <th>Code:</th>
+        <td>{{vm.purchase.code}}</td>
+      </tr>
+      <tr>
+        <th>Code RP:</th>
+        <td ng-if="vm.purchase.codeRP != ''">{{vm.purchase.codeRP}}</td>
+        <td ng-if="vm.purchase.codeRP == ''" class="empty">(empty)</td>
+      </tr>
+      <tr>
+        <th>Code LV:</th>
+        <td ng-if="vm.purchase.codeLV != ''">{{vm.purchase.codeLV}}</td>
+        <td ng-if="vm.purchase.codeLV == ''" class="empty">(empty)</td>
+      </tr>
+      <tr>
+        <th>Expense Date:</th>
+        <td>{{vm.purchase.requestDate | date: "dd/MM/yyyy"}}</td>
+      </tr>
+      <tr>
+        <th>Cost:</th>
+        <td>{{vm.purchase.amount | currency : " "}} €</td>
+      </tr>
+      <tr class="blank-row">
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <th>Expense Type:</th>
+        <td>{{vm.purchase.type.name}}</td>
+      </tr>
+      <tr>
+        <th>Expense Status:</th>
+        <td>{{vm.purchase.state.name}}</td>
+      </tr>
+      <tr>
+        <th>Supplier:</th>
+        <td>{{vm.purchase.supplier.name}}</td>
+      </tr>
+      <tr class="blank-row">
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <th>Requesting Project:</th>
+        <td>{{vm.purchase.requestingProject.fullname}}</td>
+      </tr>
+      <tr>
+        <th>Charging Project:</th>
+        <td>{{vm.purchase.chargingProject.fullname}}</td>
+      </tr>
+      <tr>
+        <th>Requesting Person:</th>
+        <td>{{vm.purchase.requestingEmployee.fullname}}</td>
+      </tr>
+      <tr class="blank-row">
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <th>Comments:</th>
+        <td ng-if="vm.purchase.comments != ''" style="max-width: 400px">{{vm.purchase.comments}}</td>
+        <td ng-if="vm.purchase.comments == ''" class="empty" style="max-width: 400px">(empty)</td>
+      </tr>
+    </table>
+  </md-dialog-content>
+</md-dialog>
