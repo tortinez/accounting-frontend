@@ -94,9 +94,9 @@
   </md-content>
 
   <!-- Actual table -->
-  <md-card layout="column" flex layout-align "center center">
+  <md-card layout="column" flex>
     <!-- Pagination options and table title -->
-    <md-toolbar class="md-table-toolbar" md-colors="{background: 'grey-50'}">
+    <md-toolbar flex class="md-table-toolbar" md-colors="{background: 'grey-50'}">
       <div class="md-toolbar-tools">
         <div>Purchases</div>
         <span flex></span>
@@ -150,15 +150,14 @@
       </div>
     </md-toolbar>
 
-
     <!-- Table -->
     <md-table-container>
-      <table md-table ng-table="vm.purchases" flex layout-fill>
+      <table md-table ng-table="vm.purchases" flex>
         <thead md-head md-colors="{background: 'primary'}">
           <tr md-row>
             <th md-column class="md-thead">Code</th>
-            <th md-column class="md-thead">Expense Date</th>
-            <th md-column class="md-thead">Expense type</th>
+            <th md-column class="md-thead">Date</th>
+            <th md-column class="md-thead">Type</th>
             <th md-column class="md-thead">Concept</th>
             <th md-column class="md-thead">Cost</th>
             <th md-column class="md-thead">Supplier</th>
@@ -168,7 +167,7 @@
             <th md-column class="md-thead">Code LV</th> -->
             <th md-column class="md-thead">Status</th>
             <th md-column class="md-thead">Invoice</th>
-            <th md-column class="md-thead"></th>
+            <th md-column class="md-thead">Actions</th>
           </tr>
         </thead>
         <tbody md-body>

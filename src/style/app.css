@@ -27,12 +27,12 @@ body > md-toolbar {
 
 .md-button.md-icon-button {
 	margin: 0 0;
-	height: 48px;
+	height: 26px;
+	width: 26px;
 	min-width: 0;
 	line-height: 48px;
 	padding-left: 0;
 	padding-right: 0;
-	width: 48px;
 }
 
 Filters bar md-content.filters-toolbar {
@@ -51,15 +51,18 @@ table.md-table:not(.md-row-select)
 table.md-table:not(.md-row-select)
 	th.md-column:nth-child(n + 2):nth-last-child(n + 2) {
 	width: fit-content;
-	font-size: 95%;
-	padding: 0 10px 0 10px !important;
+	text-align: center;
+	font-size: 90%;
+	padding: 0 5px !important;
 }
 table.md-table:not(.md-row-select) td.md-cell,
 table.md-table:not(.md-row-select) th.md-column {
-	font-size: 95%;
+	font-size: 90%;
+	text-align: center;
 }
 /* only heads of to the columns 1 to n*/
 tr > th.md-column {
+	text-align: center !important;
 	max-width: 70px;
 	white-space: normal !important;
 	color: unset !important;
@@ -71,6 +74,9 @@ table.md-table > tbody > tr.md-row:hover {
 }
 
 /* Details Table */
+#details-table {
+	min-width: 500px;
+}
 #details-table .empty {
 	color: dimgray;
 	font-style: italic;
