@@ -6,28 +6,33 @@
       <md-input-container>
         <label>Min Amount (€)</label>
         <input ng-model="vm.params.amountMin" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="vm.search()"
-          type="number" step="10">
+          type="number" step="1">
       </md-input-container>
+
       <md-input-container>
         <label>Max Amount (€)</label>
         <input ng-model="vm.params.amountMax" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="vm.search()"
-          type="number" step="10">
+          type="number" step="1">
       </md-input-container>
+
+      <md-autocomplete md-no-cache="false" md-selected-item="vm.autocompleteObj.supplier" md-search-text="searchTextSupplier" md-selected-item-change="vm.autocompleteItemChange()"
+        md-items="item in vm.autocompleteSearch(searchTextSupplier, vm.supplierList)" md-item-text="item.name" md-min-length="0"
+        md-floating-label="Supplier" md-clear-button="true">
+        <md-item-template>
+          <span md-highlight-text="searchTextSupplier" md-highlight-flags="^i">{{item.name}}</span>
+        </md-item-template>
+      </md-autocomplete>
     </div>
 
     <div layout="column" flex>
-      <md-input-container>
-        <label>Code RP</label>
-        <input ng-model="vm.params.codeRP" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="vm.search()">
-      </md-input-container>
+      <md-autocomplete md-no-cache="false" md-selected-item="vm.autocompleteObj.employee" md-search-text="searchTextEmployee" md-selected-item-change="vm.autocompleteItemChange()"
+        md-items="item in vm.autocompleteSearch(searchTextEmployee, vm.employeeList)" md-item-text="item.fullname" md-min-length="0"
+        md-floating-label="Requesting Person" md-clear-button="true">
+        <md-item-template>
+          <span md-highlight-text="searchTextEmployee" md-highlight-flags="^i">{{item.fullname}}</span>
+        </md-item-template>
+      </md-autocomplete>
 
-      <md-input-container>
-        <label>Code LV</label>
-        <input ng-model="vm.params.codeLV" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="vm.search()">
-      </md-input-container>
-    </div>
-
-    <div layout="column" flex>
       <md-autocomplete md-no-cache="false" md-selected-item="vm.autocompleteObj.chProj" md-search-text="searchTextChProj" md-selected-item-change="vm.autocompleteItemChange()"
         md-items="item in vm.autocompleteSearch(searchTextChProj, vm.projList)" md-item-text="item.fullname" md-min-length="0"
         md-floating-label="Charging Project" md-clear-button="true">
@@ -61,31 +66,41 @@
           <span md-highlight-text="searchTextStatus" md-highlight-flags="^i">{{item.name}}</span>
         </md-item-template>
       </md-autocomplete>
-    </div>
 
-    <div layout="column" flex>
-      <md-autocomplete md-no-cache="false" md-selected-item="vm.autocompleteObj.employee" md-search-text="searchTextEmployee" md-selected-item-change="vm.autocompleteItemChange()"
-        md-items="item in vm.autocompleteSearch(searchTextEmployee, vm.employeeList)" md-item-text="item.fullname" md-min-length="0"
-        md-floating-label="Requesting Person" md-clear-button="true">
-        <md-item-template>
-          <span md-highlight-text="searchTextEmployee" md-highlight-flags="^i">{{item.fullname}}</span>
-        </md-item-template>
-      </md-autocomplete>
-
-      <md-autocomplete md-no-cache="false" md-selected-item="vm.autocompleteObj.supplier" md-search-text="searchTextSupplier" md-selected-item-change="vm.autocompleteItemChange()"
-        md-items="item in vm.autocompleteSearch(searchTextSupplier, vm.supplierList)" md-item-text="item.name" md-min-length="0"
-        md-floating-label="Supplier" md-clear-button="true">
-        <md-item-template>
-          <span md-highlight-text="searchTextSupplier" md-highlight-flags="^i">{{item.name}}</span>
-        </md-item-template>
-      </md-autocomplete>
+      <md-input-container>
+        <label>ERP code</label>
+        <input ng-model="vm.params.codeERP" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="vm.search()">
+      </md-input-container>
     </div>
 
     <div layout="column" flex>
       <md-input-container>
+        <label>Billing code</label>
+        <input ng-model="vm.params.billing" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="vm.search()">
+      </md-input-container>
+
+      <md-input-container>
+        <label>Engagement code</label>
+        <input ng-model="vm.params.engagement" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="vm.search()">
+      </md-input-container>
+
+      <md-input-container>
+        <label>RP code</label>
+        <input ng-model="vm.params.codeRP" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="vm.search()">
+      </md-input-container>
+    </div>
+
+    <div layout="column" flex id="date-filters-col">
+      <md-input-container>
+        <label>LV code</label>
+        <input ng-model="vm.params.codeLV" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="vm.search()">
+      </md-input-container>
+
+      <md-input-container>
         <label>Min Date</label>
         <md-datepicker ng-model="vm.params.dateMin" ng-change="vm.search()" md-max-date="vm.params.dateMax">
       </md-input-container>
+
       <md-input-container>
         <label>Max Date</label>
         <md-datepicker ng-model="vm.params.dateMax" ng-change="vm.search()" md-min-date="vm.params.dateMin">

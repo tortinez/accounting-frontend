@@ -2,9 +2,9 @@
   <form name="purchaseForm" ng-submit="vm.editPurchase()" flex layout="row" layout-align="center" layout-wrap layout-padding
     id="purchaseForm">
     <div>
-      <h1>General Information</h1>
+      <h1 class="md-display-1">General Information</h1>
       <md-card layout="column" flex layout-padding>
-        <div flex layout="row" layout-align="space-between center" layout-padding layout-wrap>
+        <div flex layout="row" layout-align="space-between center" layout-padding layout-wrap id="first-row-fields">
           <md-input-container flex>
             <label>Concept</label>
             <input required name="item" ng-model="vm.purchase.item">
@@ -100,19 +100,6 @@
           </md-autocomplete>
         </div>
 
-        <div flex layout="row" layout-align="space-between center" layout-padding layout-wrap>
-          <md-input-container flex>
-            <label>Code RP</label>
-            <input ng-model="vm.purchase.codeRP">
-          </md-input-container>
-
-          <md-input-container flex>
-            <label>Code LV</label>
-            <input ng-model="vm.purchase.codeLV">
-          </md-input-container>
-        </div>
-
-
         <md-input-container layout-padding class="md-block">
           <label>Comments</label>
           <textarea ng-model="vm.purchase.comments" md-maxlength="150" rows="1" md-select-on-focus></textarea>
@@ -121,12 +108,12 @@
     </div>
 
     <div>
-      <h1>Project Information</h1>
+      <h1 class="md-display-1">Project Information</h1>
       <md-card layout="column" flex layout-padding>
         <div flex layout="row" layout-align="space-between center" layout-padding layout-wrap>
           <md-autocomplete flex required md-require-match md-input-name="reqProj" md-no-cache="false" md-selected-item="vm.purchase.requestingProject"
             md-search-text="searchTextReqProj" md-items="item in vm.autocompleteSearch(searchTextReqProj, vm.projList)" md-item-text="item.name"
-            md-min-length="0" md-floating-label="Requesting Project" md-clear-button="true">
+            md-selected-item-change="vm.projectChange()" md-min-length="0" md-floating-label="Requesting Project" md-clear-button="true">
             <md-item-template>
               <span md-highlight-text="searchTextReqProj" md-highlight-flags="^i">{{item.name}}</span>
             </md-item-template>
@@ -138,7 +125,7 @@
           </md-autocomplete>
           <md-autocomplete flex required md-require-match md-input-name="chProj" md-no-cache="false" md-selected-item="vm.purchase.chargingProject"
             md-search-text="searchTextChProj" md-items="item in vm.autocompleteSearch(searchTextChProj, vm.projList)" md-item-text="item.name"
-            md-min-length="0" md-floating-label="Charging Project" md-clear-button="true">
+            md-selected-item-change="vm.projectChange()" md-min-length="0" md-floating-label="Charging Project" md-clear-button="true">
             <md-item-template>
               <span md-highlight-text="searchTextChProj" md-highlight-flags="^i">{{item.name}}</span>
             </md-item-template>
@@ -150,9 +137,41 @@
           </md-autocomplete>
         </div>
       </md-card>
-      <h1>Invoice Information</h1>
-      <md-card layout="row" layout-sm="column" layout-align="center" flex layout-padding layout-wrap>
-        <md-button class="md-raised" ng-disabled="!vm.purchase.id" ng-click="vm.showInvoiceInput($event)">Edit purchase invoice</md-button>
+
+      <h1 class="md-display-1">Purchase Codes</h1>
+      <md-card layout="column" flex layout-padding>
+        <div flex layout="row" layout-align="space-between center" layout-padding layout-wrap id="first-row-fields">
+          <md-input-container flex>
+            <label>RP code</label>
+            <input ng-model="vm.purchase.codeRP">
+          </md-input-container>
+
+          <md-input-container flex>
+            <label>LV code</label>
+            <input ng-model="vm.purchase.codeLV">
+          </md-input-container>
+        </div>
+
+        <div flex layout="row" layout-align="space-between center" layout-padding layout-wrap>
+          <md-input-container flex>
+            <label>Engagement code</label>
+            <input ng-model="vm.purchase.engagement">
+          </md-input-container>
+
+          <md-input-container flex>
+            <label>Billing code</label>
+            <input ng-model="vm.purchase.billing">
+          </md-input-container>
+        </div>
+
+        <div flex layout="row" layout-align="space-between center" layout-padding layout-wrap>
+          <md-input-container flex>
+            <label>ERP code</label>
+            <input ng-model="vm.purchase.codeERP">
+          </md-input-container>
+
+          <span flex></span>
+        </div>
       </md-card>
       <div layout="row" layout-align="space-between center">
         <div>
@@ -160,8 +179,10 @@
           <md-button type="submit" ng-disabled="purchaseForm.$invalid" class="md-raised md-primary">Save</md-button>
         </div>
         <div>
+          <md-button class="md-raised" ng-disabled="!vm.purchase.id" ng-click="vm.showInvoiceInput($event)">
+            <md-icon icon svg-icon="#attach"></md-icon>Invoice Upload</md-button>
           <md-button class="md-raised md-warn" ng-click="vm.showConfirm($event)" ng-hide="(!vm.user.isAdmin && !vm.user.isManager) || !vm.purchase.id">
-            <md-icon icon svg-icon="#delete"></md-icon>Delete Purchase
+            <md-icon icon svg-icon="#delete"></md-icon>Delete
           </md-button>
         </div>
       </div>

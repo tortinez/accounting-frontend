@@ -33,9 +33,11 @@ function PurchaseFormController(
 	vm.employeeList = OtherResource.query('employee');
 	vm.statusList = OtherResource.query('purchase-state');
 	vm.typeList = OtherResource.query('purchase-type');
+	vm.setProjectFlag = false;
 	//functions
 	vm.editPurchase = editPurchase;
 	vm.removeItem = removeItem;
+	vm.projectChange = projectChange;
 	vm.autocompleteSearch = autocompleteSearch;
 	//dialogs
 	vm.showConfirm = showConfirm;
@@ -53,6 +55,9 @@ function PurchaseFormController(
 				comments: '',
 				codeLV: '',
 				codeRP: '',
+				billing: '',
+				engagement: '',
+				codeERP: '',
 				requestDate: new Date(),
 				code: 'MCIA-' + moment(new Date()).format('YYYYMMDD-HHmm')
 		  });
@@ -91,6 +96,32 @@ function PurchaseFormController(
 				);
 			}
 		);
+	}
+
+	//Related to the project fields
+	function projectChange() {
+		if (!vm.setProjectFlag) {
+			if (
+				vm.purchase.chargingProject != null &&
+				vm.purchase.requestingProject == null
+			) {
+				vm.purchase.requestingProject = vm.purchase.chargingProject;
+				vm.setProjectFlag = true;
+			} else if (
+				vm.purchase.requestingProject != null &&
+				vm.purchase.chargingProject == null
+			) {
+				vm.purchase.chargingProject = vm.purchase.requestingProject;
+				vm.setProjectFlag = true;
+			}
+		} else {
+			if (
+				vm.purchase.chargingProject == null ||
+				vm.purchase.requestingProject == null
+			) {
+				vm.setProjectFlag = false;
+			}
+		}
 	}
 
 	//Related to the autocomplete forms

@@ -139,6 +139,9 @@ function PurchaseTableController(
 		if (vm.params.code != '') filters.push('code');
 		if (vm.params.codeLV != '') filters.push('codeLV');
 		if (vm.params.codeRP != '') filters.push('codeRP');
+		if (vm.params.codeERP != '') filters.push('codeERP');
+		if (vm.params.engagement != '') filters.push('engagement code');
+		if (vm.params.billing != '') filters.push('billing code');
 		if (vm.params.chProj != null) filters.push('ch. project');
 		if (vm.params.reqProj != null) filters.push('req. project');
 		if (vm.params.status != null) filters.push('status');

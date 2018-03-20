@@ -17,22 +17,40 @@
         <td>{{vm.purchase.code}}</td>
       </tr>
       <tr>
-        <th>Code RP:</th>
-        <td ng-if="vm.purchase.codeRP != ''">{{vm.purchase.codeRP}}</td>
-        <td ng-if="vm.purchase.codeRP == ''" class="empty">(empty)</td>
-      </tr>
-      <tr>
-        <th>Code LV:</th>
-        <td ng-if="vm.purchase.codeLV != ''">{{vm.purchase.codeLV}}</td>
-        <td ng-if="vm.purchase.codeLV == ''" class="empty">(empty)</td>
-      </tr>
-      <tr>
         <th>Expense Date:</th>
         <td>{{vm.purchase.requestDate | date: "dd/MM/yyyy"}}</td>
       </tr>
       <tr>
         <th>Cost:</th>
         <td>{{vm.purchase.amount | currency : " "}} €</td>
+      </tr>
+      <tr class="blank-row">
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <th>Engagement code:</th>
+        <td ng-if="vm.purchase.engagement != ''">{{vm.purchase.engagement}}</td>
+        <td ng-if="vm.purchase.engagement == ''" class="empty">(empty)</td>
+      </tr>
+      <tr>
+        <th>Billing code:</th>
+        <td ng-if="vm.purchase.billing != ''">{{vm.purchase.billing}}</td>
+        <td ng-if="vm.purchase.billing == ''" class="empty">(empty)</td>
+      </tr>
+      <tr>
+        <th>ERP code:</th>
+        <td ng-if="vm.purchase.codeERP != ''">{{vm.purchase.codeERP}}</td>
+        <td ng-if="vm.purchase.codeERP == ''" class="empty">(empty)</td>
+      </tr>
+      <tr>
+        <th>RP code:</th>
+        <td ng-if="vm.purchase.codeRP != ''">{{vm.purchase.codeRP}}</td>
+        <td ng-if="vm.purchase.codeRP == ''" class="empty">(empty)</td>
+      </tr>
+      <tr>
+        <th>LV code:</th>
+        <td ng-if="vm.purchase.codeLV != ''">{{vm.purchase.codeLV}}</td>
+        <td ng-if="vm.purchase.codeLV == ''" class="empty">(empty)</td>
       </tr>
       <tr class="blank-row">
         <td colspan="2"></td>

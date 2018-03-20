@@ -26,7 +26,7 @@ body > md-toolbar {
 }
 
 .md-button.md-icon-button {
-	margin: 0 0;
+	margin: 0 8px;
 	height: 26px;
 	width: 26px;
 	min-width: 0;
@@ -200,6 +200,11 @@ div.table-pagination > div > * {
 	width: 130%;
 }
 
+/* Filtering bar */
+#date-filters-col .md-datepicker-input-container {
+	width: 78%;
+}
+
 /* Sidenav and general layout*/
 #hoveringToggleLeft {
 	width: 0.5%;
@@ -211,7 +216,17 @@ div.table-pagination > div > * {
 }
 
 /* Forms */
-#purchaseForm md-input-container .md-datepicker-input-container {
+#purchaseForm h1,
+#purchaseForm h3 {
+	margin: 0 0;
+}
+#purchaseForm #first-row-fields md-input-container {
+	margin-top: 18px;
+}
+#purchaseForm md-input-container {
+	margin: 3px 0;
+}
+#purchaseForm .md-datepicker-input-container {
 	width: 100%;
 }
 md-input-container .hint {
@@ -225,6 +240,9 @@ md-input-container .hint {
 	line-height: 14px;
 	/* Set our own color */
 	color: grey;
+}
+#purchaseForm md-autocomplete button {
+	top: 5px;
 }
 #purchaseForm
 	div
