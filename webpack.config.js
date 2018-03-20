@@ -252,8 +252,8 @@ module.exports = (function makeWebpackConfig() {
 		port: 8000,
 		stats: 'minimal',
 		proxy: {
-			'/api/*': 'http://localhost:8080',
-			'/logout': 'http://localhost:8080'
+			'/compras/api/*': 'http://localhost:8080',
+			'/compras/logout': 'http://localhost:8080'
 		}
 	};
 
