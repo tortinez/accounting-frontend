@@ -33,7 +33,7 @@ function PurchaseFormController(
 	vm.employeeList = OtherResource.query('employee');
 	vm.statusList = OtherResource.query('purchase-state');
 	vm.typeList = OtherResource.query('purchase-type');
-	vm.setProjectFlag = $routeParams.id;
+	vm.setProjectFlag = $routeParams.id ? true : false;
 	//functions
 	vm.editPurchase = editPurchase;
 	vm.removeItem = removeItem;
@@ -112,6 +112,11 @@ function PurchaseFormController(
 				vm.purchase.chargingProject == null
 			) {
 				vm.purchase.chargingProject = vm.purchase.requestingProject;
+				vm.setProjectFlag = true;
+			} else if (
+				vm.purchase.requestingProject != null &&
+				vm.purchase.chargingProject != null
+			) {
 				vm.setProjectFlag = true;
 			}
 		} else {
