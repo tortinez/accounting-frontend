@@ -180,13 +180,15 @@ function Purchase($resource) {
 		if (vm.code !== '') q.push('code~' + vm.code);
 		if (vm.codeRP !== '') q.push('codeRP~' + vm.codeRP);
 		if (vm.codeLV !== '') q.push('codeLV~' + vm.codeLV);
-		if (vm.chProj !== null) q.push('chargingProject.name~' + vm.chProj);
-		if (vm.reqProj !== null) q.push('requestingProject.name~' + vm.reqProj);
-		if (vm.status !== null) q.push('state.name~' + vm.status);
-		if (vm.supplier !== null) q.push('supplier.name~' + vm.supplier);
-		if (vm.type !== null) q.push('type.name~' + vm.type);
-		if (vm.employee != null)
-			q.push('requestingEmployee.fullname~' + vm.employee);
+		if (vm.codeERP !== '') q.push('codeERP~' + vm.codeERP);
+		if (vm.billing !== '') q.push('billing~' + vm.billing);
+		if (vm.engagement !== '') q.push('engagement~' + vm.engagement);
+		if (vm.chProj !== null) q.push('chargingProject.id:' + vm.chProj);
+		if (vm.reqProj !== null) q.push('requestingProject.id:' + vm.reqProj);
+		if (vm.status !== null) q.push('state.id:' + vm.status);
+		if (vm.supplier !== null) q.push('supplier.id:' + vm.supplier);
+		if (vm.type !== null) q.push('type.id:' + vm.type);
+		if (vm.employee != null) q.push('requestingEmployee.id:' + vm.employee);
 
 		return q;
 	}

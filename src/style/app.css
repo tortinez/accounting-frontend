@@ -75,7 +75,7 @@ table.md-table > tbody > tr.md-row:hover {
 
 /* Details Table */
 #details-table {
-	min-width: 500px;
+	min-width: 600px;
 }
 #details-table .empty {
 	color: dimgray;
@@ -87,7 +87,6 @@ table.md-table > tbody > tr.md-row:hover {
 #details-table th,
 #details-table tr {
 	text-align: start;
-	vertical-align: top;
 	font-size: 100%;
 	padding: 5px 5px;
 }

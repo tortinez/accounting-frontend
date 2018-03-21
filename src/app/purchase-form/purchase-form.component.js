@@ -33,7 +33,7 @@ function PurchaseFormController(
 	vm.employeeList = OtherResource.query('employee');
 	vm.statusList = OtherResource.query('purchase-state');
 	vm.typeList = OtherResource.query('purchase-type');
-	vm.setProjectFlag = false;
+	vm.setProjectFlag = $routeParams.id;
 	//functions
 	vm.editPurchase = editPurchase;
 	vm.removeItem = removeItem;

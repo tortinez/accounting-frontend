@@ -108,12 +108,12 @@ function PurchaseTableController(
 
 	function autocompleteItemChange() {
 		var item = vm.autocompleteObj;
-		vm.params.chProj = item.chProj ? item.chProj.name : null;
-		vm.params.reqProj = item.reqProj ? item.reqProj.name : null;
-		vm.params.status = item.status ? item.status.name : null;
-		vm.params.supplier = item.supplier ? item.supplier.name : null;
-		vm.params.type = item.type ? item.type.name : null;
-		vm.params.employee = item.employee ? item.employee.fullname : null;
+		vm.params.chProj = item.chProj ? item.chProj.id : null;
+		vm.params.reqProj = item.reqProj ? item.reqProj.id : null;
+		vm.params.status = item.status ? item.status.id : null;
+		vm.params.supplier = item.supplier ? item.supplier.id : null;
+		vm.params.type = item.type ? item.type.id : null;
+		vm.params.employee = item.employee ? item.employee.id : null;
 
 		return vm.search();
 	}
@@ -173,6 +173,15 @@ function PurchaseTableController(
 				break;
 			case 'codeLV':
 				vm.params.codeLV = '';
+				break;
+			case 'codeERP':
+				vm.params.codeERP = '';
+				break;
+			case 'billing code':
+				vm.params.billing = '';
+				break;
+			case 'engagement code':
+				vm.params.engagement = '';
 				break;
 			case 'ch. project':
 				vm.params.chProj = null;
