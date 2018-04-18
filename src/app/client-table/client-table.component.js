@@ -3,7 +3,7 @@ ClientTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 function ClientTableController($mdDialog, Auth, OtherResource) {
 	var vm = this;
 	//get the items of the table
-	vm.clients = OtherResource.query('client');
+	OtherResource.query('client', 'name').then(res=>{vm.clients = res});
 	vm.user = Auth.user;
 	//variables
 	vm.client = {};
@@ -60,7 +60,7 @@ function ClientTableController($mdDialog, Auth, OtherResource) {
 					res => (vm2.client = res)
 				)
 			: (vm2.client = {});
-		vm2.typeList = OtherResource.query('client-type');
+		OtherResource.query('client-type', 'name').then(res=>{vm2.typeList = res});
 
 		vm2.title = vm.title;
 
@@ -73,7 +73,7 @@ function ClientTableController($mdDialog, Auth, OtherResource) {
 		function editClient() {
 			return OtherResource.save('client', vm2.client).then(
 				value => {
-					OtherResource.query('client').$promise.then(res => {
+					OtherResource.query('client', 'name').then(res => {
 						vm.clients = res;
 						$mdDialog.hide();
 					});
@@ -95,7 +95,7 @@ function ClientTableController($mdDialog, Auth, OtherResource) {
 		function removeItem(client) {
 			OtherResource.remove('client', client).then(
 				() => {
-					OtherResource.query('client').$promise.then(
+					OtherResource.query('client', 'name').then(
 						res => (vm.clients = res)
 					);
 					showToast('Client Deleted!');

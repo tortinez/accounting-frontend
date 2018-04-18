@@ -3,7 +3,7 @@ ClientTypeTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 function ClientTypeTableController($mdDialog, Auth, OtherResource) {
 	var vm = this;
 	//get the items of the table
-	vm.clientTypes = OtherResource.query('client-type');
+	OtherResource.query('client-type', 'name').then(res=>{vm.clientTypes = res});
 	vm.user = Auth.user;
 	//variables
 	vm.clientType = {};
@@ -53,7 +53,7 @@ function ClientTypeTableController($mdDialog, Auth, OtherResource) {
 		vm2.showConfirmDialog = showConfirmDialog;
 		//get the data from the service
 		itemId
-			? OtherResource.get('client-type', itemId).$promise.then(
+			? OtherResource.get('client-type', itemId).then(
 					res => (vm2.clientType = res)
 				)
 			: (vm2.clientType = {});
@@ -69,7 +69,7 @@ function ClientTypeTableController($mdDialog, Auth, OtherResource) {
 		function editClientType() {
 			return OtherResource.save('client-type', vm2.clientType).then(
 				value => {
-					OtherResource.query('client-type').$promise.then(res => {
+					OtherResource.query('client-type', 'name').then(res => {
 						vm.clientTypes = res;
 						$mdDialog.hide();
 					});
@@ -91,7 +91,7 @@ function ClientTypeTableController($mdDialog, Auth, OtherResource) {
 		function removeItem(clientType) {
 			OtherResource.remove('client-type', clientType).then(
 				() => {
-					OtherResource.query('client-type').$promise.then(
+					OtherResource.query('client-type', 'name').then(
 						res => (vm.clientTypes = res)
 					);
 					showToast('Client Type Deleted!');

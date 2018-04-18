@@ -3,7 +3,7 @@ EmployeeTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 function EmployeeTableController($mdDialog, Auth, OtherResource) {
 	var vm = this;
 	//get the items of the table
-	vm.employees = OtherResource.query('employee');
+	OtherResource.query('employee', 'fullname').then(res=>{vm.employees = res});
 	vm.user = Auth.user;
 	//variables
 	vm.title = '';
@@ -69,7 +69,7 @@ function EmployeeTableController($mdDialog, Auth, OtherResource) {
 		function editEmployee() {
 			return OtherResource.save('employee', vm2.employee).then(
 				value => {
-					OtherResource.query('employee').$promise.then(res => {
+					OtherResource.query('employee', 'fullname').then(res => {
 						vm.employees = res;
 						$mdDialog.hide();
 					});
@@ -91,7 +91,7 @@ function EmployeeTableController($mdDialog, Auth, OtherResource) {
 		function removeItem(employee) {
 			OtherResource.remove('employee', employee).then(
 				() => {
-					OtherResource.query('employee').$promise.then(
+					OtherResource.query('employee', 'fullname').then(
 						res => (vm.employees = res)
 					);
 					showToast('Person Deleted!');

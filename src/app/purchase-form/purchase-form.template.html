@@ -112,10 +112,10 @@
       <md-card layout="column" flex layout-padding>
         <div flex layout="row" layout-align="space-between center" layout-padding layout-wrap>
           <md-autocomplete flex required md-require-match md-input-name="reqProj" md-no-cache="false" md-selected-item="vm.purchase.requestingProject"
-            md-search-text="searchTextReqProj" md-items="item in vm.autocompleteSearch(searchTextReqProj, vm.projList)" md-item-text="item.name"
+            md-search-text="searchTextReqProj" md-items="item in vm.autocompleteSearch(searchTextReqProj, vm.projList)" md-item-text="'('+item.code+') '+item.name"
             md-selected-item-change="vm.projectChange()" md-min-length="0" md-floating-label="Requesting Project" md-clear-button="true">
             <md-item-template>
-              <span md-highlight-text="searchTextReqProj" md-highlight-flags="^i">{{item.name}}</span>
+              <span md-highlight-text="searchTextReqProj" md-highlight-flags="^i">{{item.fullname}}</span>
             </md-item-template>
             <div ng-messages="purchaseForm.reqProj.$error">
               <div ng-message="required">You
@@ -124,10 +124,10 @@
             </div>
           </md-autocomplete>
           <md-autocomplete flex required md-require-match md-input-name="chProj" md-no-cache="false" md-selected-item="vm.purchase.chargingProject"
-            md-search-text="searchTextChProj" md-items="item in vm.autocompleteSearch(searchTextChProj, vm.projList)" md-item-text="item.name"
+            md-search-text="searchTextChProj" md-items="item in vm.autocompleteSearch(searchTextChProj, vm.projList)" md-item-text="'('+item.code+') '+item.name"
             md-selected-item-change="vm.projectChange()" md-min-length="0" md-floating-label="Charging Project" md-clear-button="true">
             <md-item-template>
-              <span md-highlight-text="searchTextChProj" md-highlight-flags="^i">{{item.name}}</span>
+              <span md-highlight-text="searchTextChProj" md-highlight-flags="^i">{{item.fullname}}</span>
             </md-item-template>
             <div ng-messages="purchaseForm.chProj.$error">
               <div ng-message="required">You

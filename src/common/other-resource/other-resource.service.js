@@ -1,5 +1,5 @@
-OtherResource.$inject = ['$resource'];
-function OtherResource($resource) {
+OtherResource.$inject = ['$resource', '$filter'];
+function OtherResource($resource, $filter) {
 	//$resource Objects________________________________________________________
 	//not returned
 	var resource = $resource(
@@ -32,8 +32,11 @@ function OtherResource($resource) {
 		return resource.get({ entity: entity, id: itemId });
 	}
 
-	function query(entity) {
-		return resource.query({ entity: entity });
+	function query(entity, sortBy) {
+		return resource.query({ entity: entity }).$promise.then(res => {
+			//sort the items by name
+			return $filter('orderBy')(res, sortBy);
+		});
 	}
 
 	//override save and remove $resource methods

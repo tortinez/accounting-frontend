@@ -3,7 +3,7 @@ ProjectTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 function ProjectTableController($mdDialog, Auth, OtherResource) {
 	var vm = this;
 	//get the items of the table
-	vm.projects = OtherResource.query('project');
+	OtherResource.query('project', 'code').then(res=>{vm.projects=res});
 	vm.user = Auth.user;
 	//variables
 	vm.project = {};
@@ -59,9 +59,9 @@ function ProjectTableController($mdDialog, Auth, OtherResource) {
 					res => (vm2.project = res)
 				)
 			: (vm2.project = { description: '' });
-		vm2.clientList = OtherResource.query('client');
-		vm2.employeeList = OtherResource.query('employee');
-		vm2.typeList = OtherResource.query('project-type');
+		OtherResource.query('client', 'name').then(res=>{vm2.clientList = res});
+		OtherResource.query('employee', 'fullname').then(res=>{vm2.employeeList = res});
+		OtherResource.query('project-type', 'name').then(res=>{vm2.typeList = res});
 
 		vm2.title = title;
 
@@ -74,7 +74,7 @@ function ProjectTableController($mdDialog, Auth, OtherResource) {
 		function editProject() {
 			return OtherResource.save('project', vm2.project).then(
 				value => {
-					OtherResource.query('project').$promise.then(res => {
+					OtherResource.query('project', 'code').then(res => {
 						vm.projects = res;
 						$mdDialog.hide();
 					});
@@ -96,7 +96,7 @@ function ProjectTableController($mdDialog, Auth, OtherResource) {
 		function removeItem(project) {
 			OtherResource.remove('project', project).then(
 				() => {
-					OtherResource.query('project').$promise.then(
+					OtherResource.query('project', 'code').then(
 						res => (vm.projects = res)
 					);
 					showToast('Project Deleted!');

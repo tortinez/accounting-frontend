@@ -29,16 +29,16 @@ function PurchaseTableController(
 	vm.date = Purchase.date;
 	vm.sizeOpt = [50, 75, 100];
 	//retrieve the list of projects, status, type and supplier
-	OtherResource.query('project').$promise.then(res => {
+	OtherResource.query('project', 'code').then(res => {
 		angular.forEach(res, function(item) {
 			item.fullname = '(' + item.code + ') ' + item.name;
 		});
 		vm.projList = res;
 	});
-	vm.supplierList = OtherResource.query('supplier');
-	vm.employeeList = OtherResource.query('employee');
-	vm.statusList = OtherResource.query('purchase-state');
-	vm.typeList = OtherResource.query('purchase-type');
+	OtherResource.query('supplier', 'name').then(res=>{vm.supplierList = res});
+	OtherResource.query('employee', 'fullname').then(res=>{vm.employeeList = res});
+	OtherResource.query('purchase-state', 'name').then(res=>{vm.statusList = res});
+	OtherResource.query('purchase-type', 'name').then(res=>{vm.typeList = res});
 	//functions
 	vm.search = search;
 	vm.downloadInvoice = downloadInvoice;

@@ -28,11 +28,16 @@ function PurchaseFormController(
 	//get the USER information (role)
 	vm.user = Auth.user;
 	//retrieve the list of projects, status, type and supplier
-	vm.projList = OtherResource.query('project');
-	vm.supplierList = OtherResource.query('supplier');
-	vm.employeeList = OtherResource.query('employee');
-	vm.statusList = OtherResource.query('purchase-state');
-	vm.typeList = OtherResource.query('purchase-type');
+	OtherResource.query('project', 'code').then(res => {
+		angular.forEach(res, function(item) {
+			item.fullname = '(' + item.code + ') ' + item.name;
+		});
+		vm.projList = res;
+	});
+	OtherResource.query('supplier', 'name').then(res=>{vm.supplierList = res});
+	OtherResource.query('employee', 'fullname').then(res=>{vm.employeeList = res});
+	OtherResource.query('purchase-state', 'name').then(res=>{vm.statusList = res});
+	OtherResource.query('purchase-type', 'name').then(res=>{vm.typeList = res});
 	vm.setProjectFlag = $routeParams.id ? true : false;
 	//functions
 	vm.editPurchase = editPurchase;

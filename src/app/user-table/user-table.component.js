@@ -96,7 +96,7 @@ function UserTableController($mdDialog, Auth, User, OtherResource) {
 					vm2.role = vm.userRole(vm2.item);
 				})
 			: (vm2.item = {});
-		vm2.employeeList = OtherResource.query('employee');
+		OtherResource.query('employee', 'fullname').then(res=>{vm2.employeeList = res});
 
 		vm2.role = '';
 		vm2.title = title;

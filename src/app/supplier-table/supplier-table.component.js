@@ -3,7 +3,7 @@ SupplierTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 function SupplierTableController($mdDialog, Auth, OtherResource) {
 	var vm = this;
 	//get the items of the table
-	vm.suppliers = OtherResource.query('supplier');
+	OtherResource.query('supplier', 'name').then(res=>{vm.suppliers = res});
 	vm.user = Auth.user;
 	//variables
 	vm.supplier = {};
@@ -69,7 +69,7 @@ function SupplierTableController($mdDialog, Auth, OtherResource) {
 		function editSupplier() {
 			return OtherResource.save('supplier', vm2.supplier).then(
 				value => {
-					OtherResource.query('supplier').$promise.then(res => {
+					OtherResource.query('supplier', 'name').then(res => {
 						vm.suppliers = res;
 						$mdDialog.hide();
 					});
@@ -91,7 +91,7 @@ function SupplierTableController($mdDialog, Auth, OtherResource) {
 		function removeItem(supplier) {
 			OtherResource.remove('supplier', supplier).then(
 				() => {
-					OtherResource.query('supplier').$promise.then(res => {
+					OtherResource.query('supplier', 'name').then(res => {
 						vm.suppliers = res;
 					});
 					showToast('Supplier Deleted!');

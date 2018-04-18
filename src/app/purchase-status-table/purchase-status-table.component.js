@@ -13,7 +13,8 @@ function PurchaseStatusTableController(
 ) {
 	var vm = this;
 	//get the items of the table
-	vm.purchaseStatuss = OtherResource.query('purchase-state');
+	OtherResource.query('purchase-state', 'name').then(res=>{vm.purchaseStatuss = res});
+	console.log(vm.purchaseStatuss);
 	vm.user = Auth.user;
 	//variables
 	vm.purchaseStatus = {};
@@ -54,7 +55,14 @@ function PurchaseStatusTableController(
 			locals: { title: vm.title, itemId: vm.purchaseStatus.id }
 		});
 	}
-	FormDialogController.$inject = ['$mdDialog', '$mdToast', 'mdPickerColors', 'OtherResource', 'title', 'itemId'];
+	FormDialogController.$inject = [
+		'$mdDialog',
+		'$mdToast',
+		'mdPickerColors',
+		'OtherResource',
+		'title',
+		'itemId'
+	];
 	function FormDialogController(
 		$mdDialog,
 		$mdToast,
@@ -89,13 +97,13 @@ function PurchaseStatusTableController(
 						res.color == 'undefined'
 							? vm2.colorArray[
 									Math.floor(Math.random() * vm2.colorArray.length)
-								]
+							  ]
 							: res.color
 					);
-				})
+			  })
 			: (vm2.color = mdPickerColors.getColor(
 					vm2.colorArray[Math.floor(Math.random() * vm2.colorArray.length)]
-				));
+			  ));
 
 		vm2.title = title;
 
@@ -109,8 +117,7 @@ function PurchaseStatusTableController(
 			vm2.purchaseStatus.color = vm2.color.hex;
 			return OtherResource.save('purchase-state', vm2.purchaseStatus).then(
 				value => {
-					OtherResource.query('purchase-state').$promise
-					.then(res => {
+					OtherResource.query('purchase-state', 'name').then(res => {
 						vm.purchaseStatuss = res;
 						$mdDialog.hide();
 					});
@@ -132,10 +139,10 @@ function PurchaseStatusTableController(
 		function removeItem(purchaseStatus) {
 			OtherResource.remove('purchase-state', purchaseStatus).then(
 				() => {
-					OtherResource.query('purchase-state').$promise.then(res => {
-							vm.purchaseStatuss = res;
-							$mdDialog.hide();
-						});
+					OtherResource.query('purchase-state', 'name').then(res => {
+						vm.purchaseStatuss = res;
+						$mdDialog.hide();
+					});
 					showToast('Purchase Status Deleted!');
 					console.log('Succesfully removed');
 				},

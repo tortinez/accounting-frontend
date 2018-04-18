@@ -3,7 +3,7 @@ PurchaseTypeTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 function PurchaseTypeTableController($mdDialog, Auth, OtherResource) {
 	var vm = this;
 	//get the items of the table
-	vm.purchaseTypes = OtherResource.query('purchase-type');
+	OtherResource.query('purchase-type', 'name').then(res=>{vm.purchaseTypes = res});
 	vm.user = Auth.user;
 	//variables
 	vm.purchaseType = {};
@@ -69,7 +69,7 @@ function PurchaseTypeTableController($mdDialog, Auth, OtherResource) {
 		function editPurchaseType() {
 			return OtherResource.save('purchase-type', vm2.purchaseType).then(
 				value => {
-					OtherResource.query('purchase-type').$promise.then(res => {
+					OtherResource.query('purchase-type', 'name').then(res => {
 						vm.purchaseTypes = res;
 						$mdDialog.hide();
 					});
@@ -91,7 +91,7 @@ function PurchaseTypeTableController($mdDialog, Auth, OtherResource) {
 		function removeItem(purchaseType) {
 			OtherResource.remove('purchase-type', purchaseType).then(
 				() => {
-					OtherResource.query('purchase-type').$promise.then(
+					OtherResource.query('purchase-type', 'name').then(
 						res => (vm.purchaseTypes = res)
 					);
 					showToast('Purchase Type Deleted!');

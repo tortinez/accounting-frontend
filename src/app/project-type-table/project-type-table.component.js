@@ -3,7 +3,7 @@ ProjectTypeTableController.$inject = ['$mdDialog', 'Auth', 'OtherResource'];
 function ProjectTypeTableController($mdDialog, Auth, OtherResource) {
 	var vm = this;
 	//get the items of the table
-	vm.projectTypes = OtherResource.query('project-type');
+	OtherResource.query('project-type', 'name').then(res=>{vm.projectTypes = res});
 	vm.user = Auth.user;
 	//variables
 	vm.projectType = {};
@@ -69,7 +69,7 @@ function ProjectTypeTableController($mdDialog, Auth, OtherResource) {
 		function editProjectType() {
 			return OtherResource.save('project-type', vm2.projectType).then(
 				value => {
-					OtherResource.query('project-type').$promise.then(res => {
+					OtherResource.query('project-type', 'name').then(res => {
 						vm.projectTypes = res;
 						$mdDialog.hide();
 					});
@@ -91,7 +91,7 @@ function ProjectTypeTableController($mdDialog, Auth, OtherResource) {
 		function removeItem(projectType) {
 			OtherResource.remove('project-type', projectType).then(
 				() => {
-					OtherResource.query('project-type').$promise.then(
+					OtherResource.query('project-type', 'name').then(
 						res => (vm.projectTypes = res)
 					);
 					showToast('Project Type Deleted!');
